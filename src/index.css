@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --color-qi-bg: #0a0a0f;
+  --color-qi-surface: #0f1117;
+  --color-qi-elevated: #151922;
+  --color-qi-muted: #8b92a8;
+  --color-qi-fg: #e8eaef;
+  --color-qi-accent: #22d3ee;
+  --color-qi-accent-soft: #a5f3fc;
+  --color-qi-violet: #a78bfa;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-qi-bg text-qi-fg font-sans antialiased;
+    margin: 0;
+    min-height: 100svh;
+  }
+
+  #root {
+    min-height: 100svh;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-qi-accent) 35%, transparent);
+    color: var(--color-qi-fg);
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-qi-accent;
+  }
+}
+
+/* Ambient background (used on main wrapper) */
+.qi-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-qi-bg);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(34, 211, 238, 0.14), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 10%, rgba(167, 139, 250, 0.1), transparent 50%),
+    radial-gradient(ellipse 70% 45% at 0% 60%, rgba(34, 211, 238, 0.06), transparent 45%);
+}
+
+.qi-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: 56px 56px;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 0%, black 15%, transparent 75%);
+}
