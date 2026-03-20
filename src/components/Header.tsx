@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { site } from '../content/site'
 import { ConsultationCta } from './ConsultationCta'
 
@@ -8,24 +9,24 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-qi-bg/75 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-        <a href="#" className="group flex flex-col leading-tight focus-visible:rounded-md">
+        <Link to="/" className="group flex flex-col leading-tight focus-visible:rounded-md">
           <span className="font-display text-base font-semibold tracking-tight text-qi-fg transition group-hover:text-qi-accent-soft sm:text-lg">
             {site.name}
           </span>
           <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-qi-muted sm:text-[11px]">
             {site.tagline}
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           {site.nav.map((item) => (
-            <a
+            <Link
               key={item.href}
-              href={item.href}
+              to={item.href}
               className="text-sm font-medium text-qi-muted transition hover:text-qi-fg"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
           <ConsultationCta className="!py-2.5 !text-xs" />
         </nav>
@@ -69,14 +70,14 @@ export function Header() {
         >
           <nav className="flex flex-col gap-3" aria-label="Mobile">
             {site.nav.map((item) => (
-              <a
+              <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className="rounded-lg px-3 py-2 text-sm font-medium text-qi-muted hover:bg-white/5 hover:text-qi-fg"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

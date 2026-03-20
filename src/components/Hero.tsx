@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { site } from '../content/site'
 import { ConsultationCta } from './ConsultationCta'
 
@@ -31,12 +32,12 @@ export function Hero() {
 
       <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
         <ConsultationCta />
-        <a
-          href="#services"
+        <Link
+          to="/#services"
           className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-qi-fg transition hover:border-qi-accent/40 hover:bg-white/[0.06]"
         >
           Explore services
-        </a>
+        </Link>
       </div>
     </section>
   )

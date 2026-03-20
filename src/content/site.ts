@@ -2,10 +2,16 @@ export const site = {
   name: 'Quantum Industries',
   tagline: 'Take the Leap.',
 
+  booking: {
+    path: '/book' as const,
+    title: 'Schedule a Call',
+    subtitle: 'Schedule a call or video meeting to discuss your needs.',
+  },
+
   nav: [
-    { label: 'Services', href: '#services' },
-    { label: 'Replica Builds', href: '#replica-builds' },
-    { label: 'Consultation', href: '#consultation' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Replica Builds', href: '/#replica-builds' },
+    { label: 'Consultation', href: '/#consultation' },
   ],
 
   hero: {

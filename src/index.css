@@ -38,6 +38,29 @@
   }
 }
 
+/* Calendly inline embed: wide min-width (desktop) triggers Calendly's two-column layout */
+.calendly-inline-embed iframe {
+  width: 100%;
+  min-width: 100%;
+  min-height: 700px;
+  border: 0;
+}
+
+/* Booking modal: hug Calendly tightly — no extra “dark gutter” under inline content */
+.booking-modal-calendly {
+  display: block;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+.booking-modal-calendly .calendly-inline-embed {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+}
+
 /* Ambient background (used on main wrapper) */
 .qi-backdrop {
   position: fixed;

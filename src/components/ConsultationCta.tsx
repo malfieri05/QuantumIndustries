@@ -1,3 +1,4 @@
+import { useBooking } from '../context/BookingContext'
 import { getCalendlyUrl } from '../lib/calendly'
 
 const baseClass =
@@ -14,17 +15,13 @@ export function ConsultationCta({
   children = 'Book Free Consultation',
 }: ConsultationCtaProps) {
   const url = getCalendlyUrl()
+  const { open } = useBooking()
 
   if (url) {
     return (
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`${baseClass} ${className}`.trim()}
-      >
+      <button type="button" onClick={open} className={`${baseClass} ${className}`.trim()}>
         {children}
-      </a>
+      </button>
     )
   }
 
