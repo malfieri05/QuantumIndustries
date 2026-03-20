@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { site } from '../content/site'
 import { ConsultationCta } from './ConsultationCta'
+import { NeuralNetwork } from './NeuralNetwork'
 
 const ease = [0.25, 0.1, 0.25, 1] as const
 
@@ -13,7 +14,7 @@ export function Hero() {
       {/* Top accent line */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-px w-[min(100%,56rem)] -translate-x-1/2 section-glow-line" />
 
-      <div className="grid items-center gap-12 lg:grid-cols-[1fr,auto] lg:gap-20">
+      <div className="relative z-10">
         {/* Left: copy */}
         <div className="max-w-2xl">
           <motion.p
@@ -76,20 +77,22 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: 3D Orb */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.3, ease }}
-          className="hero-orb-wrapper hidden justify-center lg:flex"
-          aria-hidden="true"
-        >
-          <div className="hero-orb">
-            <div className="hero-orb-ring" />
-            <div className="hero-orb-ring-inner" />
-          </div>
-        </motion.div>
       </div>
+
+      {/* Neural Network — vertically centered with text, pinned right */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.2 }}
+        className="pointer-events-none absolute right-0 top-1/2 hidden h-[700px] w-[77%] -translate-y-1/2 md:block"
+        style={{
+          maskImage: 'linear-gradient(to right, transparent 0%, black 25%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%)',
+        }}
+        aria-hidden="true"
+      >
+        <NeuralNetwork className="h-full w-full" />
+      </motion.div>
     </section>
   )
 }

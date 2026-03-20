@@ -1,4 +1,5 @@
 import { getCalendlyUrl } from '../lib/calendly'
+import { useBooking } from '../context/BookingContext'
 
 type ConsultationCtaProps = {
   className?: string
@@ -12,6 +13,7 @@ export function ConsultationCta({
   size = 'default',
 }: ConsultationCtaProps) {
   const url = getCalendlyUrl()
+  const { open } = useBooking()
 
   const sizeClass = size === 'sm'
     ? '!px-5 !py-2.5 !text-xs !rounded-lg'
@@ -19,14 +21,13 @@ export function ConsultationCta({
 
   if (url) {
     return (
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        type="button"
+        onClick={open}
         className={`btn-primary ${sizeClass} ${className}`.trim()}
       >
         {children}
-      </a>
+      </button>
     )
   }
 
@@ -45,9 +46,7 @@ export function ConsultationCta({
         </code>{' '}
         in your{' '}
         <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.7rem]">.env</code>{' '}
-        file (see{' '}
-        <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.7rem]">.env.example</code>
-        ).
+        file.
       </p>
     </div>
   )
