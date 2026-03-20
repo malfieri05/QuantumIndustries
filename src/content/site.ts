@@ -2,51 +2,46 @@ export const site = {
   name: 'Quantum Industries',
   tagline: 'Take the Leap.',
 
-  booking: {
-    path: '/book' as const,
-    title: 'Schedule a Call',
-    subtitle: 'Schedule a call or video meeting to discuss your needs.',
-  },
-
   nav: [
-    { label: 'Services', href: '/#services' },
-    { label: 'Replica Builds', href: '/#replica-builds' },
-    { label: 'Consultation', href: '/#consultation' },
+    { label: 'Services', href: '#services' },
+    { label: 'Replica Builds', href: '#replica-builds' },
+    { label: 'Process', href: '#consultation' },
   ],
 
   hero: {
-    eyebrow: 'SMB-focused · AI & custom software',
-    headline: 'Take the Leap.',
+    eyebrow: 'AI Automation & Custom Software',
+    headline: 'We build the systems\nthat run your business.',
     subhead:
-      'Custom-fit AI automation and software solutions for small and medium-sized businesses — designed around how you actually work.',
-    supporting:
-      'We map your operations, spot friction, and ship tailored systems that help you run leaner, faster, and with more control.',
+      'Custom AI automation and software solutions engineered for how your business actually operates — not how a template thinks it should.',
   },
 
   services: {
     id: 'services',
-    title: 'What we do',
+    title: 'What we build',
     intro:
-      'Two ways we help: intelligent automation where it earns its place, and purpose-built software when off-the-shelf tools are holding you back.',
+      'Intelligent automation where it earns its place. Purpose-built software when off-the-shelf is holding you back.',
     cards: [
       {
-        title: 'AI automation & custom software',
+        label: 'Core offering',
+        title: 'AI Automation & Custom Software',
         body:
-          'From daily routines to cross-team workflows, we identify where automation or bespoke software removes manual work, reduces errors, and keeps your operation moving.',
+          'From daily routines to cross-team workflows — we identify where automation or bespoke software removes manual work, reduces errors, and keeps your operation moving.',
         highlights: [
           'Workflow and process mapping',
-          'AI where it improves speed and quality',
+          'AI that improves speed and quality',
           'Integrations with tools you already use',
         ],
       },
       {
-        title: 'Replica Builds — own instead of rent',
+        label: 'Ownership model',
+        title: 'Replica Builds',
+        subtitle: 'Own instead of rent.',
         body:
-          'During consultation, walk us through the software you pay for monthly, annually, or per seat. If it makes sense, we can build a tailored replica you own outright — one-time investment, lifetime customer support.',
+          'Walk us through the software you pay for monthly, annually, or per seat. If it makes sense, we build a tailored replica you own outright — one-time investment, lifetime support.',
         highlights: [
           'Audit of recurring software spend',
-          'Feasibility and fit before we build',
-          'You own the solution; we stand behind it',
+          'Feasibility assessment before we build',
+          'You own the solution — we stand behind it',
         ],
       },
     ],
@@ -54,23 +49,25 @@ export const site = {
 
   replica: {
     id: 'replica-builds',
-    title: 'Replica Builds in depth',
+    title: 'Replica Builds',
     lead:
-      'Many businesses stack subscriptions for things that could be a single system shaped to their rules. Replica Builds are for teams ready to trade recurring fees for an asset they control.',
+      'Many businesses stack subscriptions for tools that could be a single system shaped to their rules.',
+    statement:
+      'Trade recurring fees for an asset you control.',
     bullets: [
-      'Bring any tools you pay recurring fees for — monthly, annual, per-user, or usage-based.',
-      'We assess what a faithful, tailored replacement would take and whether it is the right move.',
+      'Bring any tool you pay recurring fees for — monthly, annual, per-user, or usage-based.',
+      'We assess what a faithful, tailored replacement takes and whether it is the right move.',
       'You get software aligned to your workflows, branding, and permissions — not a generic portal.',
-      'Pricing is project-based; support is ongoing so you are never stuck after launch.',
+      'Pricing is project-based. Support is ongoing so you are never stuck after launch.',
     ],
   },
 
   consultation: {
     id: 'consultation',
-    title: 'The free consultation',
-    subtitle: 'How we uncover opportunities',
+    title: 'How we work',
+    subtitle: 'The free consultation',
     intro:
-      'The call is a structured walkthrough of your business so we can see the whole picture — then zoom into the workflows that matter day to day.',
+      'A structured walkthrough of your business so we see the whole picture — then zoom into the workflows that matter.',
     steps: [
       {
         title: 'Business overview',
@@ -78,23 +75,23 @@ export const site = {
       },
       {
         title: 'Operations & systems',
-        body: 'How work moves between people, tools, and customers — and where the bottlenecks are.',
+        body: 'How work moves between people, tools, and customers — and where the bottlenecks live.',
       },
       {
         title: 'Daily routines',
-        body: 'Concrete tasks performed every day: inputs, handoffs, approvals, reporting, and follow-ups.',
+        body: 'Concrete tasks: inputs, handoffs, approvals, reporting, and follow-ups.',
       },
       {
         title: 'Opportunity map',
-        body: 'We highlight where AI automation or custom software could elevate operations — or turn recurring software renters into owners.',
+        body: 'Where AI automation or custom software could elevate operations — or turn renters into owners.',
       },
     ],
     closing:
-      'No pressure — you leave with clarity on what is possible, what it might take, and logical next steps if you want to engage.',
+      'No pressure. You leave with clarity on what is possible, what it takes, and logical next steps.',
   },
 
   footer: {
     blurb: 'Custom-fit AI automation and software for growing businesses.',
-    legal: '© ' + new Date().getFullYear().toString() + ' Quantum Industries. All rights reserved.',
+    legal: '\u00A9 ' + new Date().getFullYear().toString() + ' Quantum Industries. All rights reserved.',
   },
 } as const

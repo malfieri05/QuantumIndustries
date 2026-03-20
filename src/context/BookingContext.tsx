@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-  type ReactNode,
-} from 'react'
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
 
 type BookingContextValue = {
   isOpen: boolean

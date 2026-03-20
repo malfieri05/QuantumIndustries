@@ -1,21 +1,27 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { BookingModal } from './components/BookingModal'
+import { Footer } from './components/Footer'
+import { Header } from './components/Header'
+import { Hero } from './components/Hero'
+import { ProcessSection } from './components/ProcessSection'
+import { ReplicaSection } from './components/ReplicaSection'
+import { ServicesSection } from './components/ServicesSection'
 import { BookingProvider } from './context/BookingContext'
-import { site } from './content/site'
-import { BookingPage } from './pages/BookingPage'
-import { HomePage } from './pages/HomePage'
 
 function App() {
   return (
-    <BrowserRouter>
-      <BookingProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path={site.booking.path} element={<BookingPage />} />
-        </Routes>
-        <BookingModal />
-      </BookingProvider>
-    </BrowserRouter>
+    <BookingProvider>
+      <div className="qi-backdrop" aria-hidden />
+      <div className="qi-grid" aria-hidden />
+      <Header />
+      <main>
+        <Hero />
+        <ServicesSection />
+        <ReplicaSection />
+        <ProcessSection />
+      </main>
+      <Footer />
+      <BookingModal />
+    </BookingProvider>
   )
 }
 
