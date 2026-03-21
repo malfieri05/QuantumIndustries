@@ -1,27 +1,11 @@
-import { BookingModal } from './components/BookingModal'
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
-import { Hero } from './components/Hero'
-import { ProcessSection } from './components/ProcessSection'
-import { ReplicaSection } from './components/ReplicaSection'
-import { ServicesSection } from './components/ServicesSection'
-import { BookingProvider } from './context/BookingContext'
+import { BrowserRouter } from 'react-router-dom'
+import { AnimatedRoutes } from './components/AnimatedRoutes'
 
 function App() {
   return (
-    <BookingProvider>
-      <div className="qi-backdrop" aria-hidden />
-      <div className="qi-grid" aria-hidden />
-      <Header />
-      <main>
-        <Hero />
-        <ServicesSection />
-        <ReplicaSection />
-        <ProcessSection />
-      </main>
-      <Footer />
-      <BookingModal />
-    </BookingProvider>
+    <BrowserRouter>
+      <AnimatedRoutes />
+    </BrowserRouter>
   )
 }
 

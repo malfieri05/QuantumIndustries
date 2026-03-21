@@ -21,9 +21,10 @@ export default defineConfig([
     },
   },
   {
-    files: ['**/context/**/*.{ts,tsx}'],
+    files: ['**/components/AnimatedRoutes.tsx'],
     rules: {
-      'react-refresh/only-export-components': 'off',
+      // usePrevious reads/writes ref during render (standard pattern for prior value)
+      'react-hooks/refs': 'off',
     },
   },
 ])

@@ -1,27 +1,23 @@
 import { motion } from 'framer-motion'
 import { site } from '../content/site'
 import { ConsultationCta } from './ConsultationCta'
-import { NeuralNetwork } from './NeuralNetwork'
+import { HeroGyroscope } from './HeroGyroscope'
 
 const ease = [0.25, 0.1, 0.25, 1] as const
 
 export function Hero() {
   return (
     <section
-      className="relative mx-auto max-w-7xl px-6 pb-24 pt-16 sm:pt-24 lg:px-10 lg:pb-32"
+      className="relative mx-auto max-w-7xl px-6 pb-28 pt-20 sm:pb-36 sm:pt-28 lg:px-10 lg:pb-44 lg:pt-32"
       aria-labelledby="hero-heading"
     >
-      {/* Top accent line */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-px w-[min(100%,56rem)] -translate-x-1/2 section-glow-line" />
-
       <div className="relative z-10">
-        {/* Left: copy */}
-        <div className="max-w-2xl">
+        <div className="max-w-2xl lg:max-w-[42rem]">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease }}
-            className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-qi-accent-soft sm:text-sm"
+            className="mb-6 text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted sm:text-xs"
           >
             {site.hero.eyebrow}
           </motion.p>
@@ -31,16 +27,14 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease }}
-            className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+            className="font-display text-[2.65rem] font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-[4.5rem]"
           >
             {site.hero.headline.split('\n').map((line, i) => (
               <span key={i} className="block">
                 {i === 0 ? (
                   <span className="text-qi-fg">{line}</span>
                 ) : (
-                  <span className="bg-gradient-to-r from-qi-accent-bright via-qi-accent-soft to-qi-violet-soft bg-clip-text text-transparent">
-                    {line}
-                  </span>
+                  <span className="mt-1 block text-qi-fg/92">{line}</span>
                 )}
               </span>
             ))}
@@ -50,7 +44,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35, ease }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-qi-muted sm:text-lg"
+            className="mt-8 max-w-xl text-base leading-[1.75] text-qi-muted sm:text-lg sm:leading-[1.8]"
           >
             {site.hero.subhead}
           </motion.p>
@@ -59,31 +53,24 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45, ease }}
-            className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5"
+            className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6"
           >
             <ConsultationCta />
-            <a href="#services" className="btn-secondary">
-              Explore services
-            </a>
           </motion.div>
         </div>
-
       </div>
 
-      {/* Neural Network — vertically centered with text, pinned right */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.2 }}
-        className="pointer-events-none absolute right-0 top-1/2 hidden h-[700px] w-[77%] -translate-y-1/2 md:block"
+      {/* Gyroscope + particles — hero accent (no opacity delay: lifecycle starts at load) */}
+      <div
+        className="pointer-events-none absolute right-0 top-1/2 hidden h-[min(560px,78vh)] w-[min(72%,42rem)] -translate-y-1/2 md:block"
         style={{
-          maskImage: 'linear-gradient(to right, transparent 0%, black 25%)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 22%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 22%)',
         }}
         aria-hidden="true"
       >
-        <NeuralNetwork className="h-full w-full" />
-      </motion.div>
+        <HeroGyroscope className="h-full w-full" />
+      </div>
     </section>
   )
 }

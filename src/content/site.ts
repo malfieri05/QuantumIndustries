@@ -2,15 +2,20 @@ export const site = {
   name: 'Quantum Industries',
   tagline: 'Take the Leap.',
 
+  booking: {
+    path: '/book' as const,
+    title: 'Book Your Consultation',
+    subtitle: 'Free — no obligation. Pick a time that works.',
+  },
+
   nav: [
-    { label: 'Services', href: '#services' },
-    { label: 'Replica Builds', href: '#replica-builds' },
-    { label: 'Process', href: '#consultation' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Process', href: '/#process' },
   ],
 
   hero: {
     eyebrow: 'AI Automation & Custom Software',
-    headline: 'We build the systems\nthat run your business.',
+    headline: 'Intelligent\nSystems\nTailored\nto You.',
     subhead:
       'Custom AI automation and software solutions engineered for how your business actually operates — not how a template thinks it should.',
   },
@@ -47,47 +52,26 @@ export const site = {
     ],
   },
 
-  replica: {
-    id: 'replica-builds',
-    title: 'Replica Builds',
-    lead:
-      'Many businesses stack subscriptions for tools that could be a single system shaped to their rules.',
-    statement:
-      'Trade recurring fees for an asset you control.',
-    bullets: [
-      'Bring any tool you pay recurring fees for — monthly, annual, per-user, or usage-based.',
-      'We assess what a faithful, tailored replacement takes and whether it is the right move.',
-      'You get software aligned to your workflows, branding, and permissions — not a generic portal.',
-      'Pricing is project-based. Support is ongoing so you are never stuck after launch.',
-    ],
-  },
-
-  consultation: {
-    id: 'consultation',
-    title: 'How we work',
-    subtitle: 'The free consultation',
-    intro:
-      'A structured walkthrough of your business so we see the whole picture — then zoom into the workflows that matter.',
+  process: {
+    id: 'process',
+    title: 'Process',
     steps: [
       {
-        title: 'Business overview',
-        body: 'Context on what you sell, who you serve, and how the company is organized.',
+        title: 'Consultation',
+        body:
+          'A focused 30-minute session to understand your current stack, pain points, and goals. No obligation.',
       },
       {
-        title: 'Operations & systems',
-        body: 'How work moves between people, tools, and customers — and where the bottlenecks live.',
+        title: 'Scoped Proposal',
+        body:
+          'A clear, fixed-scope proposal: deliverables, timeline, and price. No ambiguity, no surprises.',
       },
       {
-        title: 'Daily routines',
-        body: 'Concrete tasks: inputs, handoffs, approvals, reporting, and follow-ups.',
-      },
-      {
-        title: 'Opportunity map',
-        body: 'Where AI automation or custom software could elevate operations — or turn renters into owners.',
+        title: 'Build & Support',
+        body:
+          'We build, test, and hand off — then stay available. Lifetime support is included, not optional.',
       },
     ],
-    closing:
-      'No pressure. You leave with clarity on what is possible, what it takes, and logical next steps.',
   },
 
   footer: {

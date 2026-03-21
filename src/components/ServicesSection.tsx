@@ -8,49 +8,44 @@ export function ServicesSection() {
   return (
     <section
       id={services.id}
-      className="relative py-24 sm:py-32"
+      className="relative py-28 sm:py-36 lg:py-44"
       aria-labelledby="services-heading"
     >
-      <div className="section-glow-line mx-auto max-w-5xl" />
+      <div className="section-hairline mx-auto max-w-5xl opacity-80" />
 
-      <div className="mx-auto max-w-7xl px-6 pt-24 lg:px-10">
+      <div className="mx-auto max-w-7xl px-6 pt-16 sm:px-8 sm:pt-20 lg:px-10">
         <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-qi-accent-soft">
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted">
             Services
           </p>
           <h2
             id="services-heading"
-            className="mt-3 font-display text-3xl font-bold tracking-tight text-qi-fg sm:text-4xl md:text-5xl"
+            className="mt-4 font-display text-3xl font-semibold tracking-tight text-qi-fg sm:text-4xl md:text-5xl"
           >
             {services.title}
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-qi-muted sm:text-lg">
+          <p className="mt-6 max-w-2xl text-base leading-[1.75] text-qi-muted sm:text-lg sm:leading-[1.8]">
             {services.intro}
           </p>
         </Reveal>
 
-        {/* Asymmetric card layout */}
-        <div className="mt-16 grid gap-6 lg:grid-cols-5">
-          {/* Primary card — takes 3 cols, larger */}
+        <div className="mt-20 grid gap-8 lg:grid-cols-5 lg:gap-10">
           <Reveal variant="slide-left" delay={0.1} className="lg:col-span-3">
-            <article className="glass-refraction group relative h-full overflow-hidden rounded-2xl glass transition-all duration-500 hover:border-qi-accent/20">
-              {/* Ambient glow */}
-              <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-qi-accent/8 blur-3xl transition-all duration-700 group-hover:bg-qi-accent/12 group-hover:scale-110" />
-
-              <div className="relative p-8 sm:p-10">
-                <span className="inline-block rounded-full bg-qi-accent/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-qi-accent-soft">
+            <article className="group relative h-full overflow-hidden rounded-2xl glass transition-[border-color,box-shadow] duration-300 hover:border-white/[0.12]">
+              <div className="relative p-8 sm:p-10 lg:p-11">
+                <span className="inline-block rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
                   {primary.label}
                 </span>
-                <h3 className="mt-5 font-display text-2xl font-bold text-qi-fg sm:text-3xl">
+                <h3 className="mt-6 font-display text-2xl font-semibold text-qi-fg sm:text-3xl">
                   {primary.title}
                 </h3>
-                <p className="mt-4 max-w-lg text-sm leading-relaxed text-qi-muted sm:text-base">
+                <p className="mt-5 max-w-lg text-sm leading-[1.75] text-qi-muted sm:text-base sm:leading-[1.8]">
                   {primary.body}
                 </p>
 
-                <ul className="mt-8 space-y-3 border-t border-white/[0.06] pt-8">
+                <ul className="mt-10 space-y-4 border-t border-white/[0.06] pt-10">
                   {primary.highlights.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-qi-fg/90 sm:text-base">
+                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span className="accent-dot mt-2" aria-hidden />
                       {item}
                     </li>
@@ -60,30 +55,27 @@ export function ServicesSection() {
             </article>
           </Reveal>
 
-          {/* Secondary card — takes 2 cols, offset vertically */}
-          <Reveal variant="slide-right" delay={0.25} className="lg:col-span-2 lg:mt-12">
-            <article className="glass-refraction group relative h-full overflow-hidden rounded-2xl glass transition-all duration-500 hover:border-qi-violet/20">
-              {/* Ambient glow */}
-              <div className="pointer-events-none absolute -left-16 -bottom-16 h-48 w-48 rounded-full bg-qi-violet/8 blur-3xl transition-all duration-700 group-hover:bg-qi-violet/12 group-hover:scale-110" />
-
-              <div className="relative p-8 sm:p-10">
-                <span className="inline-block rounded-full bg-qi-violet/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-qi-violet-soft">
+          <Reveal variant="slide-right" delay={0.2} className="lg:col-span-2 lg:mt-14">
+            <article className="group relative h-full overflow-hidden rounded-2xl glass-subtle transition-[border-color] duration-300 hover:border-white/[0.1]">
+              <div className="relative p-8 sm:p-10 lg:p-11">
+                <span className="inline-block rounded-full border border-white/[0.06] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
                   {secondary.label}
                 </span>
-                <h3 className="mt-5 font-display text-xl font-bold text-qi-fg sm:text-2xl">
+                <h3 className="mt-6 font-display text-xl font-semibold text-qi-fg sm:text-2xl">
                   {secondary.title}
                 </h3>
-                <p className="mt-1 text-sm font-medium text-qi-violet-soft/80">
-                  {secondary.subtitle}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-qi-muted sm:text-base">
+                <p className="mt-2 text-sm font-medium text-qi-muted">{secondary.subtitle}</p>
+                <p className="mt-5 text-sm leading-[1.75] text-qi-muted sm:text-base sm:leading-[1.8]">
                   {secondary.body}
                 </p>
 
-                <ul className="mt-8 space-y-3 border-t border-white/[0.06] pt-8">
+                <ul className="mt-10 space-y-4 border-t border-white/[0.06] pt-10">
                   {secondary.highlights.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-qi-fg/90">
-                      <span className="accent-dot mt-2" style={{ background: 'var(--color-qi-violet-soft)', boxShadow: '0 0 10px 2px rgba(167,139,250,0.4)' }} aria-hidden />
+                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
+                      <span
+                        className="mt-2 h-[5px] w-[5px] shrink-0 rounded-full bg-qi-muted opacity-70"
+                        aria-hidden
+                      />
                       {item}
                     </li>
                   ))}

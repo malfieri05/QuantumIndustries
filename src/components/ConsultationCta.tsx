@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom'
+import { site } from '../content/site'
 import { getCalendlyUrl } from '../lib/calendly'
-import { useBooking } from '../context/BookingContext'
 
 type ConsultationCtaProps = {
   className?: string
@@ -9,11 +10,10 @@ type ConsultationCtaProps = {
 
 export function ConsultationCta({
   className = '',
-  children = 'Book Free Consultation',
+  children = 'Book Consultation',
   size = 'default',
 }: ConsultationCtaProps) {
   const url = getCalendlyUrl()
-  const { open } = useBooking()
 
   const sizeClass = size === 'sm'
     ? '!px-5 !py-2.5 !text-xs !rounded-lg'
@@ -21,13 +21,12 @@ export function ConsultationCta({
 
   if (url) {
     return (
-      <button
-        type="button"
-        onClick={open}
+      <Link
+        to={site.booking.path}
         className={`btn-primary ${sizeClass} ${className}`.trim()}
       >
         {children}
-      </button>
+      </Link>
     )
   }
 
@@ -39,7 +38,7 @@ export function ConsultationCta({
       >
         {children}
       </span>
-      <p className="text-xs leading-relaxed text-amber-200/80">
+      <p className="text-xs leading-relaxed text-qi-muted">
         Set{' '}
         <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.7rem]">
           VITE_CALENDLY_URL
