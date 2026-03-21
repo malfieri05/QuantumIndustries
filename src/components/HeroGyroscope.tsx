@@ -5,6 +5,11 @@ const NODE_CORE = '198, 208, 232'
 const NODE_CENTER = '236, 240, 248'
 const NODE_ACCENT = '59, 95, 255'
 
+const TAU = Math.PI * 2
+
+/** Pre-built constant RGBA string — avoids template literal allocation every frame */
+const RING_STROKE = `rgba(${NODE_CORE}, 0.76)`
+
 /** Tunables — single-pass hero scene: still → spin ramp → ring organize → hold */
 const CONFIG = {
   nodeCount: 330,
@@ -22,7 +27,7 @@ const CONFIG = {
   organizeTimeStretch: 1.52,
   /** Seconds since navigation: post-peak deceleration begins */
   stabilizeDecelAtElapsedSeconds: 11,
-  /** With spin at max, minimum formation so decel isn’t premature */
+  /** With spin at max, minimum formation so decel isn't premature */
   stabilizeDecelMinOrganizeMix: 0.82,
   /** Twin connections begin this many seconds before `stabilizeDecelAtElapsedSeconds` (same spin/organize gates). */
   twinConnectionLeadSeconds: 1,
@@ -42,10 +47,10 @@ const CONFIG = {
   postPeakTargetOmegaMult: 0.51,
   /**
    * After twin phase begins: multiply ω and twin pulse clock (0.3 = 70% slower vs pre-twin).
-   * Same factor keeps ring/core rotation and connection “signal” speed aligned.
+   * Same factor keeps ring/core rotation and connection "signal" speed aligned.
    */
   twinPhaseRotationSpeedMult: 0.3,
-  /** Twin “correlated pair” pulses (after final ω only) */
+  /** Twin "correlated pair" pulses (after final ω only) */
   twinPulseMinSeconds: 0.88,
   twinPulseMaxSeconds: 1.45,
   /** Each stream schedules its own next spawn — desynchronized, overlapping life cycles */
@@ -57,7 +62,7 @@ const CONFIG = {
   twinLineWidth: 1.25,
   twinNodeGlowBoost: 0.42,
   twinNodeCoreBoost: 0.22,
-  /** Directional “signal” band length as fraction of chord (0–1) */
+  /** Directional "signal" band length as fraction of chord (0–1) */
   twinSignalHeadFraction: 0.16,
   /** Slightly thinner than base twin line */
   twinSignalHeadWidthMul: 0.72,
@@ -92,16 +97,19 @@ const CONFIG = {
   nodeSizeMults: [0.7, 1] as const,
   /** Entire node ring rotation vs gyro omega once organized (higher = faster orbit) */
   nodeRingSpinMult: 0.352,
-  /** Neural “connection” strobe — frequency & sharpness (higher exponent = more flash-like) */
+  /** Neural "connection" strobe — frequency & sharpness (higher exponent = more flash-like) */
   neuralFlashFreq: 4.6,
   neuralFlashSharp: 4.2,
-  /** Tight accent halo — smaller = crisper dots, less “fuzz” */
+  /** Tight accent halo — smaller = crisper dots, less "fuzz" */
   nodeGlowRadiusMul: 1.06,
   nodeGlowAlphaPeak: 0.026,
   /** Solid core strength */
   nodeCoreAlpha: 0.92,
   nodeCenterAlpha: 0.98,
 } as const
+
+/** Pre-computed constant — product of three CONFIG values, never changes */
+const ORGANIZE_DENOM = CONFIG.rampDuration * CONFIG.organizeSpan * CONFIG.organizeTimeStretch
 
 function clamp01(t: number) {
   return Math.min(1, Math.max(0, t))
@@ -173,16 +181,16 @@ function buildNodes(cx: number, cy: number, w: number, h: number): Particle[] {
   const rOuter = minDim * CONFIG.scatterOuterR
   const count = CONFIG.nodeCount
   return Array.from({ length: count }, (_, i) => {
-    const angle = Math.random() * Math.PI * 2
+    const angle = Math.random() * TAU
     const rr = rInner + Math.random() * (rOuter - rInner)
     const sizeTier = (Math.random() < 0.5 ? 0 : 1) as SizeTier
     return {
       scatterX: cx + Math.cos(angle) * rr,
       scatterY: cy + Math.sin(angle) * rr,
-      slotAngle: (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.35,
+      slotAngle: (i / count) * TAU + (Math.random() - 0.5) * 0.35,
       radJitterAmp: minDim * (0.01 + Math.random() * 0.018),
       angJitterAmp: 0.035 + Math.random() * 0.07,
-      phase: Math.random() * Math.PI * 2,
+      phase: Math.random() * TAU,
       pulseSpeed: 0.72 + Math.random() * 0.95,
       sizeTier,
     }
@@ -191,7 +199,7 @@ function buildNodes(cx: number, cy: number, w: number, h: number): Particle[] {
 
 /**
  * Draw one gyro ring: `gimbalRad` tilts the ellipse in the plane (axis precession);
- * `spinAlongHoopRad` advances the parametric angle so the hoop “spins” on itself.
+ * `spinAlongHoopRad` advances the parametric angle so the hoop "spins" on itself.
  */
 function drawGyroRing(
   ctx: CanvasRenderingContext2D,
@@ -204,13 +212,12 @@ function drawGyroRing(
   rgba: string,
   lineWidth: number,
 ) {
-  ctx.save()
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
   ctx.beginPath()
   const steps = 80
   for (let i = 0; i <= steps; i++) {
-    const t = (i / steps) * Math.PI * 2 + spinAlongHoopRad
+    const t = (i / steps) * TAU + spinAlongHoopRad
     const px = rx * Math.cos(t)
     const py = ry * Math.sin(t)
     const x = cx + px * Math.cos(gimbalRad) - py * Math.sin(gimbalRad)
@@ -222,7 +229,6 @@ function drawGyroRing(
   ctx.strokeStyle = rgba
   ctx.lineWidth = lineWidth
   ctx.stroke()
-  ctx.restore()
 }
 
 export function HeroGyroscope({ className = '' }: { className?: string }) {
@@ -230,12 +236,25 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
   const particlesRef = useRef<Particle[]>([])
   /** Gimbal / precession angle in the plane */
   const gimbalAnglesRef = useRef([0.25, 1.35])
-  /** Phase drift around the hoop — reads as spin about the ring’s local axis */
+  /** Phase drift around the hoop — reads as spin about the ring's local axis */
   const hoopSpinRef = useRef([0.5, 2.15])
   /** Collective rotation of the organized node ring */
   const nodeRingSpinRef = useRef(0)
   const animRef = useRef(0)
   const lastFrameRef = useRef<number | null>(null)
+
+  /** Pre-allocated typed arrays — reused every frame, never garbage collected */
+  const xsRef = useRef(new Float32Array(CONFIG.nodeCount))
+  const ysRef = useRef(new Float32Array(CONFIG.nodeCount))
+  const rsRef = useRef(new Float32Array(CONFIG.nodeCount))
+  const alphaCoresRef = useRef(new Float32Array(CONFIG.nodeCount))
+  const flashAlphasRef = useRef(new Float32Array(CONFIG.nodeCount))
+  const neuralSpikesRef = useRef(new Float32Array(CONFIG.nodeCount))
+  const twinBoostRef = useRef(new Float32Array(CONFIG.nodeCount))
+
+  /** Reusable Set for twin spawn deduplication — cleared each frame, never reallocated */
+  const takenRef = useRef(new Set<number>())
+
   const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
 
   useEffect(() => {
@@ -276,11 +295,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
     }
 
     layout()
-
-    const onResize = () => {
-      layout()
-    }
-    window.addEventListener('resize', onResize)
+    window.addEventListener('resize', layout)
 
     const draw = (time: number) => {
       const last = lastFrameRef.current ?? time
@@ -298,9 +313,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
       const afterStill = Math.max(0, animT - CONFIG.stillDuration)
       const spinNorm = easeInCubic(Math.min(1, afterStill / CONFIG.rampDuration))
 
-      const organizeDenom =
-        CONFIG.rampDuration * CONFIG.organizeSpan * CONFIG.organizeTimeStretch
-      const organizeT = clamp01((afterStill - CONFIG.organizeLag) / organizeDenom)
+      const organizeT = clamp01((afterStill - CONFIG.organizeLag) / ORGANIZE_DENOM)
       const organizeMix = smoothstep(organizeT) * smoothstep(spinNorm * 0.92 + 0.08)
 
       if (
@@ -335,6 +348,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
       const twinPulseWallScale = 1 / CONFIG.twinPhaseRotationSpeedMult
       const useTwinSlowPulse = phaseAnchorElapsed !== null
 
+      const taken = takenRef.current
       if (!atTwinConnectionPhase) {
         twinFires = []
         resetTwinSpawnStreams(animT)
@@ -345,7 +359,8 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
             f.t0 + f.dur * (useTwinSlowPulse ? twinPulseWallScale : 1),
         )
         const half = CONFIG.nodeCount / 2
-        const taken = new Set(twinFires.map((f) => f.i))
+        taken.clear()
+        for (const f of twinFires) taken.add(f.i)
         for (let s = 0; s < twinSpawnNext.length; s++) {
           if (animT < twinSpawnNext[s]) continue
           if (twinFires.length >= CONFIG.twinMaxConcurrent) {
@@ -411,12 +426,12 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
       const n = particles.length
       const halfN = n / 2
 
-      const xs = new Float32Array(n)
-      const ys = new Float32Array(n)
-      const rs = new Float32Array(n)
-      const alphaCores = new Float32Array(n)
-      const flashAlphas = new Float32Array(n)
-      const neuralSpikes = new Float32Array(n)
+      const xs = xsRef.current
+      const ys = ysRef.current
+      const rs = rsRef.current
+      const alphaCores = alphaCoresRef.current
+      const flashAlphas = flashAlphasRef.current
+      const neuralSpikes = neuralSpikesRef.current
 
       for (let idx = 0; idx < n; idx++) {
         const p = particles[idx]
@@ -477,7 +492,8 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
         neuralSpikes[idx] = neuralSpike
       }
 
-      const twinBoost = new Float32Array(n)
+      const twinBoost = twinBoostRef.current
+      twinBoost.fill(0)
       if (atTwinConnectionPhase) {
         for (const f of twinFires) {
           const env = twinPulseEnvelope(
@@ -515,7 +531,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
         g.addColorStop(0.4, `rgba(${NODE_ACCENT}, ${0.014 * alphaCore})`)
         g.addColorStop(1, `rgba(${NODE_ACCENT}, 0)`)
         ctx.beginPath()
-        ctx.arc(x, y, glowSize, 0, Math.PI * 2)
+        ctx.arc(x, y, glowSize, 0, TAU)
         ctx.fillStyle = g
         ctx.fill()
 
@@ -530,13 +546,13 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
           `rgba(${NODE_CORE}, ${CONFIG.nodeCoreAlpha * 0.86 * alphaCore})`,
         )
         ctx.beginPath()
-        ctx.arc(x, y, r, 0, Math.PI * 2)
+        ctx.arc(x, y, r, 0, TAU)
         ctx.fillStyle = body
         ctx.fill()
 
         if (organizedAmount > 0.25 && neuralSpike > 0.18) {
           ctx.beginPath()
-          ctx.arc(x, y, r, 0, Math.PI * 2)
+          ctx.arc(x, y, r, 0, TAU)
           ctx.strokeStyle = `rgba(${NODE_ACCENT}, ${0.26 * neuralSpike * flashAlpha})`
           ctx.lineWidth = 0.65
           ctx.stroke()
@@ -546,7 +562,6 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
       const rxBase = minDim * CONFIG.gyroRx
       const ryBase = rxBase * CONFIG.gyroRyFactor
       const lw = CONFIG.gyroLineWidth
-      const ringStroke = `rgba(${NODE_CORE}, 0.76)`
 
       for (let ri = 0; ri < 2; ri++) {
         const skew = CONFIG.tumblePhaseSkew[ri]
@@ -562,7 +577,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
           ry,
           gimbal[ri] + gimbalOffset,
           hoop[ri],
-          ringStroke,
+          RING_STROKE,
           lw,
         )
       }
@@ -630,7 +645,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
 
     return () => {
       cancelAnimationFrame(animRef.current)
-      window.removeEventListener('resize', onResize)
+      window.removeEventListener('resize', layout)
     }
   }, [dpr])
 
