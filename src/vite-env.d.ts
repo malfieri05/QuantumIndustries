@@ -1,15 +1,10 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_CALENDLY_URL: string
+  /** Optional override for Cal.com event URL (default: quantumindustries/30min). */
+  readonly VITE_CAL_BOOKING_URL: string
 }
 
 interface ImportMeta {
   readonly env: ImportMetaEnv
-}
-
-interface Window {
-  Calendly?: {
-    initInlineWidget: (options: { url: string; parentElement: HTMLElement }) => void
-  }
 }

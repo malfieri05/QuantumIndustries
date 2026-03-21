@@ -8,6 +8,7 @@ const ease = [0.25, 0.1, 0.25, 1] as const
 export function Hero() {
   return (
     <section
+      id="home"
       className="relative mx-auto max-w-7xl px-6 pb-28 pt-20 sm:pb-36 sm:pt-28 lg:px-10 lg:pb-44 lg:pt-32"
       aria-labelledby="hero-heading"
     >

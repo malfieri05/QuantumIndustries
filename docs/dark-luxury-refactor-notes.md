@@ -40,9 +40,9 @@ Removed: `.glass-refraction`, `.glass-strong` (as primary pattern), ambient blob
 - **Process:** three **floating glass cards** in a row (stacked on small screens); large muted step index (`01`–`03`), hover **lift** (`-translate-y-2` + deeper shadow). Copy is engagement steps: Consultation → Scoped Proposal → Build & Support.
 - **Footer:** quieter typographic block, more air, legal line de-emphasized.
 
-## Booking / Calendly
+## Booking / Cal.com
 
-- Embed colors aligned to the new palette (`background_color` / `text_color` / `primary_color` in `CalendlyInline.tsx`).
+- `@calcom/embed-react` inline embed + delayed `Cal('ui', …)` with `cssVarsPerTheme` (transparent booker border / 0 width) and transparent embed body so the extra outer “frame” around the 3-column booker blends away; optional `VITE_CAL_BOOKING_URL` override (default: `quantumindustries/30min`).
 - Booking header uses **`glass-header`**; back link is muted → solid on hover (not bright blue).
 
 ## Mobile

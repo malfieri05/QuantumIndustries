@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { CalendlyInline } from '../components/CalendlyInline'
+import { CalcomEmbed } from '../components/CalcomEmbed'
 import { site } from '../content/site'
+import { routeSlide } from '../lib/routeTransitions'
 
 export function BookingPage() {
   const { booking, name, tagline } = site
@@ -22,6 +23,7 @@ export function BookingPage() {
           </Link>
           <Link
             to="/"
+            state={routeSlide.back}
             className="text-sm font-medium text-qi-muted underline-offset-4 transition hover:text-qi-fg hover:underline"
           >
             ← Back to home
@@ -30,15 +32,17 @@ export function BookingPage() {
       </header>
 
       <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <h1 className="text-center font-display text-3xl font-semibold tracking-tight text-qi-fg sm:text-4xl">
-          {booking.title}
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-center text-base leading-[1.75] text-qi-muted sm:text-lg sm:leading-[1.8]">
-          {booking.subtitle}
-        </p>
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-qi-fg sm:text-4xl">
+            {booking.title}
+          </h1>
+          <p className="mt-4 w-full text-base leading-[1.75] text-qi-muted sm:text-lg sm:leading-[1.8]">
+            {booking.subtitle}
+          </p>
+        </div>
 
         <div className="mt-12 overflow-x-auto [scrollbar-gutter:stable] [-webkit-overflow-scrolling:touch]">
-          <CalendlyInline />
+          <CalcomEmbed />
         </div>
       </div>
     </div>

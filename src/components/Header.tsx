@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { site } from '../content/site'
+import { useHashSectionNavigation } from '../hooks/useHashSectionNavigation'
+import { routeSlide } from '../lib/routeTransitions'
 
 export function Header() {
+  const location = useLocation()
+  const navigateHashSection = useHashSectionNavigation()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -23,7 +27,13 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:px-10">
-        <Link to="/" className="group flex flex-col leading-tight focus-visible:rounded-md">
+        <Link
+          to="/"
+          state={
+            location.pathname === site.booking.path ? routeSlide.back : undefined
+          }
+          className="group flex flex-col leading-tight focus-visible:rounded-md"
+        >
           <span className="font-display text-base font-semibold tracking-tight text-qi-fg transition group-hover:text-qi-fg sm:text-lg">
             {site.name}
           </span>
@@ -38,12 +48,16 @@ export function Header() {
               key={item.href}
               to={item.href}
               className="relative text-sm font-medium text-qi-muted transition-colors duration-300 hover:text-qi-fg after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-qi-accent after:transition-all after:duration-300 hover:after:w-full"
+              onClick={(e) => {
+                navigateHashSection(e, item.href)
+              }}
             >
               {item.label}
             </Link>
           ))}
           <Link
             to={site.booking.path}
+            state={routeSlide.forward}
             className="btn-secondary !rounded-lg !px-4 !py-2 !text-xs font-semibold"
           >
             Book
@@ -53,6 +67,7 @@ export function Header() {
         <div className="flex items-center gap-2 md:hidden">
           <Link
             to={site.booking.path}
+            state={routeSlide.forward}
             className="btn-secondary !rounded-lg !px-3 !py-2 !text-xs font-semibold"
           >
             Book
@@ -92,7 +107,10 @@ export function Header() {
                   key={item.href}
                   to={item.href}
                   className="rounded-xl px-4 py-3 text-sm font-medium text-qi-muted transition hover:bg-white/[0.04] hover:text-qi-fg"
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    navigateHashSection(e, item.href)
+                    setOpen(false)
+                  }}
                 >
                   {item.label}
                 </Link>

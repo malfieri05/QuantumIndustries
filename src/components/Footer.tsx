@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
 import { site } from '../content/site'
+import { useHashSectionNavigation } from '../hooks/useHashSectionNavigation'
 import { Reveal } from './Reveal'
 
 export function Footer() {
+  const navigateHashSection = useHashSectionNavigation()
+
   return (
-    <footer className="relative pb-14 pt-24 sm:pb-16 sm:pt-28">
+    <footer id="support" className="relative pb-14 pt-24 sm:pb-16 sm:pt-28">
       <div className="section-hairline mx-auto max-w-5xl opacity-70" />
 
       <div className="mx-auto max-w-7xl px-6 pt-14 sm:px-8 lg:px-10">
@@ -25,6 +28,9 @@ export function Footer() {
                     key={item.href}
                     to={item.href}
                     className="text-sm text-qi-muted transition-colors duration-200 hover:text-qi-fg"
+                    onClick={(e) => {
+                      navigateHashSection(e, item.href)
+                    }}
                   >
                     {item.label}
                   </Link>

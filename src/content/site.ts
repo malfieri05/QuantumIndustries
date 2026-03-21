@@ -5,12 +5,14 @@ export const site = {
   booking: {
     path: '/book' as const,
     title: 'Book Your Consultation',
-    subtitle: 'Free — no obligation. Pick a time that works.',
+    subtitle: 'Free. No obligation.',
   },
 
   nav: [
-    { label: 'Services', href: '/#services' },
+    { label: 'Home', href: '/#home' },
+    { label: 'Service', href: '/#services' },
     { label: 'Process', href: '/#process' },
+    { label: 'Support', href: '/#support' },
   ],
 
   hero: {

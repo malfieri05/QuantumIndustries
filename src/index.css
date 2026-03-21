@@ -209,8 +209,8 @@
   scroll-margin-top: 88px;
 }
 
-/* Calendly inline embed (booking page) */
-.calendly-inline-embed iframe {
+/* Cal.com inline embed (booking page; iframe injected by embed.js) */
+.calcom-booking-embed iframe {
   width: 100%;
   min-width: 100%;
   min-height: 700px;
