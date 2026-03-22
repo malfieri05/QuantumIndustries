@@ -1,14 +1,12 @@
 import { useEffect, useRef } from 'react'
 
-/** Node body / highlight — shared with gyro ring strokes */
-const NODE_CORE = '198, 208, 232'
-const NODE_CENTER = '236, 240, 248'
-const NODE_ACCENT = '59, 95, 255'
+/** Twin connection lines — dark graphite (reads with black-metal nodes) */
+const NODE_LINE = '22, 22, 24'
 
 const TAU = Math.PI * 2
 
-/** Pre-built constant RGBA string — avoids template literal allocation every frame */
-const RING_STROKE = `rgba(${NODE_CORE}, 0.76)`
+/** Matte royal blue — same as `.btn-primary` / `--color-qi-accent` (#1e427b) */
+const RING_MATTE = '#1e427b'
 
 /** Tunables — single-pass hero scene: still → spin ramp → ring organize → hold */
 const CONFIG = {
@@ -103,9 +101,6 @@ const CONFIG = {
   /** Tight accent halo — smaller = crisper dots, less "fuzz" */
   nodeGlowRadiusMul: 1.06,
   nodeGlowAlphaPeak: 0.026,
-  /** Solid core strength */
-  nodeCoreAlpha: 0.92,
-  nodeCenterAlpha: 0.98,
 } as const
 
 /** Pre-computed constant — product of three CONFIG values, never changes */
@@ -200,6 +195,7 @@ function buildNodes(cx: number, cy: number, w: number, h: number): Particle[] {
 /**
  * Draw one gyro ring: `gimbalRad` tilts the ellipse in the plane (axis precession);
  * `spinAlongHoopRad` advances the parametric angle so the hoop "spins" on itself.
+ * Matte royal blue — flat fill like `.btn-primary` (no specular gradient).
  */
 function drawGyroRing(
   ctx: CanvasRenderingContext2D,
@@ -209,7 +205,6 @@ function drawGyroRing(
   ry: number,
   gimbalRad: number,
   spinAlongHoopRad: number,
-  rgba: string,
   lineWidth: number,
 ) {
   ctx.lineCap = 'round'
@@ -226,9 +221,53 @@ function drawGyroRing(
     else ctx.lineTo(x, y)
   }
   ctx.closePath()
-  ctx.strokeStyle = rgba
+
+  ctx.strokeStyle = RING_MATTE
+  ctx.globalAlpha = 1
   ctx.lineWidth = lineWidth
   ctx.stroke()
+}
+
+/** Soft halo — graphite so it reads on light bg without color tint */
+function metalBlackGlowGradient(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  glowSize: number,
+  alphaCore: number,
+  tb: number,
+) {
+  const extra = 1 + tb * 0.45
+  const g = ctx.createRadialGradient(x, y, 0, x, y, glowSize)
+  g.addColorStop(
+    0,
+    `rgba(42, 42, 44, ${CONFIG.nodeGlowAlphaPeak * alphaCore * extra * 1.2})`,
+  )
+  g.addColorStop(0.45, `rgba(18, 18, 20, ${0.016 * alphaCore})`)
+  g.addColorStop(1, 'rgba(0, 0, 0, 0)')
+  return g
+}
+
+/** Offset radial = black chrome — specular moves slowly per node */
+function metalBlackBodyGradient(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  r: number,
+  alphaCore: number,
+  lightPhase: number,
+) {
+  const ox = Math.cos(lightPhase) * r * 0.34
+  const oy = Math.sin(lightPhase) * r * 0.34
+  const g = ctx.createRadialGradient(cx - ox, cy - oy, r * 0.07, cx, cy, r)
+  const a = (v: number) => Math.min(1, v * alphaCore)
+  g.addColorStop(0, `rgba(118, 118, 122, ${a(0.94)})`)
+  g.addColorStop(0.11, `rgba(58, 58, 62, ${a(0.92)})`)
+  g.addColorStop(0.26, `rgba(28, 28, 30, ${a(0.96)})`)
+  g.addColorStop(0.48, `rgba(14, 14, 16, ${a(0.98)})`)
+  g.addColorStop(0.76, `rgba(7, 7, 8, ${a(0.95)})`)
+  g.addColorStop(1, `rgba(1, 1, 2, ${a(0.9)})`)
+  return g
 }
 
 export function HeroGyroscope({ className = '' }: { className?: string }) {
@@ -523,37 +562,22 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
         }
 
         const glowSize = r * CONFIG.nodeGlowRadiusMul
-        const g = ctx.createRadialGradient(x, y, 0, x, y, glowSize)
-        g.addColorStop(
-          0,
-          `rgba(${NODE_ACCENT}, ${CONFIG.nodeGlowAlphaPeak * alphaCore * (1 + tb * 0.45)})`,
-        )
-        g.addColorStop(0.4, `rgba(${NODE_ACCENT}, ${0.014 * alphaCore})`)
-        g.addColorStop(1, `rgba(${NODE_ACCENT}, 0)`)
+        const lightPhase = idx * 0.41 + animT * 0.12
+
         ctx.beginPath()
         ctx.arc(x, y, glowSize, 0, TAU)
-        ctx.fillStyle = g
+        ctx.fillStyle = metalBlackGlowGradient(ctx, x, y, glowSize, alphaCore, tb)
         ctx.fill()
 
-        const body = ctx.createRadialGradient(x, y, 0, x, y, r)
-        body.addColorStop(
-          0,
-          `rgba(${NODE_CENTER}, ${CONFIG.nodeCenterAlpha * alphaCore})`,
-        )
-        body.addColorStop(0.58, `rgba(${NODE_CORE}, ${CONFIG.nodeCoreAlpha * alphaCore})`)
-        body.addColorStop(
-          1,
-          `rgba(${NODE_CORE}, ${CONFIG.nodeCoreAlpha * 0.86 * alphaCore})`,
-        )
         ctx.beginPath()
         ctx.arc(x, y, r, 0, TAU)
-        ctx.fillStyle = body
+        ctx.fillStyle = metalBlackBodyGradient(ctx, x, y, r, alphaCore, lightPhase)
         ctx.fill()
 
         if (organizedAmount > 0.25 && neuralSpike > 0.18) {
           ctx.beginPath()
           ctx.arc(x, y, r, 0, TAU)
-          ctx.strokeStyle = `rgba(${NODE_ACCENT}, ${0.26 * neuralSpike * flashAlpha})`
+          ctx.strokeStyle = `rgba(88, 88, 92, ${0.32 * neuralSpike * flashAlpha})`
           ctx.lineWidth = 0.65
           ctx.stroke()
         }
@@ -577,7 +601,6 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
           ry,
           gimbal[ri] + gimbalOffset,
           hoop[ri],
-          RING_STROKE,
           lw,
         )
       }
@@ -610,9 +633,9 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
           const prog = easeInOutCubic(uTravel)
 
           const baseGrad = ctx.createLinearGradient(sx0, sy0, sx1, sy1)
-          baseGrad.addColorStop(0, `rgba(${NODE_CORE}, ${peakA * 0.92})`)
-          baseGrad.addColorStop(0.38, `rgba(${NODE_CORE}, ${peakA * 0.38})`)
-          baseGrad.addColorStop(1, `rgba(${NODE_CORE}, ${peakA * 0.1})`)
+          baseGrad.addColorStop(0, `rgba(${NODE_LINE}, ${peakA * 0.92})`)
+          baseGrad.addColorStop(0.38, `rgba(${NODE_LINE}, ${peakA * 0.38})`)
+          baseGrad.addColorStop(1, `rgba(${NODE_LINE}, ${peakA * 0.1})`)
           ctx.strokeStyle = baseGrad
           ctx.lineWidth = CONFIG.twinLineWidth
           ctx.globalAlpha = 1
@@ -628,7 +651,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
           const hx1 = sx0 + (sx1 - sx0) * prog
           const hy1 = sy0 + (sy1 - sy0) * prog
           const headA = peakA * (0.94 + 0.06 * Math.sin(Math.PI * u))
-          ctx.strokeStyle = `rgba(${NODE_CORE}, ${headA})`
+          ctx.strokeStyle = `rgba(${NODE_LINE}, ${headA})`
           ctx.lineWidth = CONFIG.twinLineWidth * CONFIG.twinSignalHeadWidthMul
           ctx.beginPath()
           ctx.moveTo(hx0, hy0)

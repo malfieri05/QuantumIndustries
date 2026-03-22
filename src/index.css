@@ -4,21 +4,43 @@
   --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
 
-  /* Luxury dark — near-black with cool undertone */
-  --color-qi-bg: #0a0d12;
-  --color-qi-surface: #0f131a;
-  --color-qi-elevated: #121821;
-  --color-qi-fg: #f3f5f7;
-  --color-qi-muted: #9aa3b2;
+  /* Light — soft warm white, near-black type */
+  --color-qi-bg: #faf9f7;
+  --color-qi-surface: #f3f2ef;
+  --color-qi-elevated: #ffffff;
+  --color-qi-fg: #0d1117;
+  --color-qi-muted: #5c6570;
 
-  /* Muted royal blue — accent only, never dominant */
-  --color-qi-accent: #3b5fff;
-  --color-qi-accent-bright: #4d6dff;
-  --color-qi-accent-soft: #6b7fd8;
-  --color-qi-accent-muted: rgba(59, 95, 255, 0.14);
+  /* Muted matte royal blue — accent only, never dominant */
+  --color-qi-accent: #1e427b;
+  --color-qi-accent-bright: #2a5899;
+  --color-qi-accent-soft: #4d6b99;
+  --color-qi-accent-muted: rgba(30, 66, 123, 0.12);
 
-  --color-qi-border: rgba(255, 255, 255, 0.08);
-  --color-qi-border-strong: rgba(255, 255, 255, 0.12);
+  --color-qi-border: rgba(0, 0, 0, 0.08);
+  --color-qi-border-strong: rgba(0, 0, 0, 0.12);
+
+  /* Header strip — cool blue wash vs page bg (no cream); ties to accent */
+  --color-qi-header-bg: color-mix(in oklab, var(--color-qi-accent) 5%, var(--color-qi-bg) 95%);
+
+  /* Floating cards — soft UI depth */
+  --radius-qi-card: 28px;
+  --shadow-qi-float:
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    10px 16px 40px -12px rgba(0, 0, 0, 0.1),
+    4px 8px 24px -6px rgba(0, 0, 0, 0.06);
+  --shadow-qi-float-hover:
+    0 1px 0 0 rgba(255, 255, 255, 0.95) inset,
+    14px 24px 52px -10px rgba(0, 0, 0, 0.14),
+    6px 12px 32px -4px rgba(0, 0, 0, 0.09);
+  --shadow-qi-float-subtle:
+    0 1px 0 0 rgba(255, 255, 255, 0.75) inset,
+    8px 14px 36px -14px rgba(0, 0, 0, 0.08),
+    3px 6px 20px -6px rgba(0, 0, 0, 0.05);
+  --shadow-qi-float-subtle-hover:
+    0 1px 0 0 rgba(255, 255, 255, 0.85) inset,
+    12px 20px 48px -12px rgba(0, 0, 0, 0.11),
+    5px 10px 28px -4px rgba(0, 0, 0, 0.07);
 }
 
 @layer base {
@@ -39,7 +61,7 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-qi-accent) 28%, transparent);
+    background: color-mix(in oklab, var(--color-qi-accent) 22%, transparent);
     color: var(--color-qi-fg);
   }
 
@@ -48,17 +70,17 @@
   }
 }
 
-/* ─── Atmospheric background (single idea: depth + faint cool light) ─── */
+/* ─── Atmospheric background (depth + faint cool light) ─── */
 .qi-backdrop {
   position: fixed;
   inset: 0;
   z-index: -2;
   background-color: var(--color-qi-bg);
   background-image:
-    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(59, 95, 255, 0.07), transparent 55%),
-    radial-gradient(ellipse 90% 50% at 85% 15%, rgba(59, 95, 255, 0.035), transparent 50%),
-    radial-gradient(ellipse 70% 45% at 10% 90%, rgba(15, 19, 26, 0.9), transparent 55%);
-  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.45);
+    radial-gradient(ellipse 120% 80% at 50% -25%, rgba(30, 66, 123, 0.09), transparent 58%),
+    radial-gradient(ellipse 90% 50% at 88% 12%, rgba(30, 66, 123, 0.045), transparent 52%),
+    radial-gradient(ellipse 65% 42% at 12% 88%, rgba(243, 242, 239, 0.85), transparent 58%);
+  box-shadow: inset 0 0 80px rgba(255, 255, 255, 0.5);
 }
 
 /* Quiet structural grid — reduced on small screens */
@@ -68,47 +90,221 @@
   z-index: -1;
   background-size: 72px 72px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
   mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, black 0%, transparent 72%);
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 @media (max-width: 767px) {
   .qi-grid {
-    opacity: 0.28;
+    opacity: 0.26;
     background-size: 56px 56px;
   }
 }
 
 /* ─── Restrained glass (no shine sweeps, no glossy streaks) ─── */
 .glass {
-  background: color-mix(in oklab, var(--color-qi-elevated) 72%, transparent);
+  background: color-mix(in oklab, var(--color-qi-elevated) 82%, transparent);
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
   border: 1px solid var(--color-qi-border);
   box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
-    0 24px 48px -28px rgba(0, 0, 0, 0.55);
+    0 1px 0 0 rgba(255, 255, 255, 0.85) inset,
+    0 24px 48px -28px rgba(0, 0, 0, 0.1);
 }
 
 .glass-subtle {
-  background: color-mix(in oklab, var(--color-qi-surface) 65%, transparent);
+  background: color-mix(in oklab, var(--color-qi-surface) 88%, transparent);
   backdrop-filter: blur(14px) saturate(115%);
   -webkit-backdrop-filter: blur(14px) saturate(115%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.03) inset,
-    0 12px 32px -20px rgba(0, 0, 0, 0.45);
+    0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
+    0 12px 32px -20px rgba(0, 0, 0, 0.08);
 }
 
-/** Header / overlay surfaces — slightly more presence, still calm */
-.glass-header {
-  background: color-mix(in oklab, var(--color-qi-bg) 78%, transparent);
-  backdrop-filter: blur(16px) saturate(118%);
-  -webkit-backdrop-filter: blur(16px) saturate(118%);
+/**
+ * Composable with `.glass` or `.glass-subtle`: floating depth + smooth hover lift.
+ * Use with `.rounded-qi-card` on card surfaces.
+ */
+.rounded-qi-card {
+  border-radius: var(--radius-qi-card);
+}
+
+.glass.glass-float {
+  box-shadow: var(--shadow-qi-float);
+  transition:
+    transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.32s ease;
+}
+
+.glass.glass-float:hover {
+  z-index: 1;
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-qi-float-hover);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.glass-subtle.glass-float {
+  box-shadow: var(--shadow-qi-float-subtle);
+}
+
+.glass-subtle.glass-float:hover {
+  z-index: 1;
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-qi-float-subtle-hover);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass.glass-float,
+  .glass-subtle.glass-float {
+    transition-duration: 0.01ms;
+  }
+
+  .glass.glass-float:hover,
+  .glass-subtle.glass-float:hover {
+    transform: none;
+  }
+}
+
+/* ─── Opaque site header (no glass / no backdrop blur) ─── */
+.header-bar {
+  background: var(--color-qi-header-bg);
   border-bottom: 1px solid var(--color-qi-border);
-  box-shadow: 0 12px 40px -24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.65) inset;
+}
+
+.header-bar--elevated {
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.55) inset,
+    0 10px 28px -18px rgba(0, 0, 0, 0.07);
+}
+
+/* Neumorphic pill — soft raised face (light top → white), diffuse shadow + inner lip */
+.header-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.045);
+  background: linear-gradient(
+    180deg,
+    #ececee 0%,
+    #f7f7f8 38%,
+    #ffffff 100%
+  );
+  color: #000;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.07),
+    0 6px 18px -4px rgba(0, 0, 0, 0.11),
+    0 2px 8px -2px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.32s ease,
+    color 0.2s ease;
+}
+
+.header-pill:hover,
+.header-pill:focus-visible {
+  background: linear-gradient(
+    180deg,
+    #f0f0f2 0%,
+    #fafafa 40%,
+    #ffffff 100%
+  );
+  color: #000;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 10px 26px -4px rgba(0, 0, 0, 0.13),
+    0 4px 12px -2px rgba(0, 0, 0, 0.07);
+  transform: translateY(-1px);
+}
+
+.header-pill:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--color-qi-accent) 38%, transparent);
+  outline-offset: 2px;
+}
+
+.header-pill:active {
+  transform: translateY(0) scale(0.99);
+  background: linear-gradient(180deg, #e8e8eb 0%, #f4f4f5 55%, #ffffff 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 2px 6px -2px rgba(0, 0, 0, 0.06);
+}
+
+.header-pill.header-pill--block {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+/* Between primary nav and Book — same width as former gap-6 (1.5rem), faint accent rule */
+.header-nav-divider {
+  width: 1px;
+  height: 1.125rem;
+  border-radius: 1px;
+  background: color-mix(in oklab, var(--color-qi-accent) 38%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-pill {
+    transition-duration: 0.01ms;
+  }
+
+  .header-pill:hover,
+  .header-pill:focus-visible {
+    transform: none;
+  }
+
+  .header-pill:active {
+    transform: none;
+  }
+}
+
+/* Hero headline block — CSS (not Framer) so enter animation always runs on first paint */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.75rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-enter {
+  animation: hero-fade-up 0.78s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation-delay: var(--hero-enter-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Hero bottom divider (faint royal blue, fades at ends; 2px thick) ─── */
+.hero-accent-line {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-qi-accent) 22%, transparent) 35%,
+    color-mix(in oklab, var(--color-qi-accent) 32%, transparent) 50%,
+    color-mix(in oklab, var(--color-qi-accent) 22%, transparent) 65%,
+    transparent 100%
+  );
 }
 
 /* ─── Section hairline (neutral, not a light show) ─── */
@@ -117,14 +313,14 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.06) 20%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.06) 80%,
+    rgba(0, 0, 0, 0.06) 20%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.06) 80%,
     transparent 100%
   );
 }
 
-/* ─── Primary CTA — allowed to be the energetic exception ─── */
+/* ─── Primary CTA — matte royal blue, soft blue-tinted float shadow ─── */
 .btn-primary {
   position: relative;
   display: inline-flex;
@@ -135,36 +331,35 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #fff;
-  border-radius: 11px;
-  background: linear-gradient(
-    165deg,
-    color-mix(in oklab, var(--color-qi-accent) 95%, white 5%) 0%,
-    var(--color-qi-accent) 45%,
-    color-mix(in oklab, var(--color-qi-accent) 88%, black 12%) 100%
-  );
+  border-radius: 9999px;
+  background: var(--color-qi-accent);
   box-shadow:
-    0 2px 0 0 rgba(255, 255, 255, 0.12) inset,
-    0 8px 24px -6px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    0 3px 8px -2px rgba(0, 0, 0, 0.14),
+    0 10px 22px -6px rgba(30, 66, 123, 0.42),
+    0 18px 44px -10px rgba(30, 66, 123, 0.38);
   transition:
     transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.22s ease;
   overflow: hidden;
 }
 
 .btn-primary:hover {
+  background: var(--color-qi-accent-bright);
   box-shadow:
-    0 2px 0 0 rgba(255, 255, 255, 0.14) inset,
-    0 12px 32px -8px rgba(0, 0, 0, 0.5),
-    0 0 36px -8px rgba(59, 95, 255, 0.45);
+    0 5px 12px -3px rgba(0, 0, 0, 0.16),
+    0 14px 30px -8px rgba(30, 66, 123, 0.52),
+    0 22px 52px -12px rgba(30, 66, 123, 0.45),
+    0 0 48px -10px rgba(30, 66, 123, 0.28);
   transform: translateY(-2px);
 }
 
 .btn-primary:active {
   transform: translateY(0) scale(0.985);
+  background: color-mix(in oklab, var(--color-qi-accent) 94%, black 6%);
   box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
-    0 4px 16px -6px rgba(0, 0, 0, 0.45);
+    0 2px 6px -1px rgba(0, 0, 0, 0.12),
+    0 8px 18px -6px rgba(30, 66, 123, 0.4);
 }
 
 .btn-secondary {
@@ -178,7 +373,7 @@
   color: var(--color-qi-fg);
   border-radius: 11px;
   border: 1px solid var(--color-qi-border-strong);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.03);
   transition:
     border-color 0.2s ease,
     background 0.2s ease,
@@ -186,8 +381,8 @@
 }
 
 .btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 0, 0, 0.16);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .btn-secondary:active {

@@ -11,8 +11,6 @@ export function ServicesSection() {
       className="relative py-28 sm:py-36 lg:py-44"
       aria-labelledby="services-heading"
     >
-      <div className="section-hairline mx-auto max-w-5xl opacity-80" />
-
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:px-8 sm:pt-20 lg:px-10">
         <Reveal>
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted">
@@ -31,9 +29,9 @@ export function ServicesSection() {
 
         <div className="mt-20 grid gap-8 lg:grid-cols-5 lg:gap-10">
           <Reveal variant="slide-left" delay={0.1} className="lg:col-span-3">
-            <article className="group relative h-full overflow-hidden rounded-2xl glass transition-[border-color,box-shadow] duration-300 hover:border-white/[0.12]">
+            <article className="group relative h-full overflow-hidden rounded-qi-card glass glass-float">
               <div className="relative p-8 sm:p-10 lg:p-11">
-                <span className="inline-block rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
+                <span className="inline-block rounded-full border border-black/[0.08] bg-black/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
                   {primary.label}
                 </span>
                 <h3 className="mt-6 font-display text-2xl font-semibold text-qi-fg sm:text-3xl">
@@ -43,7 +41,7 @@ export function ServicesSection() {
                   {primary.body}
                 </p>
 
-                <ul className="mt-10 space-y-4 border-t border-white/[0.06] pt-10">
+                <ul className="mt-10 space-y-4 border-t border-black/[0.06] pt-10">
                   {primary.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span className="accent-dot mt-2" aria-hidden />
@@ -56,9 +54,9 @@ export function ServicesSection() {
           </Reveal>
 
           <Reveal variant="slide-right" delay={0.2} className="lg:col-span-2 lg:mt-14">
-            <article className="group relative h-full overflow-hidden rounded-2xl glass-subtle transition-[border-color] duration-300 hover:border-white/[0.1]">
+            <article className="group relative h-full overflow-hidden rounded-qi-card glass-subtle glass-float">
               <div className="relative p-8 sm:p-10 lg:p-11">
-                <span className="inline-block rounded-full border border-white/[0.06] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
+                <span className="inline-block rounded-full border border-black/[0.06] bg-black/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
                   {secondary.label}
                 </span>
                 <h3 className="mt-6 font-display text-xl font-semibold text-qi-fg sm:text-2xl">
@@ -69,7 +67,7 @@ export function ServicesSection() {
                   {secondary.body}
                 </p>
 
-                <ul className="mt-10 space-y-4 border-t border-white/[0.06] pt-10">
+                <ul className="mt-10 space-y-4 border-t border-black/[0.06] pt-10">
                   {secondary.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span

@@ -5,6 +5,9 @@ import { site } from '../content/site'
 import { useHashSectionNavigation } from '../hooks/useHashSectionNavigation'
 import { routeSlide } from '../lib/routeTransitions'
 
+const headerPillSizing =
+  'min-h-10 px-5 py-2.5 text-xs font-normal tracking-wide transition-colors'
+
 export function Header() {
   const location = useLocation()
   const navigateHashSection = useHashSectionNavigation()
@@ -22,8 +25,8 @@ export function Header() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`sticky top-0 z-50 transition-[background,backdrop-filter,border-color,box-shadow] duration-300 ${
-        scrolled ? 'glass-header' : 'border-b border-transparent bg-transparent'
+      className={`sticky top-0 z-50 header-bar transition-[box-shadow] duration-300 ${
+        scrolled ? 'header-bar--elevated' : ''
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:px-10">
@@ -32,33 +35,41 @@ export function Header() {
           state={
             location.pathname === site.booking.path ? routeSlide.back : undefined
           }
-          className="group flex flex-col leading-tight focus-visible:rounded-md"
+          className="group flex flex-col items-center text-center leading-tight focus-visible:rounded-md"
         >
           <span className="font-display text-base font-semibold tracking-tight text-qi-fg transition group-hover:text-qi-fg sm:text-lg">
             {site.name}
           </span>
-          <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-qi-muted sm:text-[11px]">
+          <span className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-qi-muted sm:text-[11px]">
             {site.tagline}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
-          {site.nav.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className="relative text-sm font-medium text-qi-muted transition-colors duration-300 hover:text-qi-fg after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-qi-accent after:transition-all after:duration-300 hover:after:w-full"
-              onClick={(e) => {
-                navigateHashSection(e, item.href)
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <nav className="hidden items-center md:flex" aria-label="Primary">
+          <div className="flex items-center gap-2">
+            {site.nav.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`header-pill ${headerPillSizing}`}
+                onClick={(e) => {
+                  navigateHashSection(e, item.href)
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <div
+            className="flex w-6 shrink-0 items-center justify-center self-stretch"
+            aria-hidden="true"
+          >
+            <span className="header-nav-divider" />
+          </div>
           <Link
             to={site.booking.path}
             state={routeSlide.forward}
-            className="btn-secondary !rounded-lg !px-4 !py-2 !text-xs font-semibold"
+            className={`header-pill ${headerPillSizing}`}
           >
             Book
           </Link>
@@ -68,13 +79,13 @@ export function Header() {
           <Link
             to={site.booking.path}
             state={routeSlide.forward}
-            className="btn-secondary !rounded-lg !px-3 !py-2 !text-xs font-semibold"
+            className={`header-pill ${headerPillSizing}`}
           >
             Book
           </Link>
           <button
             type="button"
-            className="glass inline-flex h-10 w-10 items-center justify-center rounded-xl text-qi-fg transition-colors hover:text-qi-fg"
+            className="header-pill inline-flex h-10 min-h-10 w-10 min-w-10 shrink-0 items-center justify-center rounded-full p-0"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -99,14 +110,14 @@ export function Header() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="glass-header overflow-hidden border-t border-white/[0.06] md:hidden"
+            className="header-bar overflow-hidden border-t border-black/[0.06] md:hidden"
           >
             <nav className="flex flex-col gap-1 px-6 py-4" aria-label="Mobile">
               {site.nav.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
-                  className="rounded-xl px-4 py-3 text-sm font-medium text-qi-muted transition hover:bg-white/[0.04] hover:text-qi-fg"
+                  className={`header-pill header-pill--block ${headerPillSizing}`}
                   onClick={(e) => {
                     navigateHashSection(e, item.href)
                     setOpen(false)

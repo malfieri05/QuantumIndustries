@@ -14,7 +14,7 @@ export function ConsultationCta({
   size = 'default',
 }: ConsultationCtaProps) {
   const sizeClass = size === 'sm'
-    ? '!px-5 !py-2.5 !text-xs !rounded-lg'
+    ? '!px-5 !py-2.5 !text-xs !rounded-full'
     : ''
 
   return (

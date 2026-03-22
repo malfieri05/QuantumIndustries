@@ -11,8 +11,12 @@ type CalcomEmbedProps = {
  * (bordered “frame” around the 3-column picker) via cssVarsPerTheme.
  */
 const calUiConfig = {
-  theme: 'dark' as const,
+  theme: 'light' as const,
   cssVarsPerTheme: {
+    light: {
+      'cal-border-booker': 'transparent',
+      'cal-border-booker-width': '0px',
+    },
     dark: {
       'cal-border-booker': 'transparent',
       'cal-border-booker-width': '0px',

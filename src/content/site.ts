@@ -1,6 +1,6 @@
 export const site = {
   name: 'Quantum Industries',
-  tagline: 'Take the Leap.',
+  tagline: 'Take the Leap',
 
   booking: {
     path: '/book' as const,
@@ -18,8 +18,6 @@ export const site = {
   hero: {
     eyebrow: 'AI Automation & Custom Software',
     headline: 'Intelligent\nSystems\nTailored\nto You.',
-    subhead:
-      'Custom AI automation and software solutions engineered for how your business actually operates — not how a template thinks it should.',
   },
 
   services: {

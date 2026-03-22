@@ -1,34 +1,32 @@
-import { motion } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import { site } from '../content/site'
 import { ConsultationCta } from './ConsultationCta'
 import { HeroGyroscope } from './HeroGyroscope'
 
-const ease = [0.25, 0.1, 0.25, 1] as const
+const delay = (ms: number): CSSProperties =>
+  ({ '--hero-enter-delay': `${ms}ms` }) as CSSProperties
 
 export function Hero() {
   return (
     <section
       id="home"
-      className="relative mx-auto max-w-7xl px-6 pb-28 pt-20 sm:pb-36 sm:pt-28 lg:px-10 lg:pb-44 lg:pt-32"
+      className="relative mx-auto max-w-7xl flow-root px-6 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:px-10 lg:pb-24 lg:pt-20"
       aria-labelledby="hero-heading"
     >
-      <div className="relative z-10">
-        <div className="max-w-2xl lg:max-w-[42rem]">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease }}
-            className="mb-6 text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted sm:text-xs"
+      {/* Text + gyro share one grid so alignment is not tied to full section height (divider below). */}
+      <div className="relative z-10 md:grid md:min-h-0 md:grid-cols-2 md:items-center md:gap-x-8 lg:gap-x-10">
+        <div className="min-w-0 max-w-2xl md:translate-x-[10%] lg:max-w-[42rem]">
+          <p
+            className="hero-enter mb-6 text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted sm:text-xs"
+            style={delay(0)}
           >
             {site.hero.eyebrow}
-          </motion.p>
+          </p>
 
-          <motion.h1
+          <h1
             id="hero-heading"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease }}
-            className="font-display text-[2.65rem] font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-[4.5rem]"
+            className="hero-enter font-display text-[2.65rem] font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-[4.5rem]"
+            style={delay(110)}
           >
             {site.hero.headline.split('\n').map((line, i) => (
               <span key={i} className="block">
@@ -39,38 +37,36 @@ export function Hero() {
                 )}
               </span>
             ))}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35, ease }}
-            className="mt-8 max-w-xl text-base leading-[1.75] text-qi-muted sm:text-lg sm:leading-[1.8]"
-          >
-            {site.hero.subhead}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45, ease }}
-            className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6"
+          <div
+            className="hero-enter mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6 sm:mt-12"
+            style={delay(220)}
           >
             <ConsultationCta />
-          </motion.div>
+          </div>
+        </div>
+
+        {/* Gyroscope — right column, vertically centered with text block (not whole section). */}
+        <div
+          className="pointer-events-none relative -mx-6 hidden h-[min(416px,57.6vh)] w-auto min-h-0 justify-self-stretch md:mx-0 md:block md:h-[min(448px,62.4vh)] md:-translate-x-[10%]"
+          style={{
+            maskImage: 'linear-gradient(to right, transparent 0%, black 24%)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 24%)',
+          }}
+          aria-hidden="true"
+        >
+          <HeroGyroscope className="h-full w-full" />
         </div>
       </div>
 
-      {/* Gyroscope + particles — hero accent (no opacity delay: lifecycle starts at load) */}
-      <div
-        className="pointer-events-none absolute right-0 top-1/2 hidden h-[min(560px,78vh)] w-[min(72%,42rem)] -translate-y-1/2 md:block"
-        style={{
-          maskImage: 'linear-gradient(to right, transparent 0%, black 22%)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 22%)',
-        }}
-        aria-hidden="true"
-      >
-        <HeroGyroscope className="h-full w-full" />
+      {/* Inset faint accent line — spacer uses explicit height so offset is not lost to margin collapse */}
+      <div className="relative z-10 mx-10 sm:mx-16 lg:mx-24">
+        <div
+          className="h-28 shrink-0 sm:h-32 lg:h-36"
+          aria-hidden
+        />
+        <div className="hero-accent-line w-full" aria-hidden />
       </div>
     </section>
   )
