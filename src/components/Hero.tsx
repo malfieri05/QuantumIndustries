@@ -25,7 +25,7 @@ export function Hero() {
 
           <h1
             id="hero-heading"
-            className="hero-enter font-display text-[2.65rem] font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-[4.5rem]"
+            className="hero-enter font-display text-[2.385rem] font-semibold leading-[1.02] tracking-[-0.02em] sm:text-[3.375rem] md:text-[4.05rem] lg:text-[4.05rem]"
             style={delay(110)}
           >
             {site.hero.headline.split('\n').map((line, i) => (

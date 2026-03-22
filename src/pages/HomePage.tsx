@@ -5,6 +5,7 @@ import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
 import { ProcessSection } from '../components/ProcessSection'
 import { ServicesSection } from '../components/ServicesSection'
+import { SupportSection } from '../components/SupportSection'
 import { scrollToSectionById } from '../lib/hashNav'
 
 export function HomePage() {
@@ -28,6 +29,7 @@ export function HomePage() {
         <Hero />
         <ServicesSection />
         <ProcessSection />
+        <SupportSection />
       </main>
       <Footer />
     </>

@@ -13,25 +13,19 @@ export function ServicesSection() {
     >
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:px-8 sm:pt-20 lg:px-10">
         <Reveal>
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted">
-            Services
-          </p>
           <h2
             id="services-heading"
-            className="mt-4 font-display text-3xl font-semibold tracking-tight text-qi-fg sm:text-4xl md:text-5xl"
+            className="font-display text-3xl font-semibold tracking-tight text-qi-fg sm:text-4xl md:text-5xl"
           >
             {services.title}
           </h2>
-          <p className="mt-6 max-w-2xl text-base leading-[1.75] text-qi-muted sm:text-lg sm:leading-[1.8]">
-            {services.intro}
-          </p>
         </Reveal>
 
         <div className="mt-20 grid gap-8 lg:grid-cols-5 lg:gap-10">
           <Reveal variant="slide-left" delay={0.1} className="lg:col-span-3">
             <article className="group relative h-full overflow-hidden rounded-qi-card glass glass-float">
               <div className="relative p-8 sm:p-10 lg:p-11">
-                <span className="inline-block rounded-full border border-black/[0.08] bg-black/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
+                <span className="inline-block rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
                   {primary.label}
                 </span>
                 <h3 className="mt-6 font-display text-2xl font-semibold text-qi-fg sm:text-3xl">
@@ -41,7 +35,8 @@ export function ServicesSection() {
                   {primary.body}
                 </p>
 
-                <ul className="mt-10 space-y-4 border-t border-black/[0.06] pt-10">
+                <div className="services-card-divider mt-10" aria-hidden />
+                <ul className="space-y-4 pt-10">
                   {primary.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span className="accent-dot mt-2" aria-hidden />
@@ -56,7 +51,7 @@ export function ServicesSection() {
           <Reveal variant="slide-right" delay={0.2} className="lg:col-span-2 lg:mt-14">
             <article className="group relative h-full overflow-hidden rounded-qi-card glass-subtle glass-float">
               <div className="relative p-8 sm:p-10 lg:p-11">
-                <span className="inline-block rounded-full border border-black/[0.06] bg-black/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-muted">
+                <span className="inline-block rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
                   {secondary.label}
                 </span>
                 <h3 className="mt-6 font-display text-xl font-semibold text-qi-fg sm:text-2xl">
@@ -67,7 +62,8 @@ export function ServicesSection() {
                   {secondary.body}
                 </p>
 
-                <ul className="mt-10 space-y-4 border-t border-black/[0.06] pt-10">
+                <div className="services-card-divider mt-10" aria-hidden />
+                <ul className="space-y-4 pt-10">
                   {secondary.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span

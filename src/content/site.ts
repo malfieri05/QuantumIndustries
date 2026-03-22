@@ -10,7 +10,7 @@ export const site = {
 
   nav: [
     { label: 'Home', href: '/#home' },
-    { label: 'Service', href: '/#services' },
+    { label: 'Services', href: '/#services' },
     { label: 'Process', href: '/#process' },
     { label: 'Support', href: '/#support' },
   ],
@@ -22,19 +22,17 @@ export const site = {
 
   services: {
     id: 'services',
-    title: 'What we build',
-    intro:
-      'Intelligent automation where it earns its place. Purpose-built software when off-the-shelf is holding you back.',
+    title: 'Services',
     cards: [
       {
         label: 'Core offering',
         title: 'AI Automation & Custom Software',
         body:
-          'From daily routines to cross-team workflows — we identify where automation or bespoke software removes manual work, reduces errors, and keeps your operation moving.',
+          'From daily routines to cross-team workflows - we identify where automation or bespoke software removes inefficiencies, reduces errors, and enhances your operations.',
         highlights: [
-          'Workflow and process mapping',
-          'AI that improves speed and quality',
+          'Operational workflows and process mapping',
           'Integrations with tools you already use',
+          "Safely implemented system 'superintelligence'.",
         ],
       },
       {
@@ -45,7 +43,7 @@ export const site = {
           'Walk us through the software you pay for monthly, annually, or per seat. If it makes sense, we build a tailored replica you own outright — one-time investment, lifetime support.',
         highlights: [
           'Audit of recurring software spend',
-          'Feasibility assessment before we build',
+          'Feasibility assessment',
           'You own the solution — we stand behind it',
         ],
       },
@@ -59,7 +57,7 @@ export const site = {
       {
         title: 'Consultation',
         body:
-          'A focused 30-minute session to understand your current stack, pain points, and goals. No obligation.',
+          'A focused 30-minute session to understand your current stack, pain points, and goals. No pressure. No commitment.',
       },
       {
         title: 'Scoped Proposal',
@@ -69,9 +67,17 @@ export const site = {
       {
         title: 'Build & Support',
         body:
-          'We build, test, and hand off — then stay available. Lifetime support is included, not optional.',
+          'We build, test, and seamlessly implement each build into your operations. Lifetime client support is included.',
       },
     ],
+  },
+
+  support: {
+    id: 'support',
+    title: 'Support',
+    body:
+      'Our clients get access to our direct support line where anytime you need help or have questions on your product you are connected directly with the architect that built your specific project.',
+    closing: 'No hold time. No call center.',
   },
 
   footer: {

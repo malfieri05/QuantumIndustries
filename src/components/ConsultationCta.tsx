@@ -13,9 +13,10 @@ export function ConsultationCta({
   children = 'Book Consultation',
   size = 'default',
 }: ConsultationCtaProps) {
-  const sizeClass = size === 'sm'
-    ? '!px-5 !py-2.5 !text-xs !rounded-full'
-    : ''
+  const sizeClass =
+    size === 'sm'
+      ? '!px-5 !py-2.5 !text-xs !rounded-full'
+      : '!px-[2.025rem] !py-[0.9rem] !text-[1.0125rem]'
 
   return (
     <Link
