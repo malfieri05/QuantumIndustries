@@ -5,6 +5,7 @@ import {
   type Variants,
 } from 'framer-motion'
 import { Children, isValidElement, useRef, type ReactNode } from 'react'
+import { useMdUp } from '../hooks/useMdUp'
 
 const ease = [0.25, 0.1, 0.25, 1] as const
 
@@ -65,6 +66,7 @@ export function Reveal({
   once = true,
 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion()
+  const mdUp = useMdUp()
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, {
     once,
@@ -72,7 +74,7 @@ export function Reveal({
     margin: revealInViewOpts.margin,
   })
 
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || !mdUp) {
     return <div className={className}>{children}</div>
   }
 
@@ -125,6 +127,7 @@ type RevealStaggerProps = {
  */
 export function RevealStagger({ children, className }: RevealStaggerProps) {
   const prefersReducedMotion = useReducedMotion()
+  const mdUp = useMdUp()
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, {
     once: true,
@@ -132,7 +135,7 @@ export function RevealStagger({ children, className }: RevealStaggerProps) {
     margin: revealInViewOpts.margin,
   })
 
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || !mdUp) {
     return <div className={className}>{children}</div>
   }
 

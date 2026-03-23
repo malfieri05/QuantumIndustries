@@ -367,6 +367,15 @@
     animation-delay: var(--hero-enter-delay, 0ms);
   }
 
+  /* Mobile: hero copy stays in place; desktop keeps staggered fade-up above. */
+  @media (max-width: 767px) {
+    .hero-enter {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   .header-enter {
     opacity: 0;
     transform: translate3d(0, -20px, 0);

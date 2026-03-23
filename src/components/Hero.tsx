@@ -20,8 +20,12 @@ const heroTextCol =
 
 export function Hero() {
   const headlineLines = site.hero.headline.split('\n')
-  const mobileLine1 = `${headlineLines[0]} ${headlineLines[1]}`
-  const mobileLine2 = `${headlineLines[2]} ${headlineLines[3]}`
+  /** NBSP so each mobile row stays one line (avoid "Intelligent | Systems." wrap). Desktop unchanged. */
+  const nbsp = '\u00a0'
+  const mobileLine1 = `${headlineLines[0]}${nbsp}${headlineLines[1]}`
+  const mobileLine2 = [headlineLines[2], ...headlineLines[3].trim().split(/\s+/)]
+    .filter(Boolean)
+    .join(nbsp)
 
   return (
     <section
