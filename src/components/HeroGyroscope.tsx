@@ -106,6 +106,9 @@ const CONFIG = {
 /** Pre-computed constant — product of three CONFIG values, never changes */
 const ORGANIZE_DENOM = CONFIG.rampDuration * CONFIG.organizeSpan * CONFIG.organizeTimeStretch
 
+/** Lighter particle count on narrow viewports only (matches Tailwind `md` breakpoint). */
+const MOBILE_NODE_COUNT = 140
+
 function clamp01(t: number) {
   return Math.min(1, Math.max(0, t))
 }
@@ -170,11 +173,16 @@ type Particle = {
   sizeTier: SizeTier
 }
 
-function buildNodes(cx: number, cy: number, w: number, h: number): Particle[] {
+function buildNodes(
+  cx: number,
+  cy: number,
+  w: number,
+  h: number,
+  count: number,
+): Particle[] {
   const minDim = Math.min(w, h)
   const rInner = minDim * CONFIG.scatterInnerR
   const rOuter = minDim * CONFIG.scatterOuterR
-  const count = CONFIG.nodeCount
   return Array.from({ length: count }, (_, i) => {
     const angle = Math.random() * TAU
     const rr = rInner + Math.random() * (rOuter - rInner)
@@ -326,7 +334,11 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       const cx = cssW * 0.5
       const cy = cssH * 0.5
-      particlesRef.current = buildNodes(cx, cy, cssW, cssH)
+      const narrow =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(max-width: 767px)').matches
+      const nodeCount = narrow ? MOBILE_NODE_COUNT : CONFIG.nodeCount
+      particlesRef.current = buildNodes(cx, cy, cssW, cssH, nodeCount)
       twinFires = []
       const elapsedNow = performance.now() / 1000
       resetTwinSpawnStreams(elapsedNow + CONFIG.animationTimelineSkipSeconds)
@@ -334,6 +346,13 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
     }
 
     layout()
+    // iOS / in-app browsers often report 0×0 on first sync layout; retry next frame.
+    const rafLayout = requestAnimationFrame(() => {
+      const r = canvas.getBoundingClientRect()
+      if (r.width < 4 || r.height < 4) layout()
+    })
+    const ro = new ResizeObserver(() => layout())
+    ro.observe(canvas)
     window.addEventListener('resize', layout)
 
     const draw = (time: number) => {
@@ -397,7 +416,7 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
             animT <
             f.t0 + f.dur * (useTwinSlowPulse ? twinPulseWallScale : 1),
         )
-        const half = CONFIG.nodeCount / 2
+        const half = Math.floor(particlesRef.current.length / 2)
         taken.clear()
         for (const f of twinFires) taken.add(f.i)
         for (let s = 0; s < twinSpawnNext.length; s++) {
@@ -667,6 +686,8 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
     animRef.current = requestAnimationFrame(draw)
 
     return () => {
+      cancelAnimationFrame(rafLayout)
+      ro.disconnect()
       cancelAnimationFrame(animRef.current)
       window.removeEventListener('resize', layout)
     }

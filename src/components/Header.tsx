@@ -55,11 +55,8 @@ export function Header() {
   }, [])
 
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`sticky top-0 z-50 header-bar transition-[box-shadow] duration-300 ${
+    <header
+      className={`header-enter sticky top-0 z-50 header-bar transition-[box-shadow] duration-300 ${
         scrolled ? 'header-bar--elevated' : ''
       }`}
     >
@@ -168,6 +165,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }

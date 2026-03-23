@@ -55,13 +55,9 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Gyroscope — right column, vertically centered with text block (not whole section). */}
+        {/* Gyroscope — below copy on mobile, right column from md. No -mx on mobile (was bleeding past px-6 and causing left-edge overflow). */}
         <div
-          className="pointer-events-none relative -mx-6 hidden h-[min(416px,57.6vh)] w-auto min-h-0 justify-self-stretch md:mx-0 md:block md:h-[min(448px,62.4vh)] md:-translate-x-[10%]"
-          style={{
-            maskImage: 'linear-gradient(to right, transparent 0%, black 24%)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 24%)',
-          }}
+          className="pointer-events-none relative mx-0 mt-5 block w-full min-w-0 min-h-[280px] max-md:min-h-[300px] max-md:h-[min(340px,50svh)] max-md:overflow-x-clip justify-self-stretch md:min-h-0 md:mt-0 md:h-[min(448px,62.4vh)] md:w-auto md:-translate-x-[10%] md:[mask-image:linear-gradient(to_right,transparent_0%,black_24%)] md:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_24%)]"
           aria-hidden="true"
         >
           <HeroGyroscopeGate />

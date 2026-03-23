@@ -336,13 +336,52 @@
   }
 }
 
-.hero-enter {
-  animation: hero-fade-up 0.78s cubic-bezier(0.25, 0.1, 0.25, 1) both;
-  animation-delay: var(--hero-enter-delay, 0ms);
+/* Site header — same motion language as hero; CSS so iOS/WebKit isn’t affected by Framer reducedMotion. */
+@keyframes header-fade-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Default: visible (older engines / no prefers-reduced-motion support). */
+.hero-enter,
+.header-enter {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /*
+   * Explicit “before” state + forwards (not both) — Safari/iOS can fail to apply
+   * backwards fill with staggered delays, leaving hero copy stuck or skipping motion.
+   */
+  .hero-enter {
+    opacity: 0;
+    transform: translate3d(0, 1.75rem, 0);
+    animation: hero-fade-up 0.78s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-delay: var(--hero-enter-delay, 0ms);
+  }
+
+  .header-enter {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+    animation: header-fade-down 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .header-enter {
     animation: none;
     opacity: 1;
     transform: none;
