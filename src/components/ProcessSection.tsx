@@ -8,13 +8,13 @@ export function ProcessSection() {
 
   return (
     <section
-      id={process.id}
       className="relative py-28 sm:py-36 lg:py-44"
       aria-labelledby="process-heading"
     >
       <div className="section-hairline mx-auto max-w-5xl opacity-80" />
 
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:px-8 sm:pt-20 lg:px-10">
+        <div id={process.id} className="scroll-anchor" aria-hidden="true" />
         <Reveal>
           <h2
             id="process-heading"

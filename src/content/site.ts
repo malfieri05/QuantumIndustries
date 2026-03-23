@@ -8,6 +8,12 @@ export const site = {
     subtitle: 'Free. No obligation.',
   },
 
+  /** E.164-style digits for tel:; display string for UI */
+  phone: {
+    tel: '+15037645097',
+    display: '503 764 5097',
+  },
+
   nav: [
     { label: 'Home', href: '/#home' },
     { label: 'Services', href: '/#services' },
@@ -48,6 +54,19 @@ export const site = {
         ],
       },
     ],
+    intelligenceCard: {
+      label: 'Market intelligence',
+      title: 'Competitive Intelligence Systems',
+      tagline: 'Stay ahead of your market — automatically.',
+      intro:
+        'We build custom systems that continuously monitor your competitors, analyze their moves, and surface meaningful insights — so you always know what’s changing and where opportunities exist.',
+      doesHeading: 'What it does:',
+      highlights: [
+        'Continuous monitoring of competitor activity, strategy, and momentum.',
+        'Identifies meaningful changes, signals opportunities',
+        'Delivers clear insights and structured alerts',
+      ],
+    },
   },
 
   process: {
@@ -76,7 +95,9 @@ export const site = {
     id: 'support',
     title: 'Support',
     body:
-      'Our clients get access to our direct support line where anytime you need help or have questions on your product you are connected directly with the architect that built your specific project.',
+      'Our clients gain direct access to the head architect that built their specific project.',
+    bodySecond:
+      "Anytime our clients need help or have questions on their product, they are free to reach out to their project architect's direct cell or email.",
     closing: 'No hold time. No call center.',
   },
 

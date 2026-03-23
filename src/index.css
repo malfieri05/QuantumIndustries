@@ -191,10 +191,36 @@
 
 /* Services cards — paragraph / bullets divider (royal blue, soft ends inset 15% each side) */
 .services-card-divider {
+  display: block;
   height: 1px;
   width: 100%;
+  flex-shrink: 0;
   background: linear-gradient(
     90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-qi-accent) 30%, transparent) 15%,
+    color-mix(in oklab, var(--color-qi-accent) 30%, transparent) 85%,
+    transparent 100%
+  );
+}
+
+/* Replica Builds uses glass-subtle — surface tint hides the default hairline; boost contrast */
+.glass-subtle .services-card-divider {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-qi-accent) 52%, transparent) 12%,
+    color-mix(in oklab, var(--color-qi-accent) 52%, transparent) 88%,
+    transparent 100%
+  );
+}
+
+/* Market intelligence card — vertical rule (same accent + fade as .services-card-divider) */
+.services-card-divider-vertical {
+  width: 1px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    180deg,
     transparent 0%,
     color-mix(in oklab, var(--color-qi-accent) 30%, transparent) 15%,
     color-mix(in oklab, var(--color-qi-accent) 30%, transparent) 85%,
@@ -428,9 +454,73 @@
   flex-shrink: 0;
 }
 
-/* ─── Anchor scroll offset (sticky header) — keep section headings nearer the top of the viewport */
+/* ─── Anchor scroll offset (sticky header) */
 [id] {
   scroll-margin-top: 4.5rem;
+}
+
+/* Section hash targets (#services, #process, …) — extra gap below header when autoscroll settles */
+.scroll-anchor {
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  scroll-margin-top: 7.5rem;
+}
+
+/* Support — inset memo panel (flatter than glass cards; document-like frame) */
+.support-memo-panel {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-left: 3px solid color-mix(in oklab, var(--color-qi-accent) 42%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-qi-elevated) 90%, var(--color-qi-surface) 10%) 0%,
+    var(--color-qi-elevated) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 16px -8px rgba(0, 0, 0, 0.08),
+    0 1px 4px -2px rgba(0, 0, 0, 0.04);
+  padding: 1.75rem 1.75rem 1.75rem 1.625rem;
+  transition:
+    transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.support-memo-panel:hover {
+  /* Match .glass.glass-float:hover lift */
+  transform: translateY(-8px);
+  border-color: rgba(0, 0, 0, 0.1);
+  border-left-color: color-mix(in oklab, var(--color-qi-accent) 55%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-qi-elevated) 86%, var(--color-qi-surface) 14%) 0%,
+    var(--color-qi-elevated) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 12px 32px -14px rgba(0, 0, 0, 0.12),
+    0 4px 14px -4px rgba(0, 0, 0, 0.07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .support-memo-panel {
+    transition-duration: 0.01ms;
+  }
+
+  .support-memo-panel:hover {
+    transform: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .support-memo-panel {
+    padding: 2rem 2.25rem 2rem 1.875rem;
+    border-radius: 1.125rem;
+  }
 }
 
 /* Cal.com inline embed (booking page; iframe injected by embed.js) */

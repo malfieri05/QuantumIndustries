@@ -8,6 +8,31 @@ import { routeSlide } from '../lib/routeTransitions'
 const headerPillSizing =
   'min-h-10 px-5 py-2.5 text-xs font-normal tracking-wide transition-colors'
 
+function HeaderPhoneButton() {
+  return (
+    <div className="group relative flex">
+      <a
+        href={`tel:${site.phone.tel}`}
+        className="header-pill inline-flex h-10 min-h-10 w-10 min-w-10 shrink-0 items-center justify-center rounded-full p-0 text-qi-fg"
+        aria-label={`Call ${site.phone.display}`}
+      >
+        <svg className="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
+          />
+        </svg>
+      </a>
+      <span
+        className="pointer-events-none absolute left-1/2 top-full z-[60] mt-2 -translate-x-1/2 whitespace-nowrap rounded-xl border border-black/[0.06] bg-white px-3 py-1.5 text-xs font-medium tracking-wide text-qi-fg opacity-0 shadow-[0_8px_28px_-10px_rgba(0,0,0,0.18)] transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-within:opacity-100"
+        aria-hidden="true"
+      >
+        {site.phone.display}
+      </span>
+    </div>
+  )
+}
+
 export function Header() {
   const location = useLocation()
   const navigateHashSection = useHashSectionNavigation()
@@ -66,13 +91,16 @@ export function Header() {
           >
             <span className="header-nav-divider" />
           </div>
-          <Link
-            to={site.booking.path}
-            state={routeSlide.forward}
-            className={`header-pill ${headerPillSizing}`}
-          >
-            Book
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              to={site.booking.path}
+              state={routeSlide.forward}
+              className={`header-pill ${headerPillSizing}`}
+            >
+              Book
+            </Link>
+            <HeaderPhoneButton />
+          </div>
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -83,6 +111,7 @@ export function Header() {
           >
             Book
           </Link>
+          <HeaderPhoneButton />
           <button
             type="button"
             className="header-pill inline-flex h-10 min-h-10 w-10 min-w-10 shrink-0 items-center justify-center rounded-full p-0"
