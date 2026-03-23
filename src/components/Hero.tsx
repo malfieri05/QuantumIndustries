@@ -21,11 +21,11 @@ export function Hero() {
       className="relative mx-auto max-w-7xl flow-root px-6 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:px-10 lg:pb-24 lg:pt-20"
       aria-labelledby="hero-heading"
     >
-      {/* Text + gyro share one grid so alignment is not tied to full section height (divider below). */}
-      <div className="relative z-10 md:grid md:min-h-0 md:grid-cols-2 md:items-center md:gap-x-8 lg:gap-x-10">
+      {/* Two columns at all breakpoints — gyro stays right (same topology as desktop); scale type + gyro height on small screens. */}
+      <div className="relative z-10 grid min-h-0 grid-cols-2 items-center gap-x-3 sm:gap-x-4 md:gap-x-8 lg:gap-x-10">
         <div className="min-w-0 max-w-2xl md:translate-x-[10%] lg:max-w-[42rem]">
           <p
-            className="hero-enter mb-6 text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted sm:text-xs"
+            className="hero-enter mb-6 max-md:mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-qi-muted sm:text-xs"
             style={delay(0)}
           >
             {site.hero.eyebrow}
@@ -33,7 +33,7 @@ export function Hero() {
 
           <h1
             id="hero-heading"
-            className="hero-enter font-display text-[2.385rem] font-semibold leading-[1.02] tracking-[-0.02em] sm:text-[3.375rem] md:text-[4.05rem] lg:text-[4.05rem]"
+            className="hero-enter font-display font-semibold leading-[1.02] tracking-[-0.02em] max-md:text-[clamp(0.95rem,3.8vw,1.65rem)] max-md:leading-[1.08] md:text-[4.05rem] md:leading-[1.02]"
             style={delay(110)}
           >
             {site.hero.headline.split('\n').map((line, i) => (
@@ -48,16 +48,16 @@ export function Hero() {
           </h1>
 
           <div
-            className="hero-enter mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6 sm:mt-12"
+            className="hero-enter mt-10 flex flex-col gap-4 max-md:mt-6 sm:flex-row sm:items-center sm:gap-6 sm:mt-12"
             style={delay(220)}
           >
             <ConsultationCta />
           </div>
         </div>
 
-        {/* Gyroscope — below copy on mobile, right column from md. No -mx on mobile (was bleeding past px-6 and causing left-edge overflow). */}
+        {/* Gyroscope — right column; shorter on narrow screens so the row fits without stacking. */}
         <div
-          className="pointer-events-none relative mx-0 mt-5 block w-full min-w-0 min-h-[280px] max-md:min-h-[300px] max-md:h-[min(340px,50svh)] max-md:overflow-x-clip justify-self-stretch md:min-h-0 md:mt-0 md:h-[min(448px,62.4vh)] md:w-auto md:-translate-x-[10%] md:[mask-image:linear-gradient(to_right,transparent_0%,black_24%)] md:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_24%)]"
+          className="pointer-events-none relative mx-0 flex h-[min(200px,38svh)] w-full min-h-0 min-w-0 shrink-0 items-stretch justify-self-stretch overflow-x-clip [mask-image:linear-gradient(to_right,transparent_0%,black_26%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_26%)] max-md:h-[min(210px,42svh)] md:h-[min(448px,62.4vh)] md:w-auto md:-translate-x-[10%]"
           aria-hidden="true"
         >
           <HeroGyroscopeGate />
