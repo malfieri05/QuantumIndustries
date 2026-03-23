@@ -325,10 +325,23 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
       })
     }
 
+    let lastCssW = 0
+    let lastCssH = 0
+
     const layout = () => {
       const rect = canvas.getBoundingClientRect()
       const cssW = Math.max(1, rect.width)
       const cssH = Math.max(1, rect.height)
+      if (
+        lastCssW > 0 &&
+        lastCssH > 0 &&
+        Math.abs(cssW - lastCssW) < 1 &&
+        Math.abs(cssH - lastCssH) < 1
+      ) {
+        return
+      }
+      lastCssW = cssW
+      lastCssH = cssH
       canvas.width = Math.floor(cssW * dpr)
       canvas.height = Math.floor(cssH * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -345,15 +358,24 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
       return { cssW, cssH, cx, cy }
     }
 
+    let layoutRaf = 0
+    const scheduleLayout = () => {
+      if (layoutRaf) return
+      layoutRaf = requestAnimationFrame(() => {
+        layoutRaf = 0
+        layout()
+      })
+    }
+
     layout()
     // iOS / in-app browsers often report 0×0 on first sync layout; retry next frame.
     const rafLayout = requestAnimationFrame(() => {
       const r = canvas.getBoundingClientRect()
       if (r.width < 4 || r.height < 4) layout()
     })
-    const ro = new ResizeObserver(() => layout())
+    const ro = new ResizeObserver(() => scheduleLayout())
     ro.observe(canvas)
-    window.addEventListener('resize', layout)
+    window.addEventListener('resize', scheduleLayout)
 
     const draw = (time: number) => {
       const last = lastFrameRef.current ?? time
@@ -686,10 +708,11 @@ export function HeroGyroscope({ className = '' }: { className?: string }) {
     animRef.current = requestAnimationFrame(draw)
 
     return () => {
+      cancelAnimationFrame(layoutRaf)
       cancelAnimationFrame(rafLayout)
       ro.disconnect()
       cancelAnimationFrame(animRef.current)
-      window.removeEventListener('resize', layout)
+      window.removeEventListener('resize', scheduleLayout)
     }
   }, [dpr])
 

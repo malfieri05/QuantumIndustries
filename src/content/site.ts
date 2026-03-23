@@ -23,7 +23,7 @@ export const site = {
 
   hero: {
     eyebrow: 'AI Automation & Custom Software',
-    headline: 'Intelligent\nSystems\nTailored\nto You.',
+    headline: 'Intelligent\nSystems.\nTailored\nto You.',
   },
 
   services: {

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { lazy, Suspense, useLayoutEffect, useRef } from 'react'
+import { lazy, Suspense, useLayoutEffect, useMemo, useRef } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { site } from '../content/site'
 import { HomePage } from '../pages/HomePage'
@@ -60,10 +60,13 @@ export function AnimatedRoutes() {
     prevPathRef.current = pathname
   }, [pathname])
 
-  const slideTransition = {
-    duration: pathname === book ? SLIDE_TO_BOOK_DURATION : SLIDE_DURATION,
-    ease: SLIDE_EASE,
-  }
+  const slideTransition = useMemo(
+    () => ({
+      duration: pathname === book ? SLIDE_TO_BOOK_DURATION : SLIDE_DURATION,
+      ease: SLIDE_EASE,
+    }),
+    [pathname, book],
+  )
 
   return (
     <div className="relative min-h-svh overflow-x-hidden">
