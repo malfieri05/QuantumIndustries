@@ -14,30 +14,6 @@ function HeroGyroscopeGate() {
 const delay = (ms: number): CSSProperties =>
   ({ '--hero-enter-delay': `${ms}ms` }) as CSSProperties
 
-/** Periods: geometric round dots at ~0.8em scale (20% smaller than body). */
-function HeroHeadlinePeriods({ text }: { text: string }) {
-  return (
-    <>
-      {text.split(/(\.)/g).map((part, i) =>
-        part === '.' ? (
-          <span
-            key={i}
-            className="inline-block align-baseline text-[0.8em] leading-none"
-          >
-            <span className="sr-only">.</span>
-            <span
-              className="relative top-[0.06em] ms-[0.02em] inline-block h-[0.2em] w-[0.2em] shrink-0 rounded-full bg-current"
-              aria-hidden
-            />
-          </span>
-        ) : part ? (
-          <span key={i}>{part}</span>
-        ) : null,
-      )}
-    </>
-  )
-}
-
 /** Shared with eyebrow / h1 / CTA on desktop (translate); mobile uses centered stack. */
 const heroTextCol =
   'min-w-0 max-w-2xl md:translate-x-[10%] lg:max-w-[42rem]'
@@ -71,24 +47,16 @@ export function Hero() {
           style={delay(110)}
         >
           <span className="md:hidden">
-            <span className="block text-qi-fg">
-              <HeroHeadlinePeriods text={mobileLine1} />
-            </span>
-            <span className="mt-1 block text-qi-fg/92">
-              <HeroHeadlinePeriods text={mobileLine2} />
-            </span>
+            <span className="block text-qi-fg">{mobileLine1}</span>
+            <span className="mt-1 block text-qi-fg/92">{mobileLine2}</span>
           </span>
           <span className="hidden md:block">
             {headlineLines.map((line, i) => (
               <span key={i} className="block">
                 {i === 0 ? (
-                  <span className="text-qi-fg">
-                    <HeroHeadlinePeriods text={line} />
-                  </span>
+                  <span className="text-qi-fg">{line}</span>
                 ) : (
-                  <span className="mt-1 block text-qi-fg/92">
-                    <HeroHeadlinePeriods text={line} />
-                  </span>
+                  <span className="mt-1 block text-qi-fg/92">{line}</span>
                 )}
               </span>
             ))}
