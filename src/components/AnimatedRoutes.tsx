@@ -1,16 +1,22 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useLayoutEffect, useRef } from 'react'
+import { lazy, Suspense, useLayoutEffect, useRef } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { site } from '../content/site'
-import { BookingPage } from '../pages/BookingPage'
 import { HomePage } from '../pages/HomePage'
+
+const BookingPage = lazy(() =>
+  import('../pages/BookingPage').then((m) => ({ default: m.BookingPage })),
+)
 
 /**
  * Expo-out: launches fast, settles gently — matches iOS panel-swipe muscle
  * memory. The old [0.32, 0.72, 0, 1] curve stalled near the end, causing the
  * "thud" feeling as pages landed.
  */
-const SLIDE = { duration: 0.38, ease: [0.22, 1, 0.36, 1] as const }
+const SLIDE_EASE = [0.22, 1, 0.36, 1] as const
+const SLIDE_DURATION = 0.38
+/** Entering `/book`: half the swipe speed → double duration. */
+const SLIDE_TO_BOOK_DURATION = SLIDE_DURATION * 2
 
 /**
  * Hoisted to module level — object identity is stable across renders so
@@ -54,6 +60,11 @@ export function AnimatedRoutes() {
     prevPathRef.current = pathname
   }, [pathname])
 
+  const slideTransition = {
+    duration: pathname === book ? SLIDE_TO_BOOK_DURATION : SLIDE_DURATION,
+    ease: SLIDE_EASE,
+  }
+
   return (
     <div className="relative min-h-svh overflow-x-hidden">
       <AnimatePresence mode="sync" initial={false} custom={directionRef.current}>
@@ -64,13 +75,23 @@ export function AnimatedRoutes() {
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={SLIDE}
+          transition={slideTransition}
           className="absolute inset-x-0 top-0 min-h-svh w-full"
         >
-          <Routes location={location}>
-            <Route path="/" element={<HomePage />} />
-            <Route path={book} element={<BookingPage />} />
-          </Routes>
+          <Suspense
+            fallback={
+              <div
+                className="min-h-svh bg-qi-bg"
+                aria-busy="true"
+                aria-label="Loading"
+              />
+            }
+          >
+            <Routes location={location}>
+              <Route path="/" element={<HomePage />} />
+              <Route path={book} element={<BookingPage />} />
+            </Routes>
+          </Suspense>
         </motion.div>
       </AnimatePresence>
     </div>

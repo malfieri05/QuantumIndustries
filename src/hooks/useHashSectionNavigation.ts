@@ -21,8 +21,13 @@ export function useHashSectionNavigation() {
     }
 
     e.preventDefault()
+    const scrollBehavior: ScrollBehavior = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+      ? 'instant'
+      : 'smooth'
     if (location.hash === `#${hash}`) {
-      scrollToSectionById(hash)
+      scrollToSectionById(hash, scrollBehavior)
     } else {
       navigate({ pathname: '/', hash: `#${hash}` }, { replace: true })
     }

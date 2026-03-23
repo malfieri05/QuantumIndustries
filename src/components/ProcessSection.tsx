@@ -11,8 +11,6 @@ export function ProcessSection() {
       className="relative py-28 sm:py-36 lg:py-44"
       aria-labelledby="process-heading"
     >
-      <div className="section-hairline mx-auto max-w-5xl opacity-80" />
-
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:px-8 sm:pt-20 lg:px-10">
         <div id={process.id} className="scroll-anchor" aria-hidden="true" />
         <Reveal>
@@ -29,7 +27,7 @@ export function ProcessSection() {
             const card = (
               <article
                 key={step.title}
-                className="process-step-card group relative mx-auto flex aspect-[4/5] w-full max-w-[285px] flex-col items-center justify-start gap-4 self-start rounded-qi-card border border-qi-accent/40 glass glass-float p-6 text-center sm:max-w-[308px] sm:gap-5 sm:p-8 lg:max-w-[322px]"
+                className="process-step-card group relative mx-auto flex aspect-[4/5] w-full max-w-[285px] min-w-0 flex-col items-center justify-start gap-4 self-start rounded-qi-card border border-qi-accent/40 glass glass-float p-6 text-center sm:max-w-[308px] sm:gap-5 sm:p-8 lg:max-w-[322px]"
               >
                 <div className="flex w-full flex-col items-center gap-2 sm:gap-2.5">
                   <span
@@ -50,7 +48,7 @@ export function ProcessSection() {
                   <Link
                     to={site.booking.path}
                     state={routeSlide.forward}
-                    className="mt-auto inline-flex shrink-0 items-center justify-center rounded-full border border-qi-accent bg-transparent px-3.5 py-1.5 text-xs font-medium text-qi-accent transition-colors hover:bg-[color-mix(in_oklab,var(--color-qi-accent)_10%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/70"
+                    className="mt-auto inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-qi-accent bg-transparent px-4 py-2 text-xs font-medium text-qi-accent transition-colors hover:bg-[color-mix(in_oklab,var(--color-qi-accent)_10%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/70"
                   >
                     Book Now
                   </Link>

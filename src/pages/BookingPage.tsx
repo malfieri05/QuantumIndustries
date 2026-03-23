@@ -13,10 +13,10 @@ export function BookingPage() {
       <div className="qi-grid" aria-hidden />
 
       <header className="header-bar header-bar--elevated sticky top-0 z-50">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-6 sm:py-5 lg:px-8">
+        <div className="mx-auto flex max-w-7xl min-w-0 items-center justify-between gap-3 px-6 py-4 sm:gap-4 lg:px-10">
           <Link
             to="/"
-            className="group flex flex-col items-center text-center leading-tight focus-visible:rounded-md"
+            className="group flex min-w-0 shrink flex-col items-center text-center leading-tight focus-visible:rounded-md"
           >
             <span className="font-display text-base font-semibold tracking-tight text-qi-fg transition sm:text-lg">
               {name}
@@ -28,14 +28,14 @@ export function BookingPage() {
           <Link
             to="/"
             state={routeSlide.back}
-            className="text-sm font-medium text-qi-muted underline-offset-4 transition hover:text-qi-fg hover:underline"
+            className="-mr-2 inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg px-2 text-sm font-medium text-qi-muted underline-offset-4 transition hover:text-qi-fg hover:underline"
           >
             ← Back to home
           </Link>
         </div>
       </header>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-10">
         <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-qi-fg sm:text-4xl">
             {booking.title}

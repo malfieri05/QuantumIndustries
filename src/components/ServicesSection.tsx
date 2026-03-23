@@ -23,10 +23,10 @@ export function ServicesSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-20 grid gap-8 lg:grid-cols-5 lg:gap-10">
+        <div className="mt-14 grid gap-8 sm:mt-16 lg:mt-20 lg:grid-cols-5 lg:gap-10">
           <Reveal variant="slide-left" delay={0.1} className="lg:col-span-3">
-            <article className="group relative h-full overflow-hidden rounded-qi-card glass glass-float">
-              <div className="relative p-8 sm:p-10 lg:p-11">
+            <article className="group relative h-full min-w-0 overflow-hidden rounded-qi-card glass glass-float">
+              <div className="relative p-6 sm:p-8 lg:p-11">
                 <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
                   {primary.label}
                 </span>
@@ -51,8 +51,8 @@ export function ServicesSection() {
           </Reveal>
 
           <Reveal variant="slide-right" delay={0.2} className="lg:col-span-2 lg:mt-14">
-            <article className="group relative h-full overflow-hidden rounded-qi-card glass-subtle glass-float">
-              <div className="relative p-8 sm:p-10 lg:p-11">
+            <article className="group relative h-full min-w-0 overflow-hidden rounded-qi-card glass-subtle glass-float">
+              <div className="relative p-6 sm:p-8 lg:p-11">
                 <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
                   {secondary.label}
                 </span>
@@ -89,22 +89,24 @@ export function ServicesSection() {
           </Reveal>
 
           <Reveal variant="slide-left" delay={0.28} className="lg:col-span-5">
-            <article className="group relative overflow-hidden rounded-qi-card glass glass-float">
-              <div className="relative p-[2.662rem] sm:p-[3.3275rem] lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-[3.3275rem] lg:px-[3.3275rem] lg:py-[2.995rem] xl:gap-[3.993rem]">
-                <div className="lg:col-span-7">
+            <article className="group relative min-w-0 overflow-hidden rounded-qi-card glass glass-float">
+              <div className="relative p-6 sm:p-8 md:p-10 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-[3.3275rem] lg:p-[2.662rem] lg:px-[3.3275rem] lg:py-[2.995rem] xl:gap-[3.993rem]">
+                <div className="min-w-0 lg:col-span-7">
                   <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
                     {intel.label}
                   </span>
-                  <h3 className="mt-[1.66375rem] font-display text-2xl font-semibold text-qi-fg sm:mt-[1.9965rem] sm:text-3xl">
+                  <h3 className="mt-6 font-display text-2xl font-semibold text-qi-fg sm:mt-[1.9965rem] sm:text-3xl lg:mt-[1.66375rem]">
                     {intel.title}
                   </h3>
-                  <p className="mt-[0.99825rem] text-sm font-medium text-qi-muted sm:text-base">{intel.tagline}</p>
-                  <p className="mt-[1.331rem] max-w-xl text-sm leading-[1.75] text-qi-muted sm:mt-[1.66375rem] sm:text-base sm:leading-[1.8]">
+                  <p className="mt-3 text-sm font-medium text-qi-muted sm:mt-[0.99825rem] sm:text-base lg:mt-[0.99825rem]">
+                    {intel.tagline}
+                  </p>
+                  <p className="mt-4 max-w-xl text-sm leading-[1.75] text-qi-muted sm:mt-[1.331rem] sm:text-base sm:leading-[1.8] lg:mt-[1.331rem]">
                     {intel.intro}
                   </p>
                 </div>
 
-                <div className="relative mt-[3.3275rem] border-t border-black/[0.06] pt-[3.3275rem] lg:col-span-5 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:border-t-0 lg:pl-0 lg:pt-0">
+                <div className="relative mt-8 border-t border-black/[0.06] pt-8 sm:mt-10 sm:pt-10 lg:col-span-5 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:border-t-0 lg:pl-0 lg:pt-0">
                   {/* Centered in grid gap — matches horizontal .services-card-divider fade */}
                   <div
                     className="services-card-divider-vertical pointer-events-none absolute top-[15%] bottom-[15%] z-0 hidden w-px lg:left-[calc(-3.3275rem/2)] lg:block lg:-translate-x-1/2 xl:left-[calc(-3.993rem/2)]"

@@ -79,6 +79,7 @@ export function Reveal({
   return (
     <motion.div
       ref={ref}
+      layout={false}
       className={className}
       variants={variantMap[variant]}
       initial="hidden"
@@ -138,6 +139,7 @@ export function RevealStagger({ children, className }: RevealStaggerProps) {
   return (
     <motion.div
       ref={ref}
+      layout={false}
       className={className}
       variants={staggerContainerVariants}
       initial="hidden"
@@ -149,7 +151,12 @@ export function RevealStagger({ children, className }: RevealStaggerProps) {
         }
         const key = child.key != null ? child.key : `reveal-stagger-${index}`
         return (
-          <motion.div key={key} variants={staggerItemVariants} className="h-full">
+          <motion.div
+            key={key}
+            layout={false}
+            variants={staggerItemVariants}
+            className="h-full"
+          >
             {child}
           </motion.div>
         )

@@ -6,14 +6,14 @@ import { useHashSectionNavigation } from '../hooks/useHashSectionNavigation'
 import { routeSlide } from '../lib/routeTransitions'
 
 const headerPillSizing =
-  'min-h-10 px-5 py-2.5 text-xs font-normal tracking-wide transition-colors'
+  'min-h-11 px-5 py-2.5 text-xs font-normal tracking-wide transition-colors'
 
 function HeaderPhoneButton() {
   return (
     <div className="group relative flex">
       <a
         href={`tel:${site.phone.tel}`}
-        className="header-pill inline-flex h-10 min-h-10 w-10 min-w-10 shrink-0 items-center justify-center rounded-full p-0 text-qi-fg"
+        className="header-pill inline-flex h-11 min-h-11 w-11 min-w-11 shrink-0 items-center justify-center rounded-full p-0 text-qi-fg"
         aria-label={`Call ${site.phone.display}`}
       >
         <svg className="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" aria-hidden="true">
@@ -40,7 +40,16 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20)
+        ticking = false
+      })
+    }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -54,13 +63,13 @@ export function Header() {
         scrolled ? 'header-bar--elevated' : ''
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:px-10">
+      <div className="mx-auto flex max-w-7xl min-w-0 items-center justify-between gap-2 px-6 py-4 sm:gap-4 lg:px-10">
         <Link
           to="/"
           state={
             location.pathname === site.booking.path ? routeSlide.back : undefined
           }
-          className="group flex flex-col items-center text-center leading-tight focus-visible:rounded-md"
+          className="group flex min-w-0 max-w-[calc(100%-9.25rem)] shrink flex-col items-center text-center leading-tight focus-visible:rounded-md sm:max-w-none"
         >
           <span className="font-display text-base font-semibold tracking-tight text-qi-fg transition group-hover:text-qi-fg sm:text-lg">
             {site.name}
@@ -103,7 +112,7 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 md:hidden">
           <Link
             to={site.booking.path}
             state={routeSlide.forward}
@@ -114,7 +123,7 @@ export function Header() {
           <HeaderPhoneButton />
           <button
             type="button"
-            className="header-pill inline-flex h-10 min-h-10 w-10 min-w-10 shrink-0 items-center justify-center rounded-full p-0"
+            className="header-pill inline-flex h-11 min-h-11 w-11 min-w-11 shrink-0 items-center justify-center rounded-full p-0"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -146,7 +155,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`header-pill header-pill--block ${headerPillSizing}`}
+                  className={`header-pill header-pill--block min-h-11 items-center ${headerPillSizing}`}
                   onClick={(e) => {
                     navigateHashSection(e, item.href)
                     setOpen(false)

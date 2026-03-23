@@ -5,7 +5,10 @@ export function hashFromHref(href: string): string | null {
   return href.slice(i + 1) || null
 }
 
-export function scrollToSectionById(id: string) {
+export function scrollToSectionById(
+  id: string,
+  behavior: ScrollBehavior = 'smooth',
+) {
   const el = document.getElementById(id)
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  if (el) el.scrollIntoView({ behavior, block: 'start' })
 }

@@ -1,7 +1,15 @@
 import type { CSSProperties } from 'react'
 import { site } from '../content/site'
+import { useHeroGyroscopeEnabled } from '../hooks/useHeroGyroscopeEnabled'
 import { ConsultationCta } from './ConsultationCta'
 import { HeroGyroscope } from './HeroGyroscope'
+import { SectionDivider } from './SectionDivider'
+
+function HeroGyroscopeGate() {
+  const enabled = useHeroGyroscopeEnabled()
+  if (!enabled) return null
+  return <HeroGyroscope className="h-full w-full" />
+}
 
 const delay = (ms: number): CSSProperties =>
   ({ '--hero-enter-delay': `${ms}ms` }) as CSSProperties
@@ -56,18 +64,12 @@ export function Hero() {
           }}
           aria-hidden="true"
         >
-          <HeroGyroscope className="h-full w-full" />
+          <HeroGyroscopeGate />
         </div>
       </div>
 
-      {/* Inset faint accent line — spacer uses explicit height so offset is not lost to margin collapse */}
-      <div className="relative z-10 mx-10 sm:mx-16 lg:mx-24">
-        <div
-          className="h-28 shrink-0 sm:h-32 lg:h-36"
-          aria-hidden
-        />
-        <div className="hero-accent-line w-full" aria-hidden />
-      </div>
+      {/* Inset faint accent line — inner only; section already has max-w-7xl + px-6 lg:px-10 */}
+      <SectionDivider embedded />
     </section>
   )
 }
