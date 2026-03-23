@@ -69,7 +69,7 @@ export function AnimatedRoutes() {
   )
 
   return (
-    <div className="relative min-h-svh overflow-x-hidden">
+    <div className="relative min-h-svh overflow-x-clip md:overflow-x-hidden">
       <AnimatePresence mode="sync" initial={false} custom={directionRef.current}>
         <motion.div
           key={pathname}

@@ -60,6 +60,23 @@
     overflow-x: hidden;
   }
 
+  /*
+   * Mobile Safari: `overflow-x: hidden` on the scroll root often breaks the system
+   * “tap status bar / top of UI → scroll to top” gesture. `clip` avoids a scroll
+   * containment quirk while still clipping horizontal bleed. Smooth scrolling on
+   * the root can also fight that gesture — use instant scroll on narrow viewports.
+   */
+  @media (max-width: 767px) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    body,
+    #root {
+      overflow-x: clip;
+    }
+  }
+
   ::selection {
     background: color-mix(in oklab, var(--color-qi-accent) 22%, transparent);
     color: var(--color-qi-fg);

@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom'
 import { CalcomEmbed } from '../components/CalcomEmbed'
 import { Reveal } from '../components/Reveal'
 import { site } from '../content/site'
+import { useMdUp } from '../hooks/useMdUp'
 import { routeSlide } from '../lib/routeTransitions'
 
 export function BookingPage() {
   const { booking, name, tagline } = site
+  const mdUp = useMdUp()
 
   return (
     <div className="relative min-h-svh bg-qi-bg font-sans text-qi-fg">
@@ -63,7 +65,7 @@ export function BookingPage() {
           alt=""
           className="h-auto w-auto max-h-16 origin-bottom-right scale-90 object-contain opacity-90 sm:max-h-20"
           decoding="async"
-          loading="lazy"
+          loading={mdUp ? 'lazy' : 'eager'}
         />
       </Link>
     </div>

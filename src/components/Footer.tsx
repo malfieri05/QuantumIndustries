@@ -1,6 +1,9 @@
 import { site } from '../content/site'
+import { useMdUp } from '../hooks/useMdUp'
 
 export function Footer() {
+  const mdUp = useMdUp()
+
   return (
     <footer className="relative bg-[var(--color-qi-header-bg)]">
       <div className="mx-auto max-w-7xl px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
@@ -16,7 +19,7 @@ export function Footer() {
               alt={site.name}
               className="h-auto w-auto max-h-36 max-w-[min(100%,320px)] object-contain object-right sm:max-h-40 sm:max-w-[min(100%,min(42vw,380px))] lg:max-h-44 lg:max-w-[min(100%,420px)]"
               decoding="async"
-              loading="lazy"
+              loading={mdUp ? 'lazy' : 'eager'}
             />
           </div>
         </div>
