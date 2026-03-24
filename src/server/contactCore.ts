@@ -1,5 +1,5 @@
 import { Resend } from 'resend'
-import { site } from '../content/site'
+import { site } from '../content/site.js'
 
 const RATE_WINDOW_MS = 60_000
 const MAX_CONTACT_PER_WINDOW = 5

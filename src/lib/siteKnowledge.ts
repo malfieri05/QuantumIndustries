@@ -1,4 +1,4 @@
-import { site } from '../content/site'
+import { site } from '../content/site.js'
 
 /**
  * Canonical JSON snapshot of public marketing copy for the chat API system prompt.

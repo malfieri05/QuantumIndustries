@@ -1,8 +1,8 @@
 import OpenAI from 'openai'
-import { chatFaqEntries, chatKnowledgeSnippets } from '../content/chatKnowledge'
-import { site } from '../content/site'
-import { getSiteKnowledgeJson } from '../lib/siteKnowledge'
-import type { ChatApiMessage, ChatRequestBody } from '../types/chat'
+import { chatFaqEntries, chatKnowledgeSnippets } from '../content/chatKnowledge.js'
+import { site } from '../content/site.js'
+import { getSiteKnowledgeJson } from '../lib/siteKnowledge.js'
+import type { ChatApiMessage, ChatRequestBody } from '../types/chat.js'
 
 const MODEL = 'gpt-4o-mini'
 const MAX_MESSAGES = 14
