@@ -6,6 +6,7 @@ import { Hero } from '../components/Hero'
 import { ProcessSection } from '../components/ProcessSection'
 import { SectionDivider } from '../components/SectionDivider'
 import { ServicesSection } from '../components/ServicesSection'
+import { ContactSection } from '../components/ContactSection'
 import { SupportSection } from '../components/SupportSection'
 import { scrollToSectionById } from '../lib/hashNav'
 
@@ -39,6 +40,8 @@ export function HomePage() {
         <ProcessSection />
         <SectionDivider />
         <SupportSection />
+        <SectionDivider />
+        <ContactSection />
         <SectionDivider />
       </main>
       <Footer />

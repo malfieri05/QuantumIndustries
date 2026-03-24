@@ -8,6 +8,9 @@ export const site = {
     subtitle: 'Free. No obligation.',
   },
 
+  /** Canonical site URL for absolute links in transactional emails (logo, booking). */
+  publicUrl: 'https://quantumindustries.ai' as const,
+
   /** E.164-style digits for tel:; display string for UI */
   phone: {
     tel: '+15037645097',
@@ -19,6 +22,7 @@ export const site = {
     { label: 'Services', href: '/#services' },
     { label: 'Process', href: '/#process' },
     { label: 'Support', href: '/#support' },
+    { label: 'Contact', href: '/#contact', iconOnly: true as const },
   ],
 
   hero: {
@@ -99,6 +103,12 @@ export const site = {
     bodySecond:
       "Anytime our clients need help or have questions on their product, they are free to reach out to their project architect's direct cell or email.",
     closing: 'No hold time. No call center.',
+  },
+
+  contact: {
+    id: 'contact',
+    title: 'Send us a message',
+    blurb: 'Please fill in the form below:',
   },
 
   footer: {

@@ -8,6 +8,23 @@ import { routeSlide } from '../lib/routeTransitions'
 const headerPillSizing =
   'min-h-11 px-5 py-2.5 text-xs font-normal tracking-wide transition-colors'
 
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+      />
+    </svg>
+  )
+}
+
+const navTooltipClass =
+  'pointer-events-none absolute left-1/2 top-full z-[60] mt-2 -translate-x-1/2 whitespace-nowrap rounded-xl border border-black/[0.06] bg-white px-3 py-1.5 text-xs font-medium tracking-wide text-qi-fg opacity-0 shadow-[0_8px_28px_-10px_rgba(0,0,0,0.18)] transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-within:opacity-100'
+
 function HeaderPhoneButton() {
   return (
     <div className="group relative flex">
@@ -23,10 +40,7 @@ function HeaderPhoneButton() {
           />
         </svg>
       </a>
-      <span
-        className="pointer-events-none absolute left-1/2 top-full z-[60] mt-2 -translate-x-1/2 whitespace-nowrap rounded-xl border border-black/[0.06] bg-white px-3 py-1.5 text-xs font-medium tracking-wide text-qi-fg opacity-0 shadow-[0_8px_28px_-10px_rgba(0,0,0,0.18)] transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-within:opacity-100"
-        aria-hidden="true"
-      >
+      <span className={navTooltipClass} aria-hidden="true">
         {site.phone.display}
       </span>
     </div>
@@ -78,18 +92,36 @@ export function Header() {
 
         <nav className="hidden items-center md:flex" aria-label="Primary">
           <div className="flex items-center gap-2">
-            {site.nav.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`header-pill ${headerPillSizing}`}
-                onClick={(e) => {
-                  navigateHashSection(e, item.href)
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {site.nav.map((item) =>
+              'iconOnly' in item && item.iconOnly ? (
+                <div key={item.href} className="group relative flex">
+                  <Link
+                    to={item.href}
+                    className="header-pill inline-flex h-11 min-h-11 w-11 min-w-11 shrink-0 items-center justify-center rounded-full p-0 text-qi-fg"
+                    aria-label="Contact — send a message"
+                    onClick={(e) => {
+                      navigateHashSection(e, item.href)
+                    }}
+                  >
+                    <MailIcon className="h-[18px] w-[18px] shrink-0" />
+                  </Link>
+                  <span className={navTooltipClass} aria-hidden="true">
+                    {item.label}
+                  </span>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`header-pill ${headerPillSizing}`}
+                  onClick={(e) => {
+                    navigateHashSection(e, item.href)
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
           </div>
           <div
             className="flex w-6 shrink-0 items-center justify-center self-stretch"
@@ -148,19 +180,34 @@ export function Header() {
             className="header-bar overflow-hidden border-t border-black/[0.06] md:hidden"
           >
             <nav className="flex flex-col gap-1 px-6 py-4" aria-label="Mobile">
-              {site.nav.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`header-pill header-pill--block min-h-11 items-center ${headerPillSizing}`}
-                  onClick={(e) => {
-                    navigateHashSection(e, item.href)
-                    setOpen(false)
-                  }}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {site.nav.map((item) =>
+                'iconOnly' in item && item.iconOnly ? (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={`header-pill header-pill--block inline-flex min-h-11 items-center justify-center gap-2 ${headerPillSizing}`}
+                    onClick={(e) => {
+                      navigateHashSection(e, item.href)
+                      setOpen(false)
+                    }}
+                  >
+                    <MailIcon className="h-[18px] w-[18px] shrink-0" />
+                    <span>{item.label}</span>
+                  </Link>
+                ) : (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={`header-pill header-pill--block min-h-11 items-center ${headerPillSizing}`}
+                    onClick={(e) => {
+                      navigateHashSection(e, item.href)
+                      setOpen(false)
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </nav>
           </motion.div>
         )}

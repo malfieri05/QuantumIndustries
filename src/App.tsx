@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { AnimatedRoutes } from './components/AnimatedRoutes'
+import { ChatWidget } from './components/ChatWidget'
 
 function App() {
   useEffect(() => {
@@ -12,6 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <AnimatedRoutes />
+      <ChatWidget />
     </BrowserRouter>
   )
 }

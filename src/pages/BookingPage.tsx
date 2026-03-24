@@ -2,12 +2,10 @@ import { Link } from 'react-router-dom'
 import { CalcomEmbed } from '../components/CalcomEmbed'
 import { Reveal } from '../components/Reveal'
 import { site } from '../content/site'
-import { useMdUp } from '../hooks/useMdUp'
 import { routeSlide } from '../lib/routeTransitions'
 
 export function BookingPage() {
   const { booking, name, tagline } = site
-  const mdUp = useMdUp()
 
   return (
     <div className="relative min-h-svh bg-qi-bg font-sans text-qi-fg">
@@ -53,21 +51,6 @@ export function BookingPage() {
           </div>
         </Reveal>
       </div>
-
-      <Link
-        to="/"
-        state={routeSlide.back}
-        aria-label={`${name} — home`}
-        className="fixed bottom-5 right-5 z-40 inline-flex rounded-lg p-1 ring-offset-qi-bg transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qi-accent/70 sm:bottom-6 sm:right-6"
-      >
-        <img
-          src="/coreNOBACKGROUND.png"
-          alt=""
-          className="h-auto w-auto max-h-16 origin-bottom-right scale-90 object-contain opacity-90 sm:max-h-20"
-          decoding="async"
-          loading={mdUp ? 'lazy' : 'eager'}
-        />
-      </Link>
     </div>
   )
 }
