@@ -16,9 +16,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const payload =
     typeof req.body === 'string' ? (JSON.parse(req.body) as unknown) : req.body
   const result = await handleContactRequest(payload, ip)
-  if (result.ok) {
-    res.status(200).json({ ok: true })
-  } else {
+  if (result.ok === false) {
     res.status(result.status).json({ error: result.error })
+    return
   }
+  res.status(200).json({ ok: true })
 }
