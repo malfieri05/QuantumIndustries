@@ -10,7 +10,13 @@ export function Footer() {
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-12 lg:gap-16">
           <div className="max-w-sm sm:max-w-[min(100%,28rem)]">
             <p className="text-sm leading-[1.75] text-qi-muted">{site.footer.blurb}</p>
-            <p className="mt-1 text-xs text-qi-muted/70">{site.footer.legal}</p>
+            <p className="mt-1 text-xs text-qi-muted/70">
+              {site.footer.legal}
+              <span className="font-normal text-transparent selection:bg-qi-accent/25 selection:text-qi-fg">
+                {' '}
+                Jaron Armiger
+              </span>
+            </p>
           </div>
 
           <div className="flex w-full shrink-0 justify-center sm:w-auto sm:justify-end">
