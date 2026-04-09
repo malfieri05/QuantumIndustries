@@ -1,4 +1,4 @@
-# Dark luxury visual refactor — Quantum Industries
+# Dark luxury visual refactor — Ark Solutions
 
 Brief record of the March 2026 pass to move the UI from “cool tech startup” toward **elite consulting + subtle advanced capability**: restrained, expensive, calm.
 

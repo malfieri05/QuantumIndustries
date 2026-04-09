@@ -20,15 +20,15 @@ export const chatFaqEntries: ChatFaqEntry[] = [
     id: 'who',
     keywords: [
       'who',
-      'quantum industries',
+      'ark solutions',
       'company',
       'about you',
       'what is',
       'what do you do',
     ],
-    questions: ['who are you', 'what is quantum industries'],
+    questions: ['who are you', 'what is ark solutions'],
     answer:
-      'Quantum Industries builds custom-fit AI automation and software for growing businesses. Our tagline is “Take the Leap.” We focus on intelligent systems tailored to your operations—not one-size-fits-all SaaS.',
+      'Ark Solutions builds custom-fit AI automation and software for growing businesses. Our tagline is “Take the Leap.” We focus on intelligent systems tailored to your operations—not one-size-fits-all SaaS.',
   },
   {
     id: 'services-core',

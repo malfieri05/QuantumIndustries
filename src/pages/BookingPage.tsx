@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { CalcomEmbed } from '../components/CalcomEmbed'
 import { Reveal } from '../components/Reveal'
+import { SiteHeaderBrand } from '../components/SiteHeaderBrand'
 import { site } from '../content/site'
 import { routeSlide } from '../lib/routeTransitions'
 
 export function BookingPage() {
-  const { booking, name, tagline } = site
+  const { booking } = site
 
   return (
     <div className="relative min-h-svh bg-qi-bg font-sans text-qi-fg">
@@ -16,14 +17,10 @@ export function BookingPage() {
         <div className="mx-auto flex max-w-7xl min-w-0 items-center justify-between gap-3 px-6 py-4 sm:gap-4 lg:px-10">
           <Link
             to="/"
-            className="group flex min-w-0 shrink flex-col items-center text-center leading-tight focus-visible:rounded-md"
+            className="group ml-3 flex min-w-0 shrink flex-col items-center text-center leading-tight focus-visible:rounded-md sm:ml-5 lg:ml-6"
+            aria-label={`${site.name}, home`}
           >
-            <span className="font-display text-base font-semibold tracking-tight text-qi-fg transition sm:text-lg">
-              {name}
-            </span>
-            <span className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-qi-muted sm:text-[11px]">
-              {tagline}
-            </span>
+            <SiteHeaderBrand />
           </Link>
           <Link
             to="/"

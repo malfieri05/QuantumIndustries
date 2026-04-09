@@ -181,7 +181,7 @@ function fallbackAnswer(): string {
 export function matchChatQuery(userMessage: string): string {
   const trimmed = userMessage.trim()
   if (!trimmed) {
-    return 'Ask a question about Quantum Industries or this website.'
+    return 'Ask a question about Ark Solutions or this website.'
   }
 
   const queryNorm = normalize(trimmed)

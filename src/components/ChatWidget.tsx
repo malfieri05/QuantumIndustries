@@ -101,7 +101,7 @@ export function ChatWidget() {
               id={panelId}
               role="dialog"
               aria-modal="true"
-              aria-label={`${site.name} assistant`}
+              aria-label={`${site.brand.wordmark} ${site.brand.subline} assistant`}
               initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={reduced ? undefined : { opacity: 0, y: 8, scale: 0.98 }}
@@ -118,7 +118,7 @@ export function ChatWidget() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <p className="min-w-0 font-display text-[0.9625rem] font-semibold leading-tight text-qi-fg">
-                    {site.name}
+                    {site.brand.wordmark} {site.brand.subline}
                   </p>
                   <button
                     type="button"

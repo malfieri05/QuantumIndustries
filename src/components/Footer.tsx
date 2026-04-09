@@ -23,7 +23,7 @@ export function Footer() {
             <img
               src="/LOGO-NOBACKGROUND.png"
               alt={site.name}
-              className="h-auto w-auto max-h-36 max-w-[min(100%,320px)] object-contain object-right sm:max-h-40 sm:max-w-[min(100%,min(42vw,380px))] lg:max-h-44 lg:max-w-[min(100%,420px)]"
+              className="h-auto w-auto max-h-[5.233rem] max-w-[min(100%,186px)] object-contain object-right sm:max-h-[5.814rem] sm:max-w-[min(100%,min(42vw,220px))] lg:max-h-[6.395rem] lg:max-w-[min(100%,244px)]"
               decoding="async"
               loading={mdUp ? 'lazy' : 'eager'}
             />

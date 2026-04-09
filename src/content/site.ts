@@ -1,5 +1,10 @@
 export const site = {
-  name: 'Quantum Industries',
+  name: 'Ark Solutions',
+  /** Sticky header: large wordmark + muted subline with flank lines */
+  brand: {
+    wordmark: 'ARK',
+    subline: 'Solutions',
+  },
   tagline: 'Take the Leap',
 
   booking: {
@@ -113,6 +118,6 @@ export const site = {
 
   footer: {
     blurb: 'Custom-fit AI automation and software for growing businesses.',
-    legal: '\u00A9 ' + new Date().getFullYear().toString() + ' Quantum Industries. All rights reserved.',
+    legal: '\u00A9 ' + new Date().getFullYear().toString() + ' Ark Solutions. All rights reserved.',
   },
 } as const

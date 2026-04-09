@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { site } from '../content/site'
+import { SiteHeaderBrand } from './SiteHeaderBrand'
 import { useHashSectionNavigation } from '../hooks/useHashSectionNavigation'
 import { routeSlide } from '../lib/routeTransitions'
 
@@ -80,14 +81,10 @@ export function Header() {
           state={
             location.pathname === site.booking.path ? routeSlide.back : undefined
           }
-          className="group flex min-w-0 max-w-[calc(100%-9.25rem)] shrink flex-col items-center text-center leading-tight focus-visible:rounded-md sm:max-w-none"
+          className="group ml-3 flex min-w-0 max-w-[calc(100%-9.25rem)] shrink flex-col items-center text-center leading-tight focus-visible:rounded-md sm:ml-5 sm:max-w-none lg:ml-6"
+          aria-label={`${site.name}, home`}
         >
-          <span className="font-display text-base font-semibold tracking-tight text-qi-fg transition group-hover:text-qi-fg sm:text-lg">
-            {site.name}
-          </span>
-          <span className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-qi-muted sm:text-[11px]">
-            {site.tagline}
-          </span>
+          <SiteHeaderBrand />
         </Link>
 
         <nav className="hidden items-center md:flex" aria-label="Primary">

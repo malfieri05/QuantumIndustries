@@ -326,6 +326,27 @@
   background: color-mix(in oklab, var(--color-qi-accent) 38%, transparent);
 }
 
+/* Header wordmark — faint rules flanking “ARK”, same hue as primary type */
+.site-brand-flank {
+  border-radius: 1px;
+}
+.site-brand-flank--wordmark-left {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-qi-fg) 22%, transparent) 48%,
+    color-mix(in oklab, var(--color-qi-fg) 38%, transparent) 100%
+  );
+}
+.site-brand-flank--wordmark-right {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--color-qi-fg) 38%, transparent) 0%,
+    color-mix(in oklab, var(--color-qi-fg) 22%, transparent) 52%,
+    transparent 100%
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   .header-pill {
     transition-duration: 0.01ms;
