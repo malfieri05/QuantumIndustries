@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { site } from '../content/site'
+import { playBookingTapSound } from '../lib/bookingTapSound'
 import { SiteHeaderBrand } from './SiteHeaderBrand'
 import { useHashSectionNavigation } from '../hooks/useHashSectionNavigation'
 import { routeSlide } from '../lib/routeTransitions'
@@ -131,6 +132,9 @@ export function Header() {
               to={site.booking.path}
               state={routeSlide.forward}
               className={`header-pill ${headerPillSizing}`}
+              onClick={() => {
+                playBookingTapSound()
+              }}
             >
               Book
             </Link>
@@ -143,6 +147,9 @@ export function Header() {
             to={site.booking.path}
             state={routeSlide.forward}
             className={`header-pill ${headerPillSizing}`}
+            onClick={() => {
+              playBookingTapSound()
+            }}
           >
             Book
           </Link>

@@ -44,19 +44,33 @@
 }
 
 @layer base {
+  /*
+   * Root zoom shrinks painting but not `svh`/`vh` lengths — without compensating
+   * min-height, scroll/doc height is too short (gray gap under booking, clipped sections).
+   */
   html {
     scroll-behavior: smooth;
+    --qi-site-zoom: 1;
+    --qi-vh-fill: 100svh;
+  }
+
+  @supports (zoom: 1) {
+    html {
+      --qi-site-zoom: 0.8;
+      --qi-vh-fill: calc(100svh / var(--qi-site-zoom));
+      zoom: var(--qi-site-zoom);
+    }
   }
 
   body {
     @apply bg-qi-bg text-qi-fg font-sans antialiased;
     margin: 0;
-    min-height: 100svh;
+    min-height: var(--qi-vh-fill);
     overflow-x: hidden;
   }
 
   #root {
-    min-height: 100svh;
+    min-height: var(--qi-vh-fill);
     overflow-x: hidden;
   }
 

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { playBookingTapSound } from '../lib/bookingTapSound'
 import { site } from '../content/site'
 import { routeSlide } from '../lib/routeTransitions'
 
@@ -23,6 +24,9 @@ export function ConsultationCta({
       to={site.booking.path}
       state={routeSlide.forward}
       className={`btn-primary ${sizeClass} ${className}`.trim()}
+      onClick={() => {
+        playBookingTapSound()
+      }}
     >
       {children}
     </Link>

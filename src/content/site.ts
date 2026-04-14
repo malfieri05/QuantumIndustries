@@ -10,7 +10,7 @@ export const site = {
   booking: {
     path: '/book' as const,
     title: 'Book Your Consultation',
-    subtitle: 'Free. No obligation.',
+    subtitle: 'Free.',
   },
 
   /** Canonical site URL for absolute links in transactional emails (logo, booking). */
@@ -32,12 +32,21 @@ export const site = {
 
   hero: {
     eyebrow: 'AI Automation & Custom Software',
-    headline: 'Intelligent\nSystems.\nTailored\nto You.',
+    headline: 'Intelligent\nBusiness\nSystems.',
+    subhead: 'Tailored to your needs.',
   },
 
   services: {
     id: 'services',
     title: 'Services',
+    /** Shown in a hover/focus box on “'superintelligence'” in Core offering highlights */
+    superintelligenceTooltip: {
+      heading: "'Superintelligence' integration:",
+      bullets: [
+        "Safely granting an independent AI agent 'read-only' access to as much company data as desired.",
+        'The agent can be calibrated to provide whatever desired analysis, insights, advice, etc. on a constant or scheduled basis.',
+      ],
+    },
     cards: [
       {
         label: 'Core offering',

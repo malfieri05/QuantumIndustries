@@ -1,10 +1,68 @@
+import { useId } from 'react'
 import { site } from '../content/site'
 import { Reveal } from './Reveal'
+
+const SUPERINTELLIGENCE_PHRASE = "'superintelligence'" as const
+
+type SuperintelligenceTooltipCopy = {
+  readonly heading: string
+  readonly bullets: readonly string[]
+}
+
+function HighlightLine({
+  text,
+  tooltipId,
+  tooltip,
+}: {
+  text: string
+  tooltipId: string
+  tooltip: SuperintelligenceTooltipCopy
+}) {
+  const lower = text.toLowerCase()
+  const needleLower = SUPERINTELLIGENCE_PHRASE.toLowerCase()
+  const idx = lower.indexOf(needleLower)
+  if (idx === -1) {
+    return <>{text}</>
+  }
+  const before = text.slice(0, idx)
+  const match = text.slice(idx, idx + SUPERINTELLIGENCE_PHRASE.length)
+  const after = text.slice(idx + SUPERINTELLIGENCE_PHRASE.length)
+  return (
+    <>
+      {before}
+      <span className="group/super relative inline">
+        <button
+          type="button"
+          className="cursor-help border-0 bg-transparent p-0 font-inherit text-left text-qi-accent transition-colors hover:text-qi-accent/90 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/50"
+          aria-describedby={tooltipId}
+        >
+          {match}
+        </button>
+        <span
+          id={tooltipId}
+          role="tooltip"
+          className="pointer-events-none invisible absolute bottom-full left-0 z-30 mb-2 w-[min(22rem,calc(100vw-2rem))] max-h-[min(16rem,45vh)] -translate-y-1 overflow-y-auto rounded-xl border border-qi-accent bg-qi-elevated/98 px-3 py-2.5 text-left text-[12.5px] leading-relaxed text-qi-fg opacity-0 shadow-lg backdrop-blur-md transition-[opacity,transform,visibility] duration-200 ease-out group-hover/super:visible group-hover/super:translate-y-0 group-hover/super:opacity-100 group-focus-within/super:visible group-focus-within/super:translate-y-0 group-focus-within/super:opacity-100 sm:text-sm sm:leading-relaxed"
+        >
+          <span className="block font-semibold text-qi-fg">{tooltip.heading}</span>
+          <ul className="mt-2 list-disc space-y-1.5 pl-4 marker:text-qi-muted">
+            {tooltip.bullets.map((line) => (
+              <li key={line} className="pl-0.5 text-qi-fg/95">
+                {line}
+              </li>
+            ))}
+          </ul>
+        </span>
+      </span>
+      {after}
+    </>
+  )
+}
 
 export function ServicesSection() {
   const { services } = site
   const [primary, secondary] = services.cards
   const intel = services.intelligenceCard
+  const superTipId = useId()
 
   return (
     <section
@@ -25,7 +83,7 @@ export function ServicesSection() {
 
         <div className="mt-14 grid gap-8 sm:mt-16 lg:mt-20 lg:grid-cols-5 lg:gap-10">
           <Reveal variant="slide-left" delay={0.1} className="lg:col-span-3">
-            <article className="group relative h-full min-w-0 overflow-hidden rounded-qi-card glass glass-float">
+            <article className="group relative h-full min-w-0 overflow-x-clip overflow-y-visible rounded-qi-card glass glass-float">
               <div className="relative p-6 sm:p-8 lg:p-11">
                 <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
                   {primary.label}
@@ -42,7 +100,9 @@ export function ServicesSection() {
                   {primary.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span className="accent-dot mt-2" aria-hidden />
-                      {item}
+                      <span className="min-w-0">
+                        <HighlightLine text={item} tooltipId={superTipId} tooltip={services.superintelligenceTooltip} />
+                      </span>
                     </li>
                   ))}
                 </ul>

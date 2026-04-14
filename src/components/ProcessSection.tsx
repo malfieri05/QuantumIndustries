@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { playBookingTapSound } from '../lib/bookingTapSound'
 import { site } from '../content/site'
 import { routeSlide } from '../lib/routeTransitions'
 import { Reveal, RevealStagger } from './Reveal'
@@ -49,6 +50,9 @@ export function ProcessSection() {
                     to={site.booking.path}
                     state={routeSlide.forward}
                     className="mt-auto inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-qi-accent bg-transparent px-4 py-2 text-xs font-medium text-qi-accent transition-colors hover:bg-[color-mix(in_oklab,var(--color-qi-accent)_10%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/70"
+                    onClick={() => {
+                      playBookingTapSound()
+                    }}
                   >
                     Book Now
                   </Link>

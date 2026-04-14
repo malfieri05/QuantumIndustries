@@ -69,7 +69,7 @@ export function AnimatedRoutes() {
   )
 
   return (
-    <div className="relative min-h-svh overflow-x-clip md:overflow-x-hidden">
+    <div className="relative min-h-[var(--qi-vh-fill)] overflow-x-clip md:overflow-x-hidden">
       <AnimatePresence mode="sync" initial={false} custom={directionRef.current}>
         <motion.div
           key={pathname}
@@ -79,12 +79,12 @@ export function AnimatedRoutes() {
           animate="animate"
           exit="exit"
           transition={slideTransition}
-          className="absolute inset-x-0 top-0 min-h-svh w-full"
+          className="absolute inset-x-0 top-0 min-h-[var(--qi-vh-fill)] w-full"
         >
           <Suspense
             fallback={
               <div
-                className="min-h-svh bg-qi-bg"
+                className="min-h-[var(--qi-vh-fill)] bg-qi-bg"
                 aria-busy="true"
                 aria-label="Loading"
               />

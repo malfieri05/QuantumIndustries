@@ -3,13 +3,14 @@ import { CalcomEmbed } from '../components/CalcomEmbed'
 import { Reveal } from '../components/Reveal'
 import { SiteHeaderBrand } from '../components/SiteHeaderBrand'
 import { site } from '../content/site'
+import { playBookingTapSoundReverse } from '../lib/bookingTapSound'
 import { routeSlide } from '../lib/routeTransitions'
 
 export function BookingPage() {
   const { booking } = site
 
   return (
-    <div className="relative min-h-svh bg-qi-bg font-sans text-qi-fg">
+    <div className="relative min-h-[var(--qi-vh-fill)] bg-qi-bg font-sans text-qi-fg">
       <div className="qi-backdrop" aria-hidden />
       <div className="qi-grid" aria-hidden />
 
@@ -26,6 +27,9 @@ export function BookingPage() {
             to="/"
             state={routeSlide.back}
             className="-mr-2 inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg px-2 text-sm font-medium text-qi-muted underline-offset-4 transition hover:text-qi-fg hover:underline"
+            onClick={() => {
+              playBookingTapSoundReverse()
+            }}
           >
             ← Back to home
           </Link>

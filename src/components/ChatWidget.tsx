@@ -4,6 +4,8 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { site } from '../content/site'
 import { sendChatMessage } from '../lib/chatApi'
+import { playBookingTapSound, playChatCloseSound, playChatOpenSound } from '../lib/bookingTapSound'
+import { routeSlide } from '../lib/routeTransitions'
 import type { ChatApiMessage } from '../types/chat'
 
 /** Panel + launcher sized ~10% above the original layout. */
@@ -21,6 +23,7 @@ export function ChatWidget() {
   const [error, setError] = useState<string | null>(null)
 
   const close = useCallback(() => {
+    playChatCloseSound()
     setOpen(false)
     setError(null)
   }, [])
@@ -71,7 +74,14 @@ export function ChatWidget() {
             aria-expanded={open}
             aria-controls={open ? panelId : undefined}
             aria-label={open ? 'Close chat' : 'Open chat'}
-            onClick={() => (open ? close() : setOpen(true))}
+            onClick={() => {
+              if (open) {
+                close()
+              } else {
+                playChatOpenSound()
+                setOpen(true)
+              }
+            }}
             className="box-border flex h-[90px] w-[90px] shrink-0 items-center justify-center rounded-2xl border border-qi-border-strong bg-qi-elevated/95 p-2 shadow-qi-float-subtle transition hover:border-qi-accent/35 hover:shadow-qi-float focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/80"
           >
             {open ? (
@@ -206,7 +216,11 @@ export function ChatWidget() {
                   </span>
                   <Link
                     to={site.booking.path}
+                    state={routeSlide.forward}
                     className="underline underline-offset-2 hover:text-qi-fg"
+                    onClick={() => {
+                      playBookingTapSound()
+                    }}
                   >
                     Book consultation
                   </Link>
