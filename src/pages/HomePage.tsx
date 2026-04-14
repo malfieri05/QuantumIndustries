@@ -7,6 +7,7 @@ import { ProcessSection } from '../components/ProcessSection'
 import { SectionDivider } from '../components/SectionDivider'
 import { ServicesSection } from '../components/ServicesSection'
 import { ContactSection } from '../components/ContactSection'
+import { FaqSection } from '../components/FaqSection'
 import { SupportSection } from '../components/SupportSection'
 import { scrollToSectionById } from '../lib/hashNav'
 
@@ -42,6 +43,7 @@ export function HomePage() {
         <SupportSection />
         <SectionDivider />
         <ContactSection />
+        <FaqSection />
         <SectionDivider />
       </main>
       <Footer />

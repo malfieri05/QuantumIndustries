@@ -625,6 +625,105 @@
   }
 }
 
+/* FAQ — glass cards; expand/collapse height is driven by Framer Motion in FaqSection */
+.faq-item {
+  border-radius: var(--radius-qi-card);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background: color-mix(in oklab, var(--color-qi-elevated) 90%, transparent);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    0 12px 36px -22px rgba(0, 0, 0, 0.09),
+    0 3px 10px -3px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(18px) saturate(118%);
+  -webkit-backdrop-filter: blur(18px) saturate(118%);
+  transition:
+    border-color 0.32s ease,
+    box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item:hover {
+  border-color: rgba(0, 0, 0, 0.11);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.95) inset,
+    0 16px 40px -20px rgba(0, 0, 0, 0.11),
+    0 4px 12px -4px rgba(0, 0, 0, 0.06);
+}
+
+.faq-item[data-state='open'] {
+  border-color: color-mix(in oklab, var(--color-qi-accent) 24%, transparent);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.92) inset,
+    0 16px 44px -20px rgba(0, 0, 0, 0.1),
+    0 4px 14px -4px rgba(0, 0, 0, 0.055);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item {
+    transition-duration: 0.01ms;
+  }
+}
+
+.faq-summary:hover {
+  background: color-mix(in oklab, var(--color-qi-accent) 4%, transparent);
+}
+
+/* + built from two bars; vertical arm eases away → reads as − */
+.faq-icon {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 14px;
+  color: inherit;
+}
+
+.faq-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.42s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.faq-bar-h {
+  width: 11px;
+  height: 2px;
+}
+
+.faq-bar-v {
+  width: 2px;
+  height: 11px;
+}
+
+.faq-item[data-state='open'] .faq-bar-v {
+  transform: translate(-50%, -50%) scaleY(0);
+  opacity: 0;
+}
+
+.faq-item[data-state='open'] .faq-toggle {
+  border-color: color-mix(in oklab, var(--color-qi-accent) 38%, transparent);
+  background: color-mix(in oklab, var(--color-qi-accent) 14%, transparent);
+}
+
+.faq-answer-body {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-qi-surface) 72%, transparent) 0%,
+    color-mix(in oklab, var(--color-qi-elevated) 40%, transparent) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-bar {
+    transition-duration: 0.01ms;
+  }
+}
+
 /* Cal.com inline embed (booking page; iframe injected by embed.js) */
 .calcom-booking-embed iframe {
   width: 100%;

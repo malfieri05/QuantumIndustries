@@ -94,7 +94,7 @@ export const chatFaqEntries: ChatFaqEntry[] = [
     keywords: ['consultation', 'first meeting', 'intro call', 'discovery', '30 minute'],
     questions: ['what is the consultation'],
     answer:
-      'The consultation is a focused session (about 30 minutes) to understand your current tools, pain points, and goals. No pressure and no commitment.',
+      'The consultation is a focused session (up to 30 minutes) to understand your current tools, pain points, and goals. No pressure and no commitment.',
   },
   {
     id: 'support',
@@ -133,8 +133,8 @@ export const chatFaqEntries: ChatFaqEntry[] = [
 export const chatKnowledgeSnippets: { id: string; text: string; keywords?: string[] }[] = [
   {
     id: 'nav',
-    keywords: ['navigate', 'sections', 'home', 'services', 'process', 'support'],
+    keywords: ['navigate', 'sections', 'home', 'services', 'process', 'support', 'faq', 'contact'],
     text:
-      'The main page sections are Home, Services, Process, and Support. Use the header links or footer to move around. Hash links like /#services scroll to the right section.',
+      'The main page sections are Home, Services, Process, Support, FAQ, and Contact. Use the header links or footer to move around. Hash links like /#services or /#faq scroll to the right section.',
   },
 ]

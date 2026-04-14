@@ -27,13 +27,14 @@ export const site = {
     { label: 'Services', href: '/#services' },
     { label: 'Process', href: '/#process' },
     { label: 'Support', href: '/#support' },
+    { label: 'FAQ', href: '/#faq' },
     { label: 'Contact', href: '/#contact', iconOnly: true as const },
   ],
 
   hero: {
     eyebrow: 'AI Automation & Custom Software',
     headline: 'Intelligent\nBusiness\nSystems.',
-    subhead: 'Tailored to your needs.',
+    subhead: 'Tailored builds to fit any needs.',
   },
 
   services: {
@@ -123,6 +124,38 @@ export const site = {
     id: 'contact',
     title: 'Send us a message',
     blurb: 'Please fill in the form below:',
+  },
+
+  faq: {
+    id: 'faq',
+    title: 'Frequently asked questions',
+    items: [
+      {
+        q: 'What happens in the free consultation?',
+        a:
+          'A focused session (up to 30 minutes) on your current tools, workflows, and goals. We clarify fit and direction. There is no cost and no obligation. If there is mutual fit, we follow with a written proposal; if not, you still leave with useful perspective.',
+      },
+      {
+        q: 'How do pricing and timelines work?',
+        a:
+          'After the consultation you receive a fixed-scope proposal: deliverables, timeline, and a single price — so you are not guessing. Timelines depend on complexity; we only commit to dates we can stand behind and we surface dependencies early.',
+      },
+      {
+        q: 'Who is a good fit for Ark Solutions?',
+        a:
+          'Teams that want automation, bespoke internal software, competitive intelligence systems, or a build-to-own alternative to costly subscriptions — especially when accuracy, privacy, and long-term ownership matter. If the problem is outside our wheelhouse, we will say so plainly.',
+      },
+      {
+        q: 'What does “build-to-own” mean for us?',
+        a:
+          'When it makes sense, we design and build original software around your requirements so you invest once and own the deliverable, with support from the team that shipped it. We do not clone third-party products; we replace recurring rent with something tailored and defensible.',
+      },
+      {
+        q: 'How do we get help after we go live?',
+        a:
+          'You work directly with the architect who built your project — cell and email — not a queue or call center. That same relationship continues for questions, refinements, and urgent issues.',
+      },
+    ],
   },
 
   footer: {

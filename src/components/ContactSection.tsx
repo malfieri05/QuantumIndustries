@@ -61,7 +61,7 @@ export function ContactSection() {
 
   return (
     <section
-      className="relative pt-28 pb-[10.5rem] sm:pt-36 sm:pb-[13.5rem] lg:pt-44 lg:pb-[16.5rem]"
+      className="relative pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-28"
       aria-labelledby="contact-heading"
     >
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:px-8 sm:pt-20 lg:px-10">
