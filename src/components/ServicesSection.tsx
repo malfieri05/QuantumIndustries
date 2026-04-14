@@ -64,15 +64,7 @@ export function ServicesSection() {
                   {secondary.body}
                 </p>
 
-                {/* Same gradient as Core offering — 2px + inline bg so the hairline can’t disappear on glass-subtle (1px + low contrast read as “nothing”) */}
-                <div
-                  aria-hidden
-                  className="relative z-10 mt-10 block h-[2px] w-full max-h-[2px] min-h-[2px] shrink-0"
-                  style={{
-                    background:
-                      'linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--color-qi-accent) 45%, transparent) 15%, color-mix(in oklab, var(--color-qi-accent) 45%, transparent) 85%, transparent 100%)',
-                  }}
-                />
+                <div className="services-card-divider relative z-10 mt-10" aria-hidden />
                 <ul className="space-y-4 pt-10">
                   {secondary.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">

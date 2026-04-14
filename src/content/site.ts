@@ -52,14 +52,14 @@ export const site = {
       },
       {
         label: 'Ownership model',
-        title: 'Replica Builds',
-        subtitle: 'Own instead of rent.',
+        title: 'Build-to-Own Software',
+        subtitle: 'Replace subscriptions with software you own.',
         body:
-          'Walk us through the software you pay for monthly, annually, or per seat. If it makes sense, we build a tailored replica you own outright — one-time investment, lifetime support.',
+          'Tell us about the tools you pay for monthly, annually, or per seat. When the numbers and workflows justify it, we design and build original software around your requirements — a one-time build you own, with support from the team that shipped it.',
         highlights: [
-          'Audit of recurring software spend',
-          'Feasibility assessment',
-          'You own the solution — we stand behind it',
+          'Review of recurring software spend',
+          'Feasibility and ROI assessment',
+          'You own the deliverable — we stand behind our work',
         ],
       },
     ],

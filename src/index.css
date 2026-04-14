@@ -206,22 +206,24 @@
   );
 }
 
-/* Services cards — paragraph / bullets divider (royal blue, soft ends inset 15% each side) */
+/* Services cards — paragraph / bullets divider (2px: 1px + low contrast on glass read as invisible) */
 .services-card-divider {
   display: block;
-  height: 1px;
+  height: 2px;
+  min-height: 2px;
+  max-height: 2px;
   width: 100%;
   flex-shrink: 0;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    color-mix(in oklab, var(--color-qi-accent) 30%, transparent) 15%,
-    color-mix(in oklab, var(--color-qi-accent) 30%, transparent) 85%,
+    color-mix(in oklab, var(--color-qi-accent) 45%, transparent) 15%,
+    color-mix(in oklab, var(--color-qi-accent) 45%, transparent) 85%,
     transparent 100%
   );
 }
 
-/* Replica Builds uses glass-subtle — surface tint hides the default hairline; boost contrast */
+/* glass-subtle — slightly stronger so the rule survives the flatter surface */
 .glass-subtle .services-card-divider {
   background: linear-gradient(
     90deg,

@@ -46,19 +46,27 @@ export const chatFaqEntries: ChatFaqEntry[] = [
       'We offer AI automation and custom software: we map operational workflows, integrate with tools you already use, and implement automation and bespoke software where it removes inefficiencies and errors. We also build competitive intelligence systems that monitor competitors and surface insights.',
   },
   {
-    id: 'replica',
+    id: 'buildToOwn',
     keywords: [
-      'replica',
+      'build to own',
       'own',
       'rent',
       'subscription',
+      'saas',
       'monthly',
       'replace',
       'build instead',
+      'replica',
     ],
-    questions: ['what is a replica build', 'replica builds'],
+    questions: [
+      'what is build to own',
+      'build to own software',
+      'replace saas',
+      'what is a replica build',
+      'replica builds',
+    ],
     answer:
-      'Replica Builds are for software you pay for monthly or per seat. We assess whether it makes sense to build a tailored replica you own outright—one-time investment with lifetime support—instead of renting the product forever.',
+      'Build-to-Own Software is for tools you pay for monthly or per seat. We review spend and workflows, then—when it makes sense—design and build original software you own instead of renting a product forever, with support from the team that built it.',
   },
   {
     id: 'intel',
