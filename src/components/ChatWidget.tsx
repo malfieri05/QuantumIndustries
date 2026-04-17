@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import type { CSSProperties } from 'react'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ChatRobotIcon } from './ChatRobotIcon'
 import { site } from '../content/site'
 import { sendChatMessage } from '../lib/chatApi'
 import { playBookingTapSound, playChatCloseSound, playChatOpenSound } from '../lib/bookingTapSound'
@@ -63,7 +64,7 @@ export function ChatWidget() {
   const transition = reduced ? { duration: 0 } : { duration: 0.22, ease: [0.25, 0.1, 0.25, 1] as const }
 
   return (
-    <>
+    <div className="print:hidden">
       <div
         className="pointer-events-none fixed bottom-6 right-5 z-[100] flex max-w-[calc(100vw-2.5rem)] flex-col-reverse gap-2"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
@@ -127,8 +128,11 @@ export function ChatWidget() {
                 className={`border-b border-qi-border bg-[var(--color-qi-header-bg)] px-[1.125rem] ${messages.length > 0 ? 'py-[0.6875rem]' : 'py-[0.825rem]'}`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <p className="min-w-0 font-display text-[0.9625rem] font-semibold leading-tight text-qi-fg">
-                    {site.brand.wordmark} {site.brand.subline}
+                  <p className="flex min-w-0 items-center gap-1.5 font-display text-[0.9625rem] font-semibold leading-tight text-qi-fg">
+                    <ChatRobotIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
+                    <span className="min-w-0">
+                      {site.brand.wordmark} {site.brand.subline}
+                    </span>
                   </p>
                   <button
                     type="button"
@@ -260,6 +264,6 @@ export function ChatWidget() {
           ) : null}
         </AnimatePresence>
       </div>
-    </>
+    </div>
   )
 }

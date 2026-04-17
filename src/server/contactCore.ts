@@ -1,5 +1,6 @@
 import { Resend } from 'resend'
 import { site } from '../content/site.js'
+import { readEnvSecret } from './envUtils.js'
 
 const RATE_WINDOW_MS = 60_000
 const MAX_CONTACT_PER_WINDOW = 5
@@ -84,7 +85,7 @@ export async function handleContactRequest(
     return { ok: false, status: 400, error: 'Please enter a valid email address.' }
   }
 
-  const apiKey = process.env.RESEND_API_KEY?.trim()
+  const apiKey = readEnvSecret('RESEND_API_KEY')
   const notifyTo = process.env.CONTACT_NOTIFY_EMAIL?.trim()
   const from = process.env.CONTACT_FROM_EMAIL?.trim()
 

@@ -9,6 +9,14 @@ import { ServicesSection } from '../components/ServicesSection'
 import { ContactSection } from '../components/ContactSection'
 import { FaqSection } from '../components/FaqSection'
 import { SupportSection } from '../components/SupportSection'
+import { Seo } from '../components/Seo'
+import {
+  OrganizationSchema,
+  LocalBusinessSchema,
+  FAQSchema,
+  ServiceSchema,
+  WebSiteSchema,
+} from '../components/StructuredData'
 import { scrollToSectionById } from '../lib/hashNav'
 
 export function HomePage() {
@@ -22,7 +30,6 @@ export function HomePage() {
     ).matches
       ? 'instant'
       : 'smooth'
-    // One frame after layout so targets exist; smooth scroll matches header nav / in-page links.
     const frame = requestAnimationFrame(() => {
       scrollToSectionById(id, behavior)
     })
@@ -31,6 +38,16 @@ export function HomePage() {
 
   return (
     <>
+      <Seo
+        description="Custom-fit AI automation, build-to-own software, and competitive intelligence systems for growing businesses. Free consultation — no obligation."
+        path="/"
+      />
+      <OrganizationSchema />
+      <LocalBusinessSchema />
+      <WebSiteSchema />
+      <FAQSchema />
+      <ServiceSchema />
+
       <div className="qi-backdrop" aria-hidden />
       <div className="qi-grid" aria-hidden />
       <Header />

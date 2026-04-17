@@ -731,3 +731,24 @@
   min-height: 700px;
   border: 0;
 }
+
+/* ── Print styles (consultation / Discovery form PDF export) ── */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 16mm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    background: #ffffff !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+}

@@ -1,5 +1,8 @@
 import { useRef, useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { site } from '../content/site'
+import { playBookingTapSound } from '../lib/bookingTapSound'
+import { routeSlide } from '../lib/routeTransitions'
 import { Reveal } from './Reveal'
 
 const contactApiUrl =
@@ -76,8 +79,24 @@ export function ContactSection() {
         </Reveal>
 
         <Reveal delay={0.06}>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-qi-fg/85 sm:text-base">
-            {contact.blurb}
+          <p className="mt-4 flex max-w-2xl flex-wrap items-baseline gap-x-2 gap-y-1 text-sm leading-relaxed text-qi-fg/85 sm:text-base">
+            <span>{contact.blurb}</span>
+            <span className="text-qi-fg/45 select-none" aria-hidden>
+              |
+            </span>
+            <span>
+              or{' '}
+              <Link
+                to={site.consultation.path}
+                state={routeSlide.forward}
+                className="font-medium text-[#1e427b] underline decoration-[#1e427b] underline-offset-[3px] transition-colors hover:text-[#163566] hover:decoration-[#163566]"
+                onClick={() => {
+                  playBookingTapSound()
+                }}
+              >
+                submit discovery form
+              </Link>
+            </span>
           </p>
         </Reveal>
 

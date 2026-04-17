@@ -1,16 +1,31 @@
 import { Link } from 'react-router-dom'
 import { CalcomEmbed } from '../components/CalcomEmbed'
 import { Reveal } from '../components/Reveal'
+import { Seo } from '../components/Seo'
+import { BreadcrumbSchema } from '../components/StructuredData'
 import { SiteHeaderBrand } from '../components/SiteHeaderBrand'
 import { site } from '../content/site'
 import { playBookingTapSoundReverse } from '../lib/bookingTapSound'
 import { routeSlide } from '../lib/routeTransitions'
+
+const SITE_URL = site.publicUrl
 
 export function BookingPage() {
   const { booking } = site
 
   return (
     <div className="relative min-h-[var(--qi-vh-fill)] bg-qi-bg font-sans text-qi-fg">
+      <Seo
+        title="Book Your Free Consultation"
+        description="Schedule a free 30-minute consultation with Ark Solutions. We'll discuss your stack, pain points, and goals — no pressure, no obligation."
+        path="/book"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: SITE_URL },
+          { name: 'Book Consultation', url: `${SITE_URL}/book` },
+        ]}
+      />
       <div className="qi-backdrop" aria-hidden />
       <div className="qi-grid" aria-hidden />
 
@@ -26,17 +41,17 @@ export function BookingPage() {
           <Link
             to="/"
             state={routeSlide.back}
-            className="-mr-2 inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg px-2 text-sm font-medium text-qi-muted underline-offset-4 transition hover:text-qi-fg hover:underline"
+            className="-mr-2 inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-current px-3 py-2 text-sm font-medium text-qi-muted underline-offset-4 transition hover:text-qi-fg hover:underline"
             onClick={() => {
               playBookingTapSoundReverse()
             }}
           >
-            ← Back to home
+            ← Back
           </Link>
         </div>
       </header>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-10">
+      <main className="relative mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-10">
         <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-qi-fg sm:text-4xl">
             {booking.title}
@@ -51,7 +66,7 @@ export function BookingPage() {
             <CalcomEmbed />
           </div>
         </Reveal>
-      </div>
+      </main>
     </div>
   )
 }

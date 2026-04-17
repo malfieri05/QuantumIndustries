@@ -135,6 +135,6 @@ export const chatKnowledgeSnippets: { id: string; text: string; keywords?: strin
     id: 'nav',
     keywords: ['navigate', 'sections', 'home', 'services', 'process', 'support', 'faq', 'contact'],
     text:
-      'The main page sections are Home, Services, Process, Support, FAQ, and Contact. Use the header links or footer to move around. Hash links like /#services or /#faq scroll to the right section.',
+      'The main page sections are Services, Process, Support, FAQ, and Contact. Use the header links, the wordmark (top) to return to the top, or the footer to move around. Hash links like /#services or /#faq scroll to the right section.',
   },
 ]

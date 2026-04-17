@@ -13,8 +13,14 @@ export const site = {
     subtitle: 'Free.',
   },
 
+  consultation: {
+    path: '/consultation' as const,
+    title: 'Discovery form',
+    subtitle: 'Help us understand your business so we can build the right solution.',
+  },
+
   /** Canonical site URL for absolute links in transactional emails (logo, booking). */
-  publicUrl: 'https://quantumindustries.ai' as const,
+  publicUrl: 'https://arksolutions.ai' as const,
 
   /** E.164-style digits for tel:; display string for UI */
   phone: {
@@ -23,7 +29,6 @@ export const site = {
   },
 
   nav: [
-    { label: 'Home', href: '/#home' },
     { label: 'Services', href: '/#services' },
     { label: 'Process', href: '/#process' },
     { label: 'Support', href: '/#support' },
@@ -95,7 +100,7 @@ export const site = {
       {
         title: 'Consultation',
         body:
-          'A focused 30-minute session to understand your current stack, pain points, and goals. No pressure. No commitment.',
+          'A focused session (up to 30 minutes) to understand your stack, pain points, and goals. No pressure. No commitment.',
       },
       {
         title: 'Scoped Proposal',
@@ -123,7 +128,7 @@ export const site = {
   contact: {
     id: 'contact',
     title: 'Send us a message',
-    blurb: 'Please fill in the form below:',
+    blurb: 'Please fill in the form below.',
   },
 
   faq: {

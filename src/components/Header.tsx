@@ -90,24 +90,27 @@ export function Header() {
 
         <nav className="hidden items-center md:flex" aria-label="Primary">
           <div className="flex items-center gap-2">
-            {site.nav.map((item) =>
-              'iconOnly' in item && item.iconOnly ? (
-                <div key={item.href} className="group relative flex">
-                  <Link
-                    to={item.href}
-                    className="header-pill inline-flex h-11 min-h-11 w-11 min-w-11 shrink-0 items-center justify-center rounded-full p-0 text-qi-fg"
-                    aria-label="Contact — send a message"
-                    onClick={(e) => {
-                      navigateHashSection(e, item.href)
-                    }}
-                  >
-                    <MailIcon className="h-[18px] w-[18px] shrink-0" />
-                  </Link>
-                  <span className={navTooltipClass} aria-hidden="true">
-                    {item.label}
-                  </span>
-                </div>
-              ) : (
+            {site.nav.map((item) => {
+              if ('iconOnly' in item && item.iconOnly) {
+                return (
+                  <div key={item.href} className="group relative flex">
+                    <Link
+                      to={item.href}
+                      className="header-pill inline-flex h-11 min-h-11 w-11 min-w-11 shrink-0 items-center justify-center rounded-full p-0 text-qi-fg"
+                      aria-label="Contact — send a message"
+                      onClick={(e) => {
+                        navigateHashSection(e, item.href)
+                      }}
+                    >
+                      <MailIcon className="h-[18px] w-[18px] shrink-0" />
+                    </Link>
+                    <span className={navTooltipClass} aria-hidden="true">
+                      {item.label}
+                    </span>
+                  </div>
+                )
+              }
+              return (
                 <Link
                   key={item.href}
                   to={item.href}
@@ -118,8 +121,8 @@ export function Header() {
                 >
                   {item.label}
                 </Link>
-              ),
-            )}
+              )
+            })}
           </div>
           <div
             className="flex w-6 shrink-0 items-center justify-center self-stretch"
@@ -128,6 +131,16 @@ export function Header() {
             <span className="header-nav-divider" />
           </div>
           <div className="flex items-center gap-2">
+            <Link
+              to={site.consultation.path}
+              state={routeSlide.forward}
+              className={`header-pill ${headerPillSizing}`}
+              onClick={() => {
+                playBookingTapSound()
+              }}
+            >
+              Discovery
+            </Link>
             <Link
               to={site.booking.path}
               state={routeSlide.forward}
@@ -184,21 +197,35 @@ export function Header() {
             className="header-bar overflow-hidden border-t border-black/[0.06] md:hidden"
           >
             <nav className="flex flex-col gap-1 px-6 py-4" aria-label="Mobile">
-              {site.nav.map((item) =>
-                'iconOnly' in item && item.iconOnly ? (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className={`header-pill header-pill--block inline-flex min-h-11 items-center justify-center gap-2 ${headerPillSizing}`}
-                    onClick={(e) => {
-                      navigateHashSection(e, item.href)
-                      setOpen(false)
-                    }}
-                  >
-                    <MailIcon className="h-[18px] w-[18px] shrink-0" />
-                    <span>{item.label}</span>
-                  </Link>
-                ) : (
+              <Link
+                to={site.consultation.path}
+                state={routeSlide.forward}
+                className={`header-pill header-pill--block min-h-11 items-center ${headerPillSizing}`}
+                onClick={() => {
+                  playBookingTapSound()
+                  setOpen(false)
+                }}
+              >
+                Discovery
+              </Link>
+              {site.nav.map((item) => {
+                if ('iconOnly' in item && item.iconOnly) {
+                  return (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={`header-pill header-pill--block inline-flex min-h-11 items-center justify-center gap-2 ${headerPillSizing}`}
+                      onClick={(e) => {
+                        navigateHashSection(e, item.href)
+                        setOpen(false)
+                      }}
+                    >
+                      <MailIcon className="h-[18px] w-[18px] shrink-0" />
+                      <span>{item.label}</span>
+                    </Link>
+                  )
+                }
+                return (
                   <Link
                     key={item.href}
                     to={item.href}
@@ -210,8 +237,8 @@ export function Header() {
                   >
                     {item.label}
                   </Link>
-                ),
-              )}
+                )
+              })}
             </nav>
           </motion.div>
         )}

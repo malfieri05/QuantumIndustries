@@ -5,6 +5,8 @@ import type { Plugin } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 import { handleChatRequest } from './src/server/chatCore'
 import { handleContactRequest } from './src/server/contactCore'
+import { handleConsultationRequest } from './src/server/consultationCore'
+import { handleConsultationAudioRequest } from './src/server/consultationAudioCore'
 
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -23,7 +25,10 @@ function qiApiDevPlugin(): Plugin {
         const pathOnly = req.url?.split('?')[0]
         if (
           req.method !== 'POST' ||
-          (pathOnly !== '/api/chat' && pathOnly !== '/api/contact')
+          (pathOnly !== '/api/chat' &&
+            pathOnly !== '/api/contact' &&
+            pathOnly !== '/api/consultation' &&
+            pathOnly !== '/api/consultation-audio')
         ) {
           next()
           return
@@ -38,6 +43,23 @@ function qiApiDevPlugin(): Plugin {
             if (result.ok) {
               res.statusCode = 200
               res.end(JSON.stringify({ reply: result.reply }))
+            } else {
+              res.statusCode = result.status
+              res.end(JSON.stringify({ error: result.error }))
+            }
+            return
+          }
+          if (pathOnly === '/api/consultation-audio') {
+            const result = await handleConsultationAudioRequest(body, ip)
+            res.statusCode = result.ok ? 200 : result.status
+            res.end(JSON.stringify(result.ok ? { ok: true } : { error: result.error }))
+            return
+          }
+          if (pathOnly === '/api/consultation') {
+            const result = await handleConsultationRequest(body, ip)
+            if (result.ok) {
+              res.statusCode = 200
+              res.end(JSON.stringify({ ok: true }))
             } else {
               res.statusCode = result.status
               res.end(JSON.stringify({ error: result.error }))

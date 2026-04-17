@@ -8,6 +8,10 @@ const BookingPage = lazy(() =>
   import('../pages/BookingPage').then((m) => ({ default: m.BookingPage })),
 )
 
+const ConsultationPage = lazy(() =>
+  import('../pages/ConsultationPage').then((m) => ({ default: m.ConsultationPage })),
+)
+
 /**
  * Expo-out: launches fast, settles gently — matches iOS panel-swipe muscle
  * memory. The old [0.32, 0.72, 0, 1] curve stalled near the end, causing the
@@ -41,6 +45,7 @@ export function AnimatedRoutes() {
   const location = useLocation()
   const { pathname } = location
   const book = site.booking.path
+  const consult = site.consultation.path
   const prevPathRef = useRef(pathname)
 
   // Prefer the explicit intent attached to the Link's state; fall back to
@@ -52,7 +57,7 @@ export function AnimatedRoutes() {
   if (slideFromState === 1 || slideFromState === -1) {
     directionRef.current = slideFromState
   } else {
-    const order = (p: string) => (p === book ? 1 : 0)
+    const order = (p: string) => (p === book || p === consult ? 1 : 0)
     directionRef.current = order(pathname) >= order(prevPathRef.current) ? 1 : -1
   }
 
@@ -62,10 +67,11 @@ export function AnimatedRoutes() {
 
   const slideTransition = useMemo(
     () => ({
-      duration: pathname === book ? SLIDE_TO_BOOK_DURATION : SLIDE_DURATION,
+      duration:
+        pathname === book || pathname === consult ? SLIDE_TO_BOOK_DURATION : SLIDE_DURATION,
       ease: SLIDE_EASE,
     }),
-    [pathname, book],
+    [pathname, book, consult],
   )
 
   return (
@@ -93,6 +99,7 @@ export function AnimatedRoutes() {
             <Routes location={location}>
               <Route path="/" element={<HomePage />} />
               <Route path={book} element={<BookingPage />} />
+              <Route path={site.consultation.path} element={<ConsultationPage />} />
             </Routes>
           </Suspense>
         </motion.div>

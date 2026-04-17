@@ -26,38 +26,40 @@ export function ProcessSection() {
         <RevealStagger className="mt-16 grid gap-6 divide-y divide-[color-mix(in_oklab,var(--color-qi-accent)_22%,transparent)] sm:mt-20 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-stretch lg:gap-x-0 lg:divide-y-0">
           {process.steps.flatMap((step, index) => {
             const card = (
-              <article
+              <div
                 key={step.title}
-                className="process-step-card group relative mx-auto flex aspect-[4/5] w-full max-w-[285px] min-w-0 flex-col items-center justify-start gap-4 self-start rounded-qi-card border border-qi-accent/40 glass glass-float p-6 text-center sm:max-w-[308px] sm:gap-5 sm:p-8 lg:max-w-[322px]"
+                className="mx-auto aspect-[4/5] w-full max-w-[285px] min-w-0 self-start sm:max-w-[308px] lg:max-w-[322px]"
               >
-                <div className="flex w-full flex-col items-center gap-2 sm:gap-2.5">
-                  <span
-                    className="mt-2 inline-grid size-14 shrink-0 place-items-center rounded-full border border-qi-accent/15 bg-[color-mix(in_oklab,var(--color-qi-accent)_14%,transparent)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.55)] backdrop-blur-md sm:mt-2.5 sm:size-16"
-                  >
-                    <span className="font-sans text-xl font-semibold leading-none tabular-nums tracking-normal text-qi-accent sm:text-2xl">
-                      {index + 1}
+                <article className="process-step-card group relative flex h-full min-h-0 flex-col items-center justify-start gap-4 rounded-qi-card border border-qi-accent/40 glass glass-float p-6 text-center sm:gap-5 sm:p-8">
+                  <div className="flex w-full flex-col items-center gap-2 sm:gap-2.5">
+                    <span
+                      className="mt-2 inline-grid size-14 shrink-0 place-items-center rounded-full border border-qi-accent/15 bg-[color-mix(in_oklab,var(--color-qi-accent)_14%,transparent)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.55)] backdrop-blur-md sm:mt-2.5 sm:size-16"
+                    >
+                      <span className="font-sans text-xl font-semibold leading-none tabular-nums tracking-normal text-qi-accent sm:text-2xl">
+                        {index + 1}
+                      </span>
                     </span>
-                  </span>
-                  <h3 className="-mt-0.5 flex min-h-[3.25rem] w-full items-center justify-center font-display text-xl font-semibold leading-tight text-qi-fg sm:-mt-1 sm:min-h-[3.75rem] sm:text-2xl">
-                    {step.title}
-                  </h3>
-                </div>
-                <p className="w-full flex-1 text-sm leading-[1.75] text-qi-muted sm:text-base sm:leading-[1.8]">
-                  {step.body}
-                </p>
-                {index === 0 && (
-                  <Link
-                    to={site.booking.path}
-                    state={routeSlide.forward}
-                    className="mt-auto inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-qi-accent bg-transparent px-4 py-2 text-xs font-medium text-qi-accent transition-colors hover:bg-[color-mix(in_oklab,var(--color-qi-accent)_10%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/70"
-                    onClick={() => {
-                      playBookingTapSound()
-                    }}
-                  >
-                    Book Now
-                  </Link>
-                )}
-              </article>
+                    <h3 className="-mt-0.5 flex min-h-[3.25rem] w-full items-center justify-center font-display text-xl font-semibold leading-tight text-qi-fg sm:-mt-1 sm:min-h-[3.75rem] sm:text-2xl">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="w-full min-h-0 flex-1 overflow-y-auto text-pretty text-sm leading-[1.75] text-qi-muted sm:text-base sm:leading-[1.8]">
+                    {step.body}
+                  </p>
+                  {index === 0 && (
+                    <Link
+                      to={site.booking.path}
+                      state={routeSlide.forward}
+                      className="mt-auto inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-qi-accent bg-transparent px-4 py-2 text-xs font-medium text-qi-accent transition-colors hover:bg-[color-mix(in_oklab,var(--color-qi-accent)_10%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/70"
+                      onClick={() => {
+                        playBookingTapSound()
+                      }}
+                    >
+                      Book Now
+                    </Link>
+                  )}
+                </article>
+              </div>
             )
 
             if (index >= 2) {
