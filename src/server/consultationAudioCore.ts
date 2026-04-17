@@ -116,6 +116,11 @@ export async function handleConsultationAudioRequest(
   const openAiKey = process.env.OPENAI_API_KEY?.trim()
 
   if (!apiKey || !notifyTo || !from) {
+    console.error('[consultation-audio] Email not configured (set on host for serverless):', {
+      hasResendKey: Boolean(apiKey),
+      hasNotifyTo: Boolean(notifyTo),
+      hasFrom: Boolean(from),
+    })
     return { ok: false, status: 503, error: 'Submission is not configured. Please try again later.' }
   }
 

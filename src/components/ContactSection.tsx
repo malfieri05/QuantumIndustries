@@ -111,23 +111,12 @@ export function ContactSection() {
             </span>
             {status === 'success' ? (
               <div className="flex items-center gap-3 sm:gap-4" role="status">
-                <span
-                  className="inline-flex shrink-0 items-center justify-center text-[#1e427b]"
+                <div
+                  className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-emerald-600/10 text-emerald-600"
                   aria-hidden="true"
                 >
-                  <svg
-                    className="block h-10 w-10 sm:h-11 sm:w-11"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="9.25"
-                      stroke="currentColor"
-                      strokeWidth="1.75"
-                    />
+                  <svg className="h-9 w-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.75" />
                     <path
                       d="M8 12.5l2.5 2.5 5-5"
                       stroke="currentColor"
@@ -136,7 +125,7 @@ export function ContactSection() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                </span>
+                </div>
                 <p className="min-w-0 flex-1 text-base leading-normal text-qi-fg sm:text-lg sm:leading-normal">
                   Thank you. We received your message and sent a confirmation to your email.
                 </p>

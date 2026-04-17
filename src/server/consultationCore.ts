@@ -226,6 +226,11 @@ export async function handleConsultationRequest(
   const from = process.env.CONTACT_FROM_EMAIL?.trim()
 
   if (!apiKey || !notifyTo || !from) {
+    console.error('[consultation] Email not configured (set on host for serverless):', {
+      hasResendKey: Boolean(apiKey),
+      hasNotifyTo: Boolean(notifyTo),
+      hasFrom: Boolean(from),
+    })
     return {
       ok: false,
       status: 503,
