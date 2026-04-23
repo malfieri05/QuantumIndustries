@@ -206,11 +206,11 @@
   border-color: color-mix(in oklab, var(--color-qi-accent) 55%, transparent);
 }
 
-/* Services: cards that host the superintelligence tooltip — stack above siblings so the
-   popover is not covered; .glass.glass-float:hover alone only sets z-index: 1 */
+/* Services: cards that host the superintelligence tooltip — stack above sibling cards
+   (glass-float hover is only z-index: 1) but stay BELOW the sticky site header (z-50). */
 .services-super-tooltip-host.glass.glass-float:hover,
 .services-super-tooltip-host.glass.glass-float:focus-within {
-  z-index: 50;
+  z-index: 40;
 }
 
 /* Horizontal segment between process cards — soft fade at both ends */
