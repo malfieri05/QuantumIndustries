@@ -57,8 +57,10 @@ export const site = {
       {
         label: 'Core offering',
         title: 'AI Automation & Custom Software',
-        body:
+        tagline: 'Tailored builds to fit any needs.',
+        intro:
           'From daily routines to cross-team workflows - we identify where automation or bespoke software removes inefficiencies, reduces errors, and enhances your operations.',
+        doesHeading: 'What we cover:',
         highlights: [
           'Operational workflows and process mapping',
           'Integrations with tools you already use',
@@ -66,11 +68,24 @@ export const site = {
         ],
       },
       {
+        label: 'Role automation',
+        title: 'AI Role Coverage Systems',
+        subtitle:
+          'Map responsibilities, automate repeatable work, and expand team capacity.',
+        body:
+          'Share a role’s responsibility list and workflow context. We map what an AI agent can own, then design and build a system that runs those tasks with human oversight—from partial support to near-full coverage, tuned to risk and complexity. Where appropriate, that can trim or replace parts of salaried roles.',
+        highlights: [
+          'Responsibility-by-responsibility coverage assessment',
+          'Agent build for qualified tasks and handoffs',
+          'Capacity and cost-impact model for staffing decisions',
+        ],
+      },
+      {
         label: 'Ownership model',
         title: 'Build-to-Own Software',
         subtitle: 'Replace subscriptions with software you own.',
         body:
-          'Tell us about the tools you pay for monthly, annually, or per seat. When the numbers and workflows justify it, we design and build original software around your requirements — a one-time build you own, with support from the team that shipped it.',
+          'Tell us which tools you pay for monthly, annually, or per seat. When ROI and workflows justify it, we deliver custom software you own—one-time build, with ongoing support from the original team that shipped it.',
         highlights: [
           'Review of recurring software spend',
           'Feasibility and ROI assessment',

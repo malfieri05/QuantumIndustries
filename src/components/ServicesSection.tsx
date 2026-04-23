@@ -41,7 +41,7 @@ function HighlightLine({
         <span
           id={tooltipId}
           role="tooltip"
-          className="pointer-events-none invisible absolute bottom-full left-0 z-30 mb-2 w-[min(22rem,calc(100vw-2rem))] max-h-[min(16rem,45vh)] -translate-y-1 overflow-y-auto rounded-xl border border-qi-accent bg-qi-elevated/98 px-3 py-2.5 text-left text-[12.5px] leading-relaxed text-qi-fg opacity-0 shadow-lg backdrop-blur-md transition-[opacity,transform,visibility] duration-200 ease-out group-hover/super:visible group-hover/super:translate-y-0 group-hover/super:opacity-100 group-focus-within/super:visible group-focus-within/super:translate-y-0 group-focus-within/super:opacity-100 sm:text-sm sm:leading-relaxed"
+          className="pointer-events-none invisible absolute bottom-full left-0 z-[100] mb-2 w-[min(22rem,calc(100vw-2rem))] max-h-[min(16rem,45vh)] -translate-y-1 overflow-y-auto rounded-xl border border-qi-accent bg-qi-elevated/98 px-3 py-2.5 text-left text-[12.5px] leading-relaxed text-qi-fg opacity-0 shadow-lg backdrop-blur-md transition-[opacity,transform,visibility] duration-200 ease-out group-hover/super:visible group-hover/super:translate-y-0 group-hover/super:opacity-100 group-focus-within/super:visible group-focus-within/super:translate-y-0 group-focus-within/super:opacity-100 sm:text-sm sm:leading-relaxed"
         >
           <span className="block font-semibold text-qi-fg">{tooltip.heading}</span>
           <ul className="mt-2 list-disc space-y-1.5 pl-4 marker:text-qi-muted">
@@ -60,7 +60,7 @@ function HighlightLine({
 
 export function ServicesSection() {
   const { services } = site
-  const [primary, secondary] = services.cards
+  const [coreOffering, roleAutomation, ownershipModel] = services.cards
   const intel = services.intelligenceCard
   const superTipId = useId()
 
@@ -81,23 +81,72 @@ export function ServicesSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-8 sm:mt-16 lg:mt-20 lg:grid-cols-5 lg:gap-10">
-          <Reveal variant="slide-left" delay={0.1} className="lg:col-span-3">
-            <article className="group relative h-full min-w-0 overflow-x-clip overflow-y-visible rounded-qi-card glass glass-float">
+        <div className="mt-14 grid gap-8 sm:mt-16 lg:mt-20 lg:grid-cols-5 lg:items-stretch lg:gap-10">
+          <Reveal variant="slide-left" delay={0.1} className="lg:col-span-5">
+            <article className="services-super-tooltip-host group relative z-0 min-w-0 overflow-visible rounded-qi-card glass glass-float">
+              <div className="relative p-6 sm:p-8 md:p-10 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-[3.3275rem] lg:p-[2.662rem] lg:px-[3.3275rem] lg:py-[2.995rem] xl:gap-[3.993rem]">
+                <div className="min-w-0 lg:col-span-7">
+                  <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-[13px] py-[7px] text-[12.1px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
+                    {coreOffering.label}
+                  </span>
+                  <h3 className="mt-6 font-display text-2xl font-semibold text-qi-fg sm:mt-[1.9965rem] sm:text-3xl lg:mt-[1.66375rem]">
+                    {coreOffering.title}
+                  </h3>
+                  {'tagline' in coreOffering && coreOffering.tagline ? (
+                    <p className="mt-3 text-sm font-medium text-qi-muted sm:mt-[0.99825rem] sm:text-base lg:mt-[0.99825rem]">
+                      {coreOffering.tagline}
+                    </p>
+                  ) : null}
+                  <p className="mt-4 max-w-xl text-sm leading-[1.75] text-qi-muted sm:mt-[1.331rem] sm:text-base sm:leading-[1.8] lg:mt-[1.331rem]">
+                    {'intro' in coreOffering ? coreOffering.intro : null}
+                  </p>
+                </div>
+
+                <div className="relative mt-8 border-t border-black/[0.06] pt-8 sm:mt-10 sm:pt-10 lg:col-span-5 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:border-t-0 lg:pl-0 lg:pt-0">
+                  <div
+                    className="services-card-divider-vertical pointer-events-none absolute top-[15%] bottom-[15%] z-0 hidden w-px lg:left-[calc(-3.3275rem/2)] lg:block lg:-translate-x-1/2 xl:left-[calc(-3.993rem/2)]"
+                    aria-hidden
+                  />
+                  <p className="relative z-10 text-[12.1px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent">
+                    {'doesHeading' in coreOffering ? coreOffering.doesHeading : 'What we cover'}
+                  </p>
+                  <ul className="relative z-10 mt-[1.331rem] space-y-[0.99825rem]">
+                    {coreOffering.highlights.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base"
+                      >
+                        <span className="accent-dot mt-2" aria-hidden />
+                        <span className="min-w-0">
+                          <HighlightLine text={item} tooltipId={superTipId} tooltip={services.superintelligenceTooltip} />
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          <Reveal variant="slide-left" delay={0.16} className="lg:col-span-3 lg:h-full lg:min-h-0">
+            <article className="services-super-tooltip-host group relative z-0 h-full min-w-0 overflow-visible rounded-qi-card glass glass-float">
               <div className="relative p-6 sm:p-8 lg:p-11">
-                <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
-                  {primary.label}
+                <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-[13px] py-[7px] text-[12.1px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
+                  {roleAutomation.label}
                 </span>
                 <h3 className="mt-6 font-display text-2xl font-semibold text-qi-fg sm:text-3xl">
-                  {primary.title}
+                  {roleAutomation.title}
                 </h3>
+                {'subtitle' in roleAutomation && roleAutomation.subtitle ? (
+                  <p className="mt-3 max-w-lg text-sm font-medium text-qi-muted sm:text-base">{roleAutomation.subtitle}</p>
+                ) : null}
                 <p className="mt-5 max-w-lg text-sm leading-[1.75] text-qi-muted sm:text-base sm:leading-[1.8]">
-                  {primary.body}
+                  {roleAutomation.body}
                 </p>
 
                 <div className="services-card-divider mt-10" aria-hidden />
                 <ul className="space-y-4 pt-10">
-                  {primary.highlights.map((item) => (
+                  {roleAutomation.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span className="accent-dot mt-2" aria-hidden />
                       <span className="min-w-0">
@@ -110,23 +159,23 @@ export function ServicesSection() {
             </article>
           </Reveal>
 
-          <Reveal variant="slide-right" delay={0.2} className="lg:col-span-2 lg:mt-14">
+          <Reveal variant="slide-right" delay={0.22} className="lg:col-span-2 lg:h-full lg:min-h-0">
             <article className="group relative h-full min-w-0 overflow-hidden rounded-qi-card glass-subtle glass-float">
               <div className="relative p-6 sm:p-8 lg:p-11">
-                <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
-                  {secondary.label}
+                <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-[13px] py-[7px] text-[12.1px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
+                  {ownershipModel.label}
                 </span>
                 <h3 className="mt-6 font-display text-xl font-semibold text-qi-fg sm:text-2xl">
-                  {secondary.title}
+                  {ownershipModel.title}
                 </h3>
-                <p className="mt-2 text-sm font-medium text-qi-muted">{secondary.subtitle}</p>
+                <p className="mt-2 text-sm font-medium text-qi-muted">{ownershipModel.subtitle}</p>
                 <p className="mt-5 text-sm leading-[1.75] text-qi-muted sm:text-base sm:leading-[1.8]">
-                  {secondary.body}
+                  {ownershipModel.body}
                 </p>
 
                 <div className="services-card-divider relative z-10 mt-10" aria-hidden />
                 <ul className="space-y-4 pt-10">
-                  {secondary.highlights.map((item) => (
+                  {ownershipModel.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-qi-fg/90 sm:text-base">
                       <span
                         className="mt-2 h-[5px] w-[5px] shrink-0 rounded-full bg-qi-muted opacity-70"
@@ -140,11 +189,11 @@ export function ServicesSection() {
             </article>
           </Reveal>
 
-          <Reveal variant="slide-left" delay={0.28} className="lg:col-span-5">
+          <Reveal variant="slide-left" delay={0.3} className="lg:col-span-5">
             <article className="group relative min-w-0 overflow-hidden rounded-qi-card glass glass-float">
               <div className="relative p-6 sm:p-8 md:p-10 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-[3.3275rem] lg:p-[2.662rem] lg:px-[3.3275rem] lg:py-[2.995rem] xl:gap-[3.993rem]">
                 <div className="min-w-0 lg:col-span-7">
-                  <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-3 py-1.5 text-[11px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
+                  <span className="inline-flex items-center justify-center rounded-full border border-qi-accent/35 bg-[color-mix(in_oklab,var(--color-qi-accent)_12%,transparent)] px-[13px] py-[7px] text-[12.1px] font-semibold uppercase leading-none tracking-[0.2em] text-qi-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
                     {intel.label}
                   </span>
                   <h3 className="mt-6 font-display text-2xl font-semibold text-qi-fg sm:mt-[1.9965rem] sm:text-3xl lg:mt-[1.66375rem]">
