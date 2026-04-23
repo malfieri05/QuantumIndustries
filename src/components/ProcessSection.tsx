@@ -23,7 +23,7 @@ export function ProcessSection() {
           </h2>
         </Reveal>
 
-        <RevealStagger className="mt-16 grid gap-6 divide-y divide-[color-mix(in_oklab,var(--color-qi-accent)_22%,transparent)] sm:mt-20 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-stretch lg:gap-x-0 lg:divide-y-0">
+        <RevealStagger className="mt-16 grid gap-6 divide-y-0 divide-[color-mix(in_oklab,var(--color-qi-accent)_22%,transparent)] sm:mt-20 sm:divide-y sm:gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-stretch lg:gap-x-0 lg:divide-y-0">
           {process.steps.flatMap((step, index) => {
             const card = (
               <div

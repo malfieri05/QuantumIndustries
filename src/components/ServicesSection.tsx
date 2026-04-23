@@ -31,13 +31,16 @@ function HighlightLine({
     <>
       {before}
       <span className="group/super relative inline">
-        <button
-          type="button"
-          className="cursor-help border-0 bg-transparent p-0 font-inherit text-left text-qi-accent transition-colors hover:text-qi-accent/90 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/50"
-          aria-describedby={tooltipId}
-        >
-          {match}
-        </button>
+        <span className="max-sm:whitespace-nowrap">
+          <button
+            type="button"
+            className="cursor-help border-0 bg-transparent p-0 font-inherit text-left text-qi-accent transition-colors hover:text-qi-accent/90 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-qi-accent/50"
+            aria-describedby={tooltipId}
+          >
+            {match}
+          </button>
+          {after}
+        </span>
         <span
           id={tooltipId}
           role="tooltip"
@@ -53,7 +56,6 @@ function HighlightLine({
           </ul>
         </span>
       </span>
-      {after}
     </>
   )
 }
