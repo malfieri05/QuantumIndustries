@@ -148,7 +148,7 @@ export const site = {
 
   faq: {
     id: 'faq',
-    title: 'Frequently asked questions',
+    title: 'Frequently Asked Questions:',
     items: [
       {
         q: 'What happens in the free consultation?',

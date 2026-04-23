@@ -632,7 +632,28 @@
   }
 }
 
-/* FAQ — glass cards; expand/collapse height is driven by Framer Motion in FaqSection */
+/* FAQ — glass cards; expand/collapse uses CSS grid 0fr→1fr (smooth; avoids height:auto jank) */
+.faq-answer-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.faq-item[data-state='open'] .faq-answer-grid {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-grid-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer-grid {
+    transition-duration: 0.01ms;
+  }
+}
+
 .faq-item {
   border-radius: var(--radius-qi-card);
   border: 1px solid rgba(0, 0, 0, 0.08);

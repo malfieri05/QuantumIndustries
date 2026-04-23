@@ -1,13 +1,9 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { useId, useMemo, useState } from 'react'
 import { site } from '../content/site'
 import { Reveal } from './Reveal'
 
-const FAQ_EASE = [0.32, 0.72, 0, 1] as const
-
 export function FaqSection() {
   const { faq } = site
-  const reduced = useReducedMotion()
   const sectionUid = useId()
 
   const [openByKey, setOpenByKey] = useState<Record<string, boolean>>({})
@@ -16,8 +12,6 @@ export function FaqSection() {
     () => faq.items.map((item, i) => `${i}-${item.q.slice(0, 24)}`),
     [faq.items],
   )
-
-  const duration = reduced ? 0.01 : 0.52
 
   return (
     <section
@@ -73,25 +67,21 @@ export function FaqSection() {
                     </span>
                   </button>
 
-                  <motion.div
+                  <div
                     id={panelId}
                     role="region"
                     aria-labelledby={btnId}
                     aria-hidden={!isOpen}
-                    initial={false}
-                    animate={{ height: isOpen ? 'auto' : 0 }}
-                    transition={{
-                      duration,
-                      ease: FAQ_EASE,
-                    }}
-                    className="faq-answer-motion overflow-hidden"
+                    className="faq-answer-grid"
                   >
-                    <div className="faq-answer-body px-4 pb-5 pt-1 sm:px-5 sm:pb-6 sm:pt-2">
-                      <p className="max-w-prose text-pretty text-sm leading-[1.78] text-qi-fg/90 sm:text-[0.9625rem] sm:leading-[1.82]">
-                        {item.a}
-                      </p>
+                    <div className="faq-answer-grid-inner">
+                      <div className="faq-answer-body px-4 pb-5 pt-1 sm:px-5 sm:pb-6 sm:pt-2">
+                        <p className="max-w-prose text-pretty text-sm leading-[1.78] text-qi-fg/90 sm:text-[0.9625rem] sm:leading-[1.82]">
+                          {item.a}
+                        </p>
+                      </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               )
             })}
